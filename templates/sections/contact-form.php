@@ -5,13 +5,15 @@
  */
 ?>
 <!-- Contact Section -->
-<section id="contact-section" class="py-2" aria-label="<?php echo e($contactLabel); ?>" data-mascot-speech="<?php echo e($contactSpeech); ?>">
+<section id="contact-section" class="py-4" aria-label="<?php echo e($contactLabel); ?>" data-mascot-speech="<?php echo e($contactSpeech); ?>">
     <div class="row mb-4">
         <div class="col-12">
-            <span class="badge badge-accent-light mb-2">GET IN TOUCH</span>
-            <h2 class="h3 fw-bold text-dark mb-1 font-title">Let's Connect & Collaborate</h2>
-            <p class="text-secondary small leading-relaxed" style="max-width: 720px;">
-                I am currently open to Frontend Developer opportunities, client projects, and engineering collaborations. Have a question or project in mind? Reach out anytime.
+            <div class="d-flex align-items-center gap-2 mb-2">
+                <span class="hud-mono-tag font-mono text-cyan">// DIRECT_TRANSMISSION_TERMINAL</span>
+            </div>
+            <h1 class="h2 fw-bold text-white mb-2 font-title">Get In Touch &amp; Collaborate</h1>
+            <p class="text-secondary small font-body" style="max-width: 720px;">
+                Available for Frontend Developer contracts, SharePoint enterprise solutions, UI/UX architecture, and technical consulting. Dispatch your requirements below.
             </p>
         </div>
     </div>
@@ -22,47 +24,47 @@
             <div class="d-flex flex-column gap-3">
 
                 <!-- Email Card -->
-                <div class="contact-info-card rounded-4 p-3.5 p-md-4 d-flex align-items-center gap-3">
-                    <div class="contact-icon-circle bg-accent text-white shadow-sm flex-shrink-0">
-                        <i class="bi bi-envelope-fill fs-5" aria-hidden="true"></i>
+                <div class="cyber-contact-card p-4 d-flex align-items-center gap-3">
+                    <div class="cyber-contact-icon text-cyan flex-shrink-0">
+                        <i class="bi bi-envelope-fill fs-4" aria-hidden="true"></i>
                     </div>
                     <div class="overflow-hidden">
-                        <span class="d-block text-secondary small fw-medium" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">Email Address</span>
-                        <a href="mailto:<?php echo e($profileEmail); ?>" class="contact-info-link fw-bold text-dark text-truncate d-block" style="font-size: 0.92rem;"><?php echo e($profileEmail); ?></a>
+                        <span class="d-block text-muted font-mono small">EMAIL_DISPATCH</span>
+                        <a href="mailto:<?php echo e($profileEmail); ?>" class="fw-bold text-white text-decoration-none hover-cyan text-truncate d-block font-mono small"><?php echo e($profileEmail); ?></a>
                     </div>
                 </div>
 
                 <!-- WhatsApp / Phone Card -->
                 <?php if (!empty($profilePhone) && is_array($profilePhone)): ?>
-                    <div class="contact-info-card rounded-4 p-3.5 p-md-4 d-flex align-items-center gap-3">
-                        <div class="contact-icon-circle text-white shadow-sm flex-shrink-0" style="background: #25d366;">
-                            <i class="bi bi-whatsapp fs-5" aria-hidden="true"></i>
+                    <div class="cyber-contact-card p-4 d-flex align-items-center gap-3">
+                        <div class="cyber-contact-icon text-success flex-shrink-0">
+                            <i class="bi bi-whatsapp fs-4" aria-hidden="true"></i>
                         </div>
                         <div class="overflow-hidden">
-                            <span class="d-block text-secondary small fw-medium" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">WhatsApp & Phone</span>
+                            <span class="d-block text-muted font-mono small">INSTANT_MESSAGING</span>
                             <?php foreach ($profilePhone as $phone): ?>
-                                <a href="https://wa.me/<?php echo preg_replace('/[^0-9]/', '', $phone); ?>" target="_blank" rel="noopener noreferrer" class="contact-info-link fw-bold text-dark d-block" style="font-size: 0.92rem;"><?php echo e($phone); ?></a>
+                                <a href="https://wa.me/<?php echo preg_replace('/[^0-9]/', '', $phone); ?>" target="_blank" rel="noopener noreferrer" class="fw-bold text-white text-decoration-none hover-cyan d-block font-mono small"><?php echo e($phone); ?></a>
                             <?php endforeach; ?>
                         </div>
                     </div>
                 <?php endif; ?>
 
                 <!-- Location Card -->
-                <div class="contact-info-card rounded-4 p-3.5 p-md-4 d-flex align-items-center gap-3">
-                    <div class="contact-icon-circle bg-secondary text-white shadow-sm flex-shrink-0">
-                        <i class="bi bi-geo-alt-fill fs-5" aria-hidden="true"></i>
+                <div class="cyber-contact-card p-4 d-flex align-items-center gap-3">
+                    <div class="cyber-contact-icon text-cyan flex-shrink-0">
+                        <i class="bi bi-geo-alt-fill fs-4" aria-hidden="true"></i>
                     </div>
                     <div class="overflow-hidden">
-                        <span class="d-block text-secondary small fw-medium" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">Location</span>
-                        <span class="fw-bold text-dark d-block" style="font-size: 0.92rem;"><?php echo e($profileLocation); ?></span>
+                        <span class="d-block text-muted font-mono small">BASE_COORDINATES</span>
+                        <span class="fw-bold text-white d-block font-mono small"><?php echo e($profileLocation); ?></span>
                     </div>
                 </div>
 
                 <!-- Social Connect Card -->
-                <div class="contact-info-card rounded-4 p-3.5 p-md-4">
-                    <span class="d-block text-secondary small fw-medium mb-3" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">Social Profiles</span>
+                <div class="cyber-contact-card p-4">
+                    <span class="d-block text-muted font-mono small mb-3">SOCIAL_NODES</span>
                     <div class="d-flex gap-2 flex-wrap" role="navigation" aria-label="Social media channels">
-                        <?php renderSocialLinks($socialsData, 'contact-social-btn', 'fs-6'); ?>
+                        <?php renderSocialLinks($socialsData, 'cyber-social-pill', 'fs-6'); ?>
                     </div>
                 </div>
 
@@ -71,12 +73,12 @@
 
         <!-- Right: Contact Form -->
         <div class="col-lg-7">
-            <div class="contact-form-card rounded-4 p-4 p-md-5 h-100">
-                <h3 class="h5 fw-bold text-dark mb-1 font-title">Send a Direct Message</h3>
-                <p class="text-secondary small mb-4">Fill out the brief form below and I'll respond promptly.</p>
+            <div class="cyber-form-card p-4 p-md-5 h-100">
+                <h3 class="h4 fw-bold text-white mb-1 font-title">Send Transmission</h3>
+                <p class="text-secondary small font-body mb-4">Complete the fields below to initiate communication.</p>
                 
                 <?php if (!empty($contactMsg)): ?>
-                    <div class="alert alert-<?php echo e($contactMsgType); ?> alert-dismissible fade show rounded-3 small" role="alert">
+                    <div class="alert alert-<?php echo e($contactMsgType); ?> alert-dismissible fade show rounded-3 small font-mono mb-4" role="alert">
                         <?php echo e($contactMsg); ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
@@ -85,27 +87,25 @@
                 <form action="" method="POST" id="contactForm">
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <label class="form-label text-dark small fw-semibold">Your Name <span class="text-accent">*</span></label>
-                            <input type="text" name="name" class="form-control contact-input" placeholder="e.g. Alex Smith" required autocomplete="name">
+                            <label class="form-label text-secondary font-mono small">NAME <span class="text-cyan">*</span></label>
+                            <input type="text" name="name" class="form-control cyber-input font-mono" placeholder="Your Name" required autocomplete="name">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label text-dark small fw-semibold">Your Email <span class="text-accent">*</span></label>
-                            <input type="email" name="email" class="form-control contact-input" placeholder="e.g. alex@example.com" required autocomplete="email">
+                            <label class="form-label text-secondary font-mono small">EMAIL <span class="text-cyan">*</span></label>
+                            <input type="email" name="email" class="form-control cyber-input font-mono" placeholder="your@email.com" required autocomplete="email">
                         </div>
                         <div class="col-12">
-                            <label class="form-label text-dark small fw-semibold">Subject <span class="text-accent">*</span></label>
-                            <input type="text" name="subject" class="form-control contact-input" placeholder="Project Inquiry / Job Opportunity" value="<?php echo isset($_GET['subject']) ? e(trim($_GET['subject'])) : ''; ?>" required>
+                            <label class="form-label text-secondary font-mono small">SUBJECT <span class="text-cyan">*</span></label>
+                            <input type="text" name="subject" class="form-control cyber-input font-mono" placeholder="Project Inquiry / Job Collaboration" value="<?php echo isset($_GET['subject']) ? e(trim($_GET['subject'])) : ''; ?>" required>
                         </div>
                         <div class="col-12">
-                            <label class="form-label text-dark small fw-semibold">Message <span class="text-accent">*</span></label>
-                            <textarea name="message" rows="5" class="form-control contact-input" placeholder="Describe your project, timeline, or requirements..." required></textarea>
+                            <label class="form-label text-secondary font-mono small">MESSAGE <span class="text-cyan">*</span></label>
+                            <textarea name="message" rows="5" class="form-control cyber-input font-mono" placeholder="Describe your project, timeline, or engineering goals..." required></textarea>
                         </div>
                         <div class="col-12 pt-2">
-                            <button type="submit" class="button w-100" aria-label="Send direct message">
-                                <span class="button_lg w-100 justify-content-center py-3">
-                                    <span class="button_sl"></span>
-                                    <span class="button_text fs-6 fw-bold"><i class="bi bi-send-fill me-2"></i>SEND MESSAGE</span>
-                                </span>
+                            <button type="submit" class="cyber-btn cyber-btn-primary w-100 py-3 d-inline-flex align-items-center justify-content-center fw-bold gap-2" aria-label="Send direct message">
+                                <i class="bi bi-send-fill" aria-hidden="true"></i>
+                                <span>TRANSMIT MESSAGE</span>
                             </button>
                         </div>
                     </div>

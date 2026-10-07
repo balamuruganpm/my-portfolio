@@ -55,9 +55,9 @@ function getTechPillClass(string $name): string
  * @param string $value The value to escape
  * @return string Escaped string
  */
-function e(string $value): string
+function e(?string $value): string
 {
-    return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+    return htmlspecialchars((string)($value ?? ''), ENT_QUOTES, 'UTF-8');
 }
 
 /**

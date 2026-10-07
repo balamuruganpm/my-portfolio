@@ -50,7 +50,7 @@ function runMinify(srcPath, destPath, type) {
         const processed = processCSS(srcPath);
         fs.writeFileSync(tempPath, processed);
         try {
-            execSync(`npx clean-css-cli -O2 -o "${destPath}" "${tempPath}"`, { stdio: 'ignore' });
+            execSync(`npx -y clean-css-cli -O2 -o "${destPath}" "${tempPath}"`, { stdio: 'ignore' });
             console.log(`✓ Minified CSS: ${path.basename(srcPath)} -> ${path.basename(destPath)}`);
         } catch (e) {
             console.warn(`⚠ Clean-CSS fallback triggered for ${path.basename(srcPath)}`);

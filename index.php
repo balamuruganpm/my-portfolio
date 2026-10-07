@@ -1,114 +1,86 @@
 <?php
 /**
- * Root Index & Clean URL Router
- * Dispatches clean URL paths to the appropriate page controller.
+ * Front Controller & MVC Router Dispatcher
+ * Native PHP High-Performance Portfolio Architecture
  */
-define('PAGE_DEPTH', 0);
 
-// Determine the web subfolder path if any (e.g., /Projects All/my-portfolio)
-$_scriptDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''));
-if ($_scriptDir === '.' || $_scriptDir === '/') {
-    $_scriptDir = '';
-}
+require_once __DIR__ . '/config/bootstrap.php';
 
-// Decode URL path to handle URL-encoded spaces (%20) and directory names
-$_rawUri = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?? '/';
-$_requestUri = urldecode($_rawUri);
+use App\Core\App;
+use App\Controllers\HomeController;
+use App\Controllers\AboutController;
+use App\Controllers\PortfolioController;
+use App\Controllers\BlogController;
+use App\Controllers\ContactController;
+use App\Controllers\ArcadeController;
+use App\Controllers\SeoController;
 
-// Strip the base directory from the request URI to get the relative route
-if (!empty($_scriptDir) && strpos($_requestUri, $_scriptDir) === 0) {
-    $_route = substr($_requestUri, strlen($_scriptDir));
-} else {
-    $_route = $_requestUri;
-}
+$app = App::getInstance();
+$router = $app->getRouter();
 
-$_route = trim(strtolower($_route), '/');
+// Home Routes
+$router->get('/', [HomeController::class, 'index']);
+$router->get('/home', [HomeController::class, 'index']);
+$router->get('/index', [HomeController::class, 'index']);
+$router->get('/index.php', [HomeController::class, 'index']);
 
-// Route matching
-switch ($_route) {
-    case '':
-    case 'home':
-    case 'index':
-    case 'index.php':
-        require __DIR__ . '/pages/home.php';
-        break;
+// About Routes
+$router->get('/about', [AboutController::class, 'index']);
+$router->get('/about-us', [AboutController::class, 'index']);
+$router->get('/about.php', [AboutController::class, 'index']);
 
-    case 'about':
-    case 'about-us':
-    case 'about.php':
-        require __DIR__ . '/pages/about.php';
-        break;
+// Portfolio Routes
+$router->get('/portfolio', [PortfolioController::class, 'index']);
+$router->get('/portfolio.php', [PortfolioController::class, 'index']);
 
-    case 'portfolio':
-    case 'portfolio.php':
-        require __DIR__ . '/pages/portfolio.php';
-        break;
+// Blog Routes (Clean URL & Slug support)
+$router->get('/blogs', [BlogController::class, 'index']);
+$router->get('/blogs.php', [BlogController::class, 'index']);
+$router->get('/blogs/{slug}', [BlogController::class, 'detail']);
+$router->get('/category/{category}', [BlogController::class, 'category']);
+$router->get('/category', [BlogController::class, 'category']);
+$router->get('/blogs/detail', [BlogController::class, 'detail']);
+$router->get('/blog-detail', [BlogController::class, 'detail']);
+$router->get('/blog-detail.php', [BlogController::class, 'detail']);
+$router->post('/blogs/{slug}', [BlogController::class, 'detail']);
+$router->post('/blogs/detail', [BlogController::class, 'detail']);
+$router->post('/blog-detail.php', [BlogController::class, 'detail']);
 
-    case 'blogs':
-    case 'blogs.php':
-        require __DIR__ . '/pages/blogs.php';
-        break;
+// Contact Routes
+$router->get('/contact', [ContactController::class, 'index']);
+$router->get('/contact-us', [ContactController::class, 'index']);
+$router->get('/contact.php', [ContactController::class, 'index']);
+$router->post('/contact', [ContactController::class, 'index']);
+$router->post('/contact-us', [ContactController::class, 'index']);
+$router->post('/contact.php', [ContactController::class, 'index']);
 
-    case 'blogs/detail':
-    case 'blogs/details':
-    case 'blog-detail':
-    case 'blog-detail.php':
-        require __DIR__ . '/pages/blog-detail.php';
-        break;
+// Game & Arcade Routes
+$router->get('/game', [ArcadeController::class, 'index']);
+$router->get('/games', [ArcadeController::class, 'index']);
+$router->get('/game.php', [ArcadeController::class, 'index']);
+$router->get('/arcade', [ArcadeController::class, 'index']);
 
-    case 'blogs/category':
-    case 'blogs/category.php':
-    case 'category':
-        require __DIR__ . '/pages/category.php';
-        break;
+// SEO & AI Manifest Routes
+$router->get('/sitemap.xml', [SeoController::class, 'sitemap']);
+$router->get('/sitemap', [SeoController::class, 'sitemap']);
+$router->get('/sitemap.php', [SeoController::class, 'sitemap']);
 
-    case 'contact':
-    case 'contact-us':
-    case 'contact.php':
-        require __DIR__ . '/pages/contact.php';
-        break;
+$router->get('/news-sitemap.xml', [SeoController::class, 'newsSitemap']);
+$router->get('/news-sitemap', [SeoController::class, 'newsSitemap']);
+$router->get('/news-sitemap.php', [SeoController::class, 'newsSitemap']);
 
-    case 'game':
-    case 'games':
-    case 'game.php':
-    case 'arcade':
-        require __DIR__ . '/pages/game.php';
-        break;
+$router->get('/rss.xml', [SeoController::class, 'rss']);
+$router->get('/rss', [SeoController::class, 'rss']);
+$router->get('/rss.php', [SeoController::class, 'rss']);
+$router->get('/feed', [SeoController::class, 'rss']);
 
-    case 'sitemap.xml':
-    case 'sitemap':
-    case 'sitemap.php':
-        require __DIR__ . '/sitemap.php';
-        break;
+$router->get('/llms.txt', [SeoController::class, 'llms']);
+$router->get('/llms', [SeoController::class, 'llms']);
+$router->get('/llms.php', [SeoController::class, 'llms']);
 
-    case 'news-sitemap.xml':
-    case 'news-sitemap':
-    case 'news-sitemap.php':
-        require __DIR__ . '/news-sitemap.php';
-        break;
+$router->get('/ai.txt', [SeoController::class, 'ai']);
+$router->get('/ai', [SeoController::class, 'ai']);
+$router->get('/ai.php', [SeoController::class, 'ai']);
 
-    case 'rss.xml':
-    case 'rss':
-    case 'rss.php':
-    case 'feed':
-    case 'feed.xml':
-        require __DIR__ . '/rss.php';
-        break;
-
-    case 'llms.txt':
-    case 'llms':
-    case 'llms.php':
-        require __DIR__ . '/llms.php';
-        break;
-
-    case 'ai.txt':
-    case 'ai':
-    case 'ai.php':
-        require __DIR__ . '/ai.php';
-        break;
-
-    default:
-        http_response_code(404);
-        require __DIR__ . '/pages/home.php';
-        break;
-}
+// Dispatch Application
+$app->run();

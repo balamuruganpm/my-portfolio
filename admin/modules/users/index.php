@@ -73,7 +73,7 @@ include __DIR__ . '/../../layout/header.php';
 ?>
 
 <div class="mb-4">
-    <h1 class="h3 fw-bold text-dark mb-1 font-title">Admin Users & Access Control</h1>
+    <h1 class="h3 fw-bold text-white mb-1 font-title">Admin Users & Access Control</h1>
     <p class="text-secondary small mb-0">Create additional administrator credentials and manage platform access</p>
 </div>
 
@@ -88,21 +88,21 @@ include __DIR__ . '/../../layout/header.php';
     <!-- Add User Form -->
     <div class="col-lg-5">
         <div class="card admin-card p-4 p-md-5">
-            <h3 class="h5 fw-bold text-dark mb-3 font-title"><i class="bi bi-person-plus-fill text-accent me-2"></i>Create New User</h3>
+            <h3 class="h5 fw-bold text-white mb-3 font-title"><i class="bi bi-person-plus-fill text-accent me-2"></i>Create New User</h3>
             
             <form method="POST" action="index.php">
                 <input type="hidden" name="csrf_token" value="<?php echo CSRF_TOKEN; ?>">
                 <input type="hidden" name="action" value="add">
 
                 <div class="mb-3">
-                    <label class="form-label">Username</label>
-                    <input type="text" name="username" class="form-control" placeholder="newadmin" required autocomplete="off">
+                    <label class="form-label text-secondary small">Username</label>
+                    <input type="text" name="username" class="form-control form-control-admin text-white" placeholder="newadmin" required autocomplete="off">
                 </div>
 
                 <div class="mb-4">
-                    <label class="form-label">Password</label>
+                    <label class="form-label text-secondary small">Password</label>
                     <div class="input-group">
-                        <input type="password" name="password" class="form-control" placeholder="••••••••" required autocomplete="new-password">
+                        <input type="password" name="password" class="form-control form-control-admin text-white" placeholder="••••••••" required autocomplete="new-password">
                         <button class="btn btn-admin-secondary password-toggle-btn" type="button">
                             <i class="bi bi-eye"></i>
                         </button>
@@ -119,22 +119,22 @@ include __DIR__ . '/../../layout/header.php';
     <!-- Users List -->
     <div class="col-lg-7">
         <div class="card admin-card p-4">
-            <h3 class="h5 fw-bold text-dark mb-3 font-title"><i class="bi bi-people-fill text-accent me-2"></i>Active Administrator Accounts</h3>
+            <h3 class="h5 fw-bold text-white mb-3 font-title"><i class="bi bi-people-fill text-accent me-2"></i>Active Administrator Accounts</h3>
 
             <div class="d-flex flex-column gap-3">
                 <?php foreach ($users as $user): 
                     $is_current = ($user['username'] === $current_admin_user);
                 ?>
-                    <div class="p-3 rounded-3 border border-secondary-subtle d-flex justify-content-between align-items-center" style="background: var(--admin-surface);">
+                    <div class="p-3 rounded-3 border border-secondary-subtle d-flex justify-content-between align-items-center" style="background: rgba(255, 255, 255, 0.02);">
                         <div class="d-flex align-items-center gap-3">
                             <div class="sidebar-user-avatar">
                                 <?php echo strtoupper(substr($user['username'], 0, 1)); ?>
                             </div>
                             <div>
-                                <h4 class="text-dark small fw-bold mb-0">
+                                <h4 class="text-white small fw-bold mb-0">
                                     <?php echo e($user['username']); ?>
                                     <?php if ($is_current): ?>
-                                        <span class="badge bg-success-subtle text-success small ms-2">You</span>
+                                        <span class="badge bg-success-subtle text-success small ms-2 border border-success-subtle">You</span>
                                     <?php endif; ?>
                                 </h4>
                                 <span class="text-secondary" style="font-size: 0.76rem;">Administrator</span>

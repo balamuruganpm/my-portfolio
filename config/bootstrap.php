@@ -76,6 +76,10 @@ if ($_zlibActive === '1' || strtolower((string)$_zlibActive) === 'on') {
     }
 }
 
+// Load PSR-4 Autoloader
+require_once BASE_PATH . 'src/Autoloader.php';
+\App\Autoloader::register();
+
 // Load configuration, data, and helpers
 require_once BASE_PATH . 'config/constants.php';
 require_once BASE_PATH . 'config/database.php';
@@ -86,3 +90,4 @@ require_once BASE_PATH . 'includes/data-extractor.php';
 if (!headers_sent()) {
     header('Content-Type: text/html; charset=utf-8');
 }
+

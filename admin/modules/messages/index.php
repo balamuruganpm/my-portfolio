@@ -53,11 +53,12 @@ include __DIR__ . '/../../layout/header.php';
 
 <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
     <div>
-        <h1 class="h3 fw-bold text-dark mb-1 font-title">Messages & Inquiries</h1>
+        <h1 class="h3 fw-bold text-white mb-1 font-title">Messages & Inquiries</h1>
         <p class="text-secondary small mb-0">Review incoming submissions sent via your portfolio contact form</p>
     </div>
-    <div>
-        <span class="badge bg-warning-custom px-3 py-2 text-dark">
+    <div class="d-flex align-items-center gap-3">
+        <input type="text" class="form-control form-control-admin text-white search-input" style="max-width: 240px;" placeholder="Search inbox..." data-table="admin-table">
+        <span class="badge bg-warning-subtle text-warning border border-warning-subtle px-3 py-2 rounded-pill">
             <i class="bi bi-envelope me-1"></i><?php echo $unread_count; ?> Unread Inquiries
         </span>
     </div>
@@ -72,7 +73,7 @@ include __DIR__ . '/../../layout/header.php';
 
 <div class="card admin-card overflow-hidden">
     <div class="table-responsive">
-        <table class="admin-table">
+        <table class="admin-table align-middle">
             <thead>
                 <tr>
                     <th style="width: 100px;">Status</th>
@@ -98,23 +99,23 @@ include __DIR__ . '/../../layout/header.php';
                     foreach ($sorted_msgs as $msg): 
                         $is_read = isset($msg['read']) && $msg['read'] === true;
                     ?>
-                        <tr class="<?php echo !$is_read ? 'table-active' : ''; ?>">
+                        <tr style="<?php echo !$is_read ? 'background: rgba(99, 102, 241, 0.05);' : ''; ?>">
                             <td>
-                                <span class="badge <?php echo $is_read ? 'bg-secondary-subtle text-secondary' : 'bg-danger text-dark'; ?>">
+                                <span class="badge <?php echo $is_read ? 'bg-secondary-subtle text-secondary' : 'bg-primary-subtle text-primary border border-primary-subtle'; ?> rounded-pill px-2.5 py-1">
                                     <?php echo $is_read ? 'Read' : 'New'; ?>
                                 </span>
                             </td>
                             <td>
-                                <span class="text-secondary small"><?php echo date('M d, Y h:i A', strtotime($msg['date'])); ?></span>
+                                <span class="text-secondary small font-mono"><?php echo date('M d, Y h:i A', strtotime($msg['date'])); ?></span>
                             </td>
                             <td>
-                                <span class="fw-bold text-dark"><?php echo e($msg['name']); ?></span>
+                                <span class="fw-bold text-white"><?php echo e($msg['name']); ?></span>
                             </td>
                             <td>
-                                <a href="mailto:<?php echo e($msg['email']); ?>" class="text-accent text-decoration-none small"><?php echo e($msg['email']); ?></a>
+                                <a href="mailto:<?php echo e($msg['email']); ?>" class="text-accent text-decoration-none small font-mono"><?php echo e($msg['email']); ?></a>
                             </td>
                             <td>
-                                <span class="fw-semibold text-dark small"><?php echo e($msg['subject']); ?></span>
+                                <span class="fw-semibold text-white small"><?php echo e($msg['subject']); ?></span>
                             </td>
                             <td>
                                 <span class="text-secondary small" style="max-width: 320px; display: inline-block; white-space: pre-wrap;"><?php echo e($msg['message']); ?></span>

@@ -1,9 +1,9 @@
 <?php
 /**
- * Admin Module: Skills, Tools, Awards, and Certifications
+ * Admin Module: Skills, Tools, Awards, and Certifications (Glassmorphic Dark Edition)
  */
 $admin_current_page = 'details';
-$page_title = 'Skills & Details';
+$page_title = 'Skills & Credentials';
 
 require_once __DIR__ . '/../../config/admin-bootstrap.php';
 
@@ -14,25 +14,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     verifyCsrfToken();
     $action = $_POST['action'];
 
-    // 1. Update Technical Skills (comma separated)
+    // 1. Update Technical Skills
     if ($action === 'update_skills') {
         $skills_input = isset($_POST['skills']) ? trim($_POST['skills']) : '';
         $skills = array_filter(array_map('trim', explode(',', $skills_input)));
         $data['skills'] = array_values($skills);
 
         if (saveAdminData($data)) {
-            $message = 'Technical skills updated!';
+            $message = 'Technical skills updated successfully!';
         }
     }
 
-    // 2. Update Tools (comma separated)
+    // 2. Update Tools
     if ($action === 'update_tools') {
         $tools_input = isset($_POST['tools']) ? trim($_POST['tools']) : '';
         $tools = array_filter(array_map('trim', explode(',', $tools_input)));
         $data['tools'] = array_values($tools);
 
         if (saveAdminData($data)) {
-            $message = 'Development tools updated!';
+            $message = 'Development tools updated successfully!';
         }
     }
 
@@ -92,8 +92,8 @@ include __DIR__ . '/../../layout/header.php';
 ?>
 
 <div class="mb-4">
-    <h1 class="h3 fw-bold text-dark mb-1 font-title">Skills, Tools & Accreditations</h1>
-    <p class="text-secondary small mb-0">Manage technical proficiencies, development software, awards, and certifications</p>
+    <h1 class="h3 fw-bold text-white mb-1">Skills, Toolchains & Credentials</h1>
+    <p class="text-secondary small mb-0">Manage technical proficiencies, development software, awards, and accreditations</p>
 </div>
 
 <?php if (!empty($message)): ?>
@@ -106,27 +106,31 @@ include __DIR__ . '/../../layout/header.php';
 <div class="row g-4">
     <!-- Skills & Tools Columns -->
     <div class="col-lg-6">
-        <div class="card admin-card p-4 mb-4">
-            <h3 class="h5 fw-bold text-dark mb-2 font-title"><i class="bi bi-code-slash text-accent me-2"></i>Technical Skills</h3>
-            <p class="text-secondary small mb-3">Comma-separated list of programming languages and libraries</p>
+        <div class="admin-card p-4 mb-4">
+            <div class="admin-card-header">
+                <h3 class="admin-card-title"><i class="bi bi-code-slash text-warning"></i> Technical Skills</h3>
+            </div>
+            <p class="text-secondary small mb-3">Comma-separated list of core programming languages, frameworks, and web technologies</p>
             
             <form method="POST" action="index.php">
                 <input type="hidden" name="csrf_token" value="<?php echo CSRF_TOKEN; ?>">
                 <input type="hidden" name="action" value="update_skills">
                 <textarea name="skills" rows="4" class="form-control mb-3" placeholder="React.js, JavaScript, HTML5..."><?php echo e($skills_str); ?></textarea>
-                <button type="submit" class="btn btn-warning-custom btn-sm">Save Skills</button>
+                <button type="submit" class="btn btn-admin-primary btn-sm"><i class="bi bi-check2-circle me-1"></i> Save Skills</button>
             </form>
         </div>
 
-        <div class="card admin-card p-4">
-            <h3 class="h5 fw-bold text-dark mb-2 font-title"><i class="bi bi-tools text-accent me-2"></i>Development Tools</h3>
-            <p class="text-secondary small mb-3">Comma-separated list of IDEs, platforms, and toolchains</p>
+        <div class="admin-card p-4">
+            <div class="admin-card-header">
+                <h3 class="admin-card-title"><i class="bi bi-tools text-info"></i> Development Tools</h3>
+            </div>
+            <p class="text-secondary small mb-3">Comma-separated list of IDEs, cloud platforms, and toolchains</p>
             
             <form method="POST" action="index.php">
                 <input type="hidden" name="csrf_token" value="<?php echo CSRF_TOKEN; ?>">
                 <input type="hidden" name="action" value="update_tools">
                 <textarea name="tools" rows="3" class="form-control mb-3" placeholder="Git, GitHub, VS Code, Figma..."><?php echo e($tools_str); ?></textarea>
-                <button type="submit" class="btn btn-warning-custom btn-sm">Save Tools</button>
+                <button type="submit" class="btn btn-admin-primary btn-sm"><i class="bi bi-check2-circle me-1"></i> Save Tools</button>
             </form>
         </div>
     </div>
@@ -134,10 +138,12 @@ include __DIR__ . '/../../layout/header.php';
     <!-- Awards & Certifications Column -->
     <div class="col-lg-6">
         <!-- Awards -->
-        <div class="card admin-card p-4 mb-4">
-            <h3 class="h5 fw-bold text-dark mb-3 font-title"><i class="bi bi-trophy-fill text-accent me-2"></i>Awards & Honors</h3>
+        <div class="admin-card p-4 mb-4">
+            <div class="admin-card-header">
+                <h3 class="admin-card-title"><i class="bi bi-trophy-fill text-warning"></i> Awards & Honors</h3>
+            </div>
             
-            <form method="POST" action="index.php" class="mb-3 pb-3 border-bottom border-secondary-subtle">
+            <form method="POST" action="index.php" class="mb-3 pb-3 border-bottom border-secondary border-opacity-25">
                 <input type="hidden" name="csrf_token" value="<?php echo CSRF_TOKEN; ?>">
                 <input type="hidden" name="action" value="add_award">
                 <div class="row g-2 mb-2">
@@ -145,10 +151,10 @@ include __DIR__ . '/../../layout/header.php';
                         <input type="text" name="award_title" class="form-control" placeholder="Award Title" required>
                     </div>
                     <div class="col-md-6">
-                        <input type="text" name="award_desc" class="form-control" placeholder="Description / Ranking">
+                        <input type="text" name="award_desc" class="form-control" placeholder="Description / Rank">
                     </div>
                 </div>
-                <button type="submit" class="btn btn-admin-secondary btn-sm"><i class="bi bi-plus-lg me-1"></i>Add Award</button>
+                <button type="submit" class="btn btn-admin-secondary btn-sm"><i class="bi bi-plus-lg me-1"></i> Add Award</button>
             </form>
 
             <div class="d-flex flex-column gap-2">
@@ -156,9 +162,9 @@ include __DIR__ . '/../../layout/header.php';
                     <p class="text-secondary small mb-0">No awards listed.</p>
                 <?php else: ?>
                     <?php foreach ($awards as $idx => $award): ?>
-                        <div class="p-2.5 rounded-3 border border-secondary-subtle d-flex justify-content-between align-items-center" style="background: var(--admin-surface);">
+                        <div class="p-3 rounded-3 border border-secondary border-opacity-25 d-flex justify-content-between align-items-center" style="background: rgba(15, 23, 42, 0.6);">
                             <div>
-                                <h4 class="text-dark small fw-bold mb-0"><?php echo e($award['title']); ?></h4>
+                                <h4 class="text-white small fw-bold mb-0"><?php echo e($award['title']); ?></h4>
                                 <span class="text-secondary" style="font-size: 0.78rem;"><?php echo e($award['description'] ?? ''); ?></span>
                             </div>
                             <form method="POST" action="index.php" class="d-inline" onsubmit="return confirm('Delete this award?');">
@@ -174,10 +180,12 @@ include __DIR__ . '/../../layout/header.php';
         </div>
 
         <!-- Certifications -->
-        <div class="card admin-card p-4">
-            <h3 class="h5 fw-bold text-dark mb-3 font-title"><i class="bi bi-patch-check-fill text-accent me-2"></i>Certificates</h3>
+        <div class="admin-card p-4">
+            <div class="admin-card-header">
+                <h3 class="admin-card-title"><i class="bi bi-patch-check-fill text-success"></i> Certificates</h3>
+            </div>
             
-            <form method="POST" action="index.php" class="mb-3 pb-3 border-bottom border-secondary-subtle">
+            <form method="POST" action="index.php" class="mb-3 pb-3 border-bottom border-secondary border-opacity-25">
                 <input type="hidden" name="csrf_token" value="<?php echo CSRF_TOKEN; ?>">
                 <input type="hidden" name="action" value="add_cert">
                 <div class="row g-2 mb-2">
@@ -188,7 +196,7 @@ include __DIR__ . '/../../layout/header.php';
                         <input type="text" name="cert_issuer" class="form-control" placeholder="Issuing Organization">
                     </div>
                 </div>
-                <button type="submit" class="btn btn-admin-secondary btn-sm"><i class="bi bi-plus-lg me-1"></i>Add Certificate</button>
+                <button type="submit" class="btn btn-admin-secondary btn-sm"><i class="bi bi-plus-lg me-1"></i> Add Certificate</button>
             </form>
 
             <div class="d-flex flex-column gap-2">
@@ -196,9 +204,9 @@ include __DIR__ . '/../../layout/header.php';
                     <p class="text-secondary small mb-0">No certificates listed.</p>
                 <?php else: ?>
                     <?php foreach ($certificates as $idx => $cert): ?>
-                        <div class="p-2.5 rounded-3 border border-secondary-subtle d-flex justify-content-between align-items-center" style="background: var(--admin-surface);">
+                        <div class="p-3 rounded-3 border border-secondary border-opacity-25 d-flex justify-content-between align-items-center" style="background: rgba(15, 23, 42, 0.6);">
                             <div>
-                                <h4 class="text-dark small fw-bold mb-0"><?php echo e($cert['name']); ?></h4>
+                                <h4 class="text-white small fw-bold mb-0"><?php echo e($cert['name']); ?></h4>
                                 <span class="text-secondary" style="font-size: 0.78rem;"><?php echo e($cert['issuer'] ?? ''); ?></span>
                             </div>
                             <form method="POST" action="index.php" class="d-inline" onsubmit="return confirm('Delete this certificate?');">

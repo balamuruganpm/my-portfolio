@@ -1,22 +1,14 @@
 <?php
 /**
- * Page: Home
+ * Legacy Wrapper: Home Page
  */
-if (!defined('PAGE_DEPTH')) {
-    define('PAGE_DEPTH', 1);
-}
-
-$pageTitle = "Balamurugan P M | Frontend Developer | React.js | JavaScript | SPFx";
-$thisPage = "Home";
-
 require_once __DIR__ . '/../config/bootstrap.php';
-
-include BASE_PATH . 'templates/layout/head.php';
-include BASE_PATH . 'templates/layout/body-start.php';
-include BASE_PATH . 'templates/partials/navigation.php';
-
-include BASE_PATH . 'templates/sections/home-bento.php';
-include BASE_PATH . 'templates/sections/tech-news.php';
-
-include BASE_PATH . 'templates/layout/footer.php';
-include BASE_PATH . 'templates/layout/body-end.php';
+$app = \App\Core\App::getInstance();
+$controller = new \App\Controllers\HomeController(
+    new \App\Core\View(BASE_PATH),
+    new \App\Services\ProfileService(new \App\Services\DataService(ADMIN_DATA_PATH)),
+    new \App\Services\BlogService(new \App\Services\DataService(ADMIN_DATA_PATH)),
+    new \App\Services\PortfolioService(new \App\Services\DataService(ADMIN_DATA_PATH)),
+    new \App\Services\MessageService(new \App\Services\DataService(ADMIN_DATA_PATH))
+);
+$controller->index();

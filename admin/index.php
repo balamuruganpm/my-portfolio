@@ -1,7 +1,6 @@
 <?php
 /**
- * Admin Login Page
- * Redesigned with dark aesthetic, split-screen brand panel, password toggle, and session handling.
+ * Admin Login Portal (Glassmorphic Dark Edition)
  */
 
 if (session_status() === PHP_SESSION_NONE) {
@@ -61,12 +60,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="light">
+<html lang="en" data-bs-theme="dark">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Console Login | <?php echo e($profileName); ?></title>
+    <title>Admin Console Sign In | <?php echo e($profileName); ?></title>
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -76,6 +75,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <!-- Bootstrap CSS & Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- Admin Glassmorphic Dark CSS -->
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>admin/assets/admin.css?v=<?php echo CSS_VERSION; ?>">
     
     <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="<?php echo BASE_URL; ?>favicon.svg">
@@ -89,46 +91,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             align-items: center;
             justify-content: center;
             padding: 1.5rem;
-            background: #f1f5f9;
+            background: #0b0f19;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(255, 87, 34, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(99, 102, 241, 0.08) 0%, transparent 40%);
         }
         .login-container-card {
             max-width: 920px;
             width: 100%;
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
+            background: rgba(17, 24, 39, 0.75);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
             overflow: hidden;
         }
         .login-brand-panel {
-            background: linear-gradient(145deg, #1e293b, #0f172a);
+            background: linear-gradient(145deg, #0f172a, #1e1b4b);
             padding: 3rem 2.5rem;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             position: relative;
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
         }
         .login-brand-panel::before {
             content: '';
             position: absolute;
             top: -40px;
             left: -40px;
-            width: 180px;
-            height: 180px;
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
-            background: rgba(255, 87, 34, 0.25);
-            filter: blur(40px);
+            background: rgba(255, 87, 34, 0.3);
+            filter: blur(50px);
             pointer-events: none;
         }
         .login-form-panel {
             padding: 3rem 2.5rem;
-            background: #ffffff;
+            background: rgba(17, 24, 39, 0.85);
         }
         @media (max-width: 767.98px) {
             .login-brand-panel {
                 padding: 2rem 1.5rem;
                 border-right: none;
-                border-bottom: 1px solid #e2e8f0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             }
             .login-form-panel {
                 padding: 2rem 1.5rem;
@@ -144,22 +151,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="col-md-5 login-brand-panel">
                 <div>
                     <div class="d-flex align-items-center gap-2 mb-4">
-                        <div class="admin-brand-icon" style="width: 42px; height: 42px; font-size: 1.25rem;">
+                        <div class="admin-brand-icon" style="width: 44px; height: 44px; font-size: 1.25rem;">
                             <i class="bi bi-terminal-fill"></i>
                         </div>
                         <div>
                             <h2 class="admin-brand-title fs-5 mb-0 text-white">Console</h2>
-                            <span class="admin-brand-badge">PRO v2.0</span>
+                            <span class="admin-brand-badge">PRO v2.5</span>
                         </div>
                     </div>
 
                     <h3 class="h4 fw-bold text-white font-title mb-2">Welcome Back</h3>
                     <p class="text-white-50 small leading-relaxed mb-4">
-                        Manage your portfolio content, real-time analytics, blog articles, and incoming client inquiries from one central dashboard.
+                        Manage portfolio content, live ApexCharts analytics, blog articles, and client inquiries from your central workspace.
                     </p>
                 </div>
 
-                <div class="pt-4 border-top border-secondary">
+                <div class="pt-4 border-top border-secondary border-opacity-25">
                     <div class="d-flex align-items-center gap-3">
                         <div class="sidebar-user-avatar">
                             <?php echo strtoupper(substr($profileName, 0, 1)); ?>
@@ -175,8 +182,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <!-- Right: Login Form Panel -->
             <div class="col-md-7 login-form-panel d-flex flex-column justify-content-center">
                 <div class="mb-4">
-                    <h3 class="h4 fw-bold text-dark font-title mb-1">Sign In to Workspace</h3>
-                    <p class="text-secondary small mb-0">Enter your administrative credentials to continue</p>
+                    <h3 class="h4 fw-bold text-white font-title mb-1">Sign In to Console</h3>
+                    <p class="text-secondary small mb-0">Enter your administrative credentials to enter the workspace</p>
                 </div>
 
                 <?php if (!empty($error)): ?>
@@ -190,7 +197,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="mb-3">
                         <label class="form-label small fw-semibold text-secondary">Username</label>
                         <div class="input-group">
-                            <span class="input-group-text bg-transparent border-secondary-subtle text-secondary" style="border-radius: var(--radius-md) 0 0 var(--radius-md);">
+                            <span class="input-group-text bg-transparent border-secondary border-opacity-25 text-secondary" style="border-radius: var(--radius-md) 0 0 var(--radius-md);">
                                 <i class="bi bi-person"></i>
                             </span>
                             <input type="text" name="username" class="form-control" placeholder="Enter username" required autocomplete="username" autofocus style="border-left: none !important; border-radius: 0 var(--radius-md) var(--radius-md) 0 !important;">
@@ -200,7 +207,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="mb-4">
                         <label class="form-label small fw-semibold text-secondary">Password</label>
                         <div class="input-group">
-                            <span class="input-group-text bg-transparent border-secondary-subtle text-secondary" style="border-radius: var(--radius-md) 0 0 var(--radius-md);">
+                            <span class="input-group-text bg-transparent border-secondary border-opacity-25 text-secondary" style="border-radius: var(--radius-md) 0 0 var(--radius-md);">
                                 <i class="bi bi-lock"></i>
                             </span>
                             <input type="password" name="password" class="form-control" placeholder="Enter password" required autocomplete="current-password" style="border-left: none !important; border-right: none !important; border-radius: 0 !important;">
@@ -210,12 +217,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-warning-custom w-100 py-3 fw-bold justify-content-center">
-                        <i class="bi bi-box-arrow-in-right me-2"></i>Sign In to Console
+                    <button type="submit" class="btn btn-admin-primary w-100 py-3 fw-bold justify-content-center fs-6">
+                        <i class="bi bi-box-arrow-in-right me-2"></i> Sign In to Console
                     </button>
                 </form>
 
-                <div class="mt-4 pt-3 text-center border-top border-secondary-subtle">
+                <div class="mt-4 pt-3 text-center border-top border-secondary border-opacity-25">
                     <a href="<?php echo BASE_URL; ?>" class="text-secondary small text-decoration-none hover-accent">
                         <i class="bi bi-arrow-left me-1"></i> Back to Public Site
                     </a>

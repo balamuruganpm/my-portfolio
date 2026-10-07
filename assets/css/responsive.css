@@ -1,55 +1,170 @@
-/* Tablets and small desktops */
-@media (min-width: 768px) {
-    .glow-bg::before {
-        width: 450px;
-        height: 450px;
-        top: -100px;
-        left: -100px;
+/* ==========================================================================
+   BALA.DEV // RESPONSIVE & MOBILE POLISH STYLES (2026 EDITION)
+   ========================================================================== */
+
+/* ─── Mobile Devices (< 576px) ─── */
+@media (max-width: 575.98px) {
+    body {
+        font-size: 14px;
     }
-    .glow-bg::after {
-        width: 450px;
-        height: 450px;
-        bottom: -100px;
-        right: -100px;
+
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
     }
-    
-    .glass-card {
-        padding: 2.2rem;
+
+    /* Header & Brand */
+    .brand-name {
+        font-size: 1rem;
     }
-    
-    .timeline {
-        padding-left: 2rem;
+
+    .status-indicator-pill {
+        display: none !important;
     }
-    .timeline-dot {
-        left: -2.4rem;
-        width: 16px;
-        height: 16px;
+
+    /* Hero Center Stage */
+    .avatar-orbital-stage {
+        width: 170px;
+        height: 170px;
+        margin-bottom: 1.5rem !important;
+    }
+
+    .ring-outer {
+        width: 170px;
+        height: 170px;
+    }
+
+    .ring-mid {
+        width: 140px;
+        height: 140px;
+    }
+
+    .ring-inner {
+        width: 115px;
+        height: 115px;
+    }
+
+    .avatar-core-frame {
+        width: 95px;
+        height: 95px;
+    }
+
+    .floating-cyber-pill {
+        display: none !important;
+    }
+
+    .hero-giant-title {
+        font-size: 2rem !important;
+    }
+
+    .hero-lead-text {
+        font-size: 0.92rem !important;
+    }
+
+    .hero-actions-dock {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .hero-actions-dock .cyber-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Cards & Frames */
+    .cyber-card-frame,
+    .cyber-form-card {
+        padding: 1.5rem 1.15rem !important;
+    }
+
+    .cyber-module-card,
+    .cyber-showcase-card {
+        padding: 1.25rem 1rem !important;
+    }
+
+    .showcase-img-wrap {
+        height: 170px !important;
+    }
+
+    .cyber-project-img-frame {
+        height: 180px !important;
+    }
+
+    /* Floating Mascot Scaling */
+    .floating-jetpack-container {
+        bottom: 16px;
+        right: 16px;
+        transform: scale(0.75);
+        transform-origin: bottom right;
+    }
+
+    .jetpack-tooltip {
+        font-size: 0.62rem;
+        padding: 4px 8px;
+    }
+
+    /* Arcade Controls */
+    .minicraft-inv-slot {
+        width: 36px;
+        height: 36px;
     }
 }
 
-/* Medium & Large desktops */
-@media (min-width: 1024px) {
-    .navbar-custom {
-        padding: 1rem 3rem;
+/* ─── Tablets & Small Desktops (576px - 991.98px) ─── */
+@media (min-width: 576px) and (max-width: 991.98px) {
+    .avatar-orbital-stage {
+        width: 190px;
+        height: 190px;
     }
-    
-    .glass-card {
-        padding: 3rem;
+
+    .ring-outer {
+        width: 190px;
+        height: 190px;
     }
-    
-    .stat-item h2 {
-        font-size: 2.8rem;
+
+    .ring-mid {
+        width: 155px;
+        height: 155px;
+    }
+
+    .ring-inner {
+        width: 130px;
+        height: 130px;
+    }
+
+    .avatar-core-frame {
+        width: 110px;
+        height: 110px;
+    }
+
+    .floating-jetpack-container {
+        bottom: 20px;
+        right: 20px;
+        transform: scale(0.85);
+        transform-origin: bottom right;
     }
 }
 
-/* Large displays */
-@media (min-width: 1200px) {
-    .glow-bg::before {
-        width: 550px;
-        height: 550px;
+/* ─── Desktops & Large Displays (≥ 992px) ─── */
+@media (min-width: 992px) {
+    .ladder-track-col {
+        display: block;
     }
-    .glow-bg::after {
-        width: 550px;
-        height: 550px;
+}
+
+/* ─── High DPI & Retina Display Optimization ─── */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    body {
+        -webkit-font-smoothing: subpixel-antialiased;
+    }
+}
+
+/* ─── Reduced Motion Accessibility ─── */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
     }
 }

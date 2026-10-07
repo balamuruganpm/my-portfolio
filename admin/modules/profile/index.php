@@ -1,9 +1,9 @@
 <?php
 /**
- * Admin Module: Profile & Bio Management
+ * Admin Module: Profile & Bio Management (Glassmorphic Dark Edition)
  */
 $admin_current_page = 'profile';
-$page_title = 'Edit Profile';
+$page_title = 'Edit Profile & Bio';
 
 require_once __DIR__ . '/../../config/admin-bootstrap.php';
 
@@ -48,14 +48,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data['accessibility']['education']['speech'] = isset($_POST['mascot_education_speech']) ? trim($_POST['mascot_education_speech']) : '';
 
         if (saveAdminData($data)) {
-            $message = 'Profile details and mascot speeches updated successfully!';
+            $message = 'Profile details and mascot speech configurations saved successfully!';
             $message_type = 'success';
         } else {
-            $message = 'Failed to write updates to data.json.';
+            $message = 'Failed to save changes to database file.';
             $message_type = 'danger';
         }
     } else {
-        $message = 'Full Name and Primary Title are required fields.';
+        $message = 'Full Name and Primary Role Title are required fields.';
         $message_type = 'danger';
     }
 }
@@ -67,9 +67,11 @@ $accSettings = $data['accessibility'] ?? [];
 include __DIR__ . '/../../layout/header.php';
 ?>
 
-<div class="mb-4">
-    <h1 class="h3 fw-bold text-dark mb-1 font-title">Profile & Bio Settings</h1>
-    <p class="text-secondary small mb-0">Update your core personal credentials, biography narrative, and interactive mascot dialogue</p>
+<div class="mb-4 d-flex justify-content-between align-items-center flex-wrap gap-2">
+    <div>
+        <h1 class="h3 fw-bold text-white mb-1">Profile & Executive Bio</h1>
+        <p class="text-secondary small mb-0">Update core credentials, contact details, executive summary, and mascot speeches</p>
+    </div>
 </div>
 
 <?php if (!empty($message)): ?>
@@ -79,96 +81,100 @@ include __DIR__ . '/../../layout/header.php';
     </div>
 <?php endif; ?>
 
-<div class="card admin-card p-4 p-md-5">
+<div class="admin-card p-4 p-md-5">
     <form method="POST" action="index.php">
         <input type="hidden" name="csrf_token" value="<?php echo CSRF_TOKEN; ?>">
 
-        <h3 class="h6 fw-bold text-dark mb-3 text-uppercase font-title" style="letter-spacing: 0.5px;"><i class="bi bi-person-lines-fill text-accent me-2"></i>Personal Info</h3>
+        <div class="d-flex align-items-center gap-2 mb-4 pb-2 border-bottom border-secondary border-opacity-25">
+            <div class="admin-brand-icon" style="width: 32px; height: 32px; font-size: 1rem;">
+                <i class="bi bi-person-bounding-box"></i>
+            </div>
+            <h3 class="h6 fw-bold text-white mb-0 text-uppercase" style="letter-spacing: 0.8px;">Personal Credentials</h3>
+        </div>
         
         <div class="row g-4 mb-4">
             <div class="col-md-6">
                 <label class="form-label">Full Name</label>
-                <input type="text" name="name" class="form-control" value="<?php echo e($profile['name'] ?? ''); ?>" required>
+                <input type="text" name="name" class="form-control" value="<?php echo e($profile['name'] ?? ''); ?>" required placeholder="e.g. Balamurugan P M">
             </div>
             <div class="col-md-6">
                 <label class="form-label">Primary Role / Job Title</label>
-                <input type="text" name="title" class="form-control" value="<?php echo e($profile['title'] ?? ''); ?>" required>
+                <input type="text" name="title" class="form-control" value="<?php echo e($profile['title'] ?? ''); ?>" required placeholder="e.g. Frontend Developer - React.js">
             </div>
             <div class="col-md-6">
                 <label class="form-label">Header Subtitle Summary</label>
-                <input type="text" name="subtitle" class="form-control" value="<?php echo e($profile['subtitle'] ?? ''); ?>" required>
+                <input type="text" name="subtitle" class="form-control" value="<?php echo e($profile['subtitle'] ?? ''); ?>" required placeholder="Short summary subtitle">
             </div>
             <div class="col-md-6">
-                <label class="form-label">Primary Contact Email</label>
-                <input type="email" name="email" class="form-control" value="<?php echo e($profile['email'] ?? ''); ?>" required>
+                <label class="form-label">Primary Email Address</label>
+                <input type="email" name="email" class="form-control" value="<?php echo e($profile['email'] ?? ''); ?>" required placeholder="email@example.com">
             </div>
             <div class="col-md-6">
-                <label class="form-label">Phone Numbers (comma separated)</label>
-                <input type="text" name="phone" class="form-control" value="<?php echo e($phones); ?>" required>
+                <label class="form-label">Phone Coordinates (Comma Separated)</label>
+                <input type="text" name="phone" class="form-control" value="<?php echo e($phones); ?>" required placeholder="+91 9677804820">
             </div>
             <div class="col-md-6">
-                <label class="form-label">Location / City & Country</label>
-                <input type="text" name="location" class="form-control" value="<?php echo e($profile['location'] ?? ''); ?>" required>
+                <label class="form-label">Location / Work Geography</label>
+                <input type="text" name="location" class="form-control" value="<?php echo e($profile['location'] ?? ''); ?>" required placeholder="Salem, Tamil Nadu, India">
             </div>
             <div class="col-12">
                 <label class="form-label">Executive Biography</label>
-                <textarea name="biography" rows="4" class="form-control" required><?php echo e($profile['biography'] ?? ''); ?></textarea>
+                <textarea name="biography" rows="4" class="form-control" required placeholder="Write a brief professional summary..."><?php echo e($profile['biography'] ?? ''); ?></textarea>
             </div>
             <div class="col-12">
-                <div class="form-check form-switch p-3 rounded-3 border" style="background: var(--admin-surface); border-color: var(--admin-border) !important; padding-left: 3.5em !important;">
+                <div class="form-check form-switch p-3 rounded-3 border border-secondary border-opacity-25" style="background: rgba(15, 23, 42, 0.6); padding-left: 3.5em !important;">
                     <input class="form-check-input" type="checkbox" role="switch" id="ads_enabled" name="ads_enabled" value="1" <?php echo (!isset($data['ads_enabled']) || $data['ads_enabled']) ? 'checked' : ''; ?>>
-                    <label class="form-check-label text-dark small fw-bold" for="ads_enabled">Enable Global Advertisements</label>
-                    <div class="text-secondary small">Toggle native ad banners and skyscraper formats ON or OFF across the public blog feed.</div>
+                    <label class="form-check-label text-white small fw-bold" for="ads_enabled">Enable Global Advertisements</label>
+                    <div class="text-secondary small">Toggle ad banners ON or OFF across public blog articles.</div>
                 </div>
             </div>
         </div>
 
-        <div class="pt-4 border-top border-secondary-subtle mt-4">
-            <h3 class="h6 fw-bold text-dark mb-3 text-uppercase font-title" style="letter-spacing: 0.5px;"><i class="bi bi-chat-quote-fill text-accent me-2"></i>Mascot Speech Bubbles</h3>
+        <div class="d-flex align-items-center gap-2 mb-4 pt-3 pb-2 border-bottom border-secondary border-opacity-25">
+            <div class="admin-brand-icon" style="width: 32px; height: 32px; font-size: 1rem; background: var(--admin-secondary-gradient);">
+                <i class="bi bi-chat-quote-fill"></i>
+            </div>
+            <h3 class="h6 fw-bold text-white mb-0 text-uppercase" style="letter-spacing: 0.8px;">Mascot Dialogues</h3>
+        </div>
             
-            <div class="row g-4">
-                <div class="col-md-6">
-                    <label class="form-label">Floating Idle Speech</label>
-                    <input type="text" name="mascot_default_speech" class="form-control" value="<?php echo e($accSettings['mascot']['default_speech'] ?? 'Want to talk? Hire me! 👋'); ?>">
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Home Bento Grid Speech</label>
-                    <input type="text" name="mascot_bento_speech" class="form-control" value="<?php echo e($accSettings['mascot']['bento_speech'] ?? ''); ?>">
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">WhatsApp Click Message</label>
-                    <input type="text" name="mascot_whatsapp_message" class="form-control" value="<?php echo e($accSettings['mascot']['whatsapp_message'] ?? 'Hi, I saw your portfolio'); ?>">
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Experience Ladder Speech</label>
-                    <input type="text" name="mascot_experience_speech" class="form-control" value="<?php echo e($accSettings['experience']['speech'] ?? ''); ?>">
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Skills Grid Speech</label>
-                    <input type="text" name="mascot_skills_speech" class="form-control" value="<?php echo e($accSettings['skills']['speech'] ?? ''); ?>">
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Portfolio Gallery Speech</label>
-                    <input type="text" name="mascot_portfolio_speech" class="form-control" value="<?php echo e($accSettings['portfolio']['speech'] ?? ''); ?>">
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Blogs Feed Speech</label>
-                    <input type="text" name="mascot_blogs_speech" class="form-control" value="<?php echo e($accSettings['blogs']['speech'] ?? ''); ?>">
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Education Timeline Speech</label>
-                    <input type="text" name="mascot_education_speech" class="form-control" value="<?php echo e($accSettings['education']['speech'] ?? ''); ?>">
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Contact Form Speech</label>
-                    <input type="text" name="mascot_contact_speech" class="form-control" value="<?php echo e($accSettings['contact']['speech'] ?? ''); ?>">
-                </div>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <label class="form-label">Floating Idle Speech</label>
+                <input type="text" name="mascot_default_speech" class="form-control" value="<?php echo e($accSettings['mascot']['default_speech'] ?? 'Want to talk? Hire me! 👋'); ?>">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Home Bento Grid Speech</label>
+                <input type="text" name="mascot_bento_speech" class="form-control" value="<?php echo e($accSettings['mascot']['bento_speech'] ?? ''); ?>">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">WhatsApp Click Message</label>
+                <input type="text" name="mascot_whatsapp_message" class="form-control" value="<?php echo e($accSettings['mascot']['whatsapp_message'] ?? 'Hi, I saw your portfolio'); ?>">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Experience Ladder Speech</label>
+                <input type="text" name="mascot_experience_speech" class="form-control" value="<?php echo e($accSettings['experience']['speech'] ?? ''); ?>">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Skills Grid Speech</label>
+                <input type="text" name="mascot_skills_speech" class="form-control" value="<?php echo e($accSettings['skills']['speech'] ?? ''); ?>">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Portfolio Gallery Speech</label>
+                <input type="text" name="mascot_portfolio_speech" class="form-control" value="<?php echo e($accSettings['portfolio']['speech'] ?? ''); ?>">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Blogs Feed Speech</label>
+                <input type="text" name="mascot_blogs_speech" class="form-control" value="<?php echo e($accSettings['blogs']['speech'] ?? ''); ?>">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Contact Form Speech</label>
+                <input type="text" name="mascot_contact_speech" class="form-control" value="<?php echo e($accSettings['contact']['speech'] ?? ''); ?>">
             </div>
         </div>
 
-        <div class="mt-5 pt-3 border-top border-secondary-subtle">
-            <button type="submit" class="btn btn-warning-custom px-4 py-2.5">
-                <i class="bi bi-check2-circle me-1"></i>Save Profile Changes
+        <div class="mt-5 pt-3 border-top border-secondary border-opacity-25">
+            <button type="submit" class="btn btn-admin-primary px-4 py-2.5">
+                <i class="bi bi-check2-circle me-1"></i> Save Profile Changes
             </button>
         </div>
     </form>

@@ -16,8 +16,8 @@
                 <p class="text-secondary small mb-1">&copy; <?php echo date('Y'); ?> <?php echo e($profileName); ?>. All rights reserved. &bull; <span class="text-muted font-body">Views: <?php echo number_format($viewCount); ?></span></p>
             </div>
             
-            <div class="d-flex flex-wrap gap-3" role="navigation" aria-label="Social Profiles">
-                <?php renderSocialLinks($socialsData); ?>
+            <div class="d-flex flex-wrap gap-2" role="navigation" aria-label="Social Profiles">
+                <?php renderSocialLinks($socialsData, 'social-icon-circle', 'fs-6'); ?>
             </div>
         </div>
     </div>

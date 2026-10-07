@@ -120,8 +120,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- Preloader Progress & Jetpack Fly Animation ---
+    // --- Futuristic Scanner Preloader Sequence ---
     const preloader = document.getElementById('preloader');
+    const preloaderPhrase = document.getElementById('preloader-phrase');
+    const preloaderPhaseTag = document.getElementById('preloader-phase-tag');
+    const preloaderProgressFill = document.getElementById('preloader-progress-fill');
+    const preloaderPercentText = document.getElementById('preloader-percent-text');
     const percentNum = document.getElementById('svg-fuel-percent');
     const jetpackChar = document.getElementById('jetpack-character');
 
@@ -242,8 +246,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    let preloaderClosed = false;
     function closePreloader() {
-        if (preloader && preloader.classList.contains('loading-done')) return;
+        if (preloaderClosed) return;
+        preloaderClosed = true;
         
         if (preloader) {
             preloader.classList.add('loading-done');
@@ -256,33 +262,86 @@ document.addEventListener('DOMContentLoaded', () => {
         
         setTimeout(() => {
             if (preloader) preloader.style.display = 'none';
-        }, 500);
+        }, 600);
         
         initJetpackScrollAnimations();
     }
 
-    if (preloader && percentNum && jetpackChar) {
-        // Monitor window load event to close immediately
-        window.addEventListener('load', () => {
-            closePreloader();
-        });
-
-        // Fallback: if load event already fired
-        if (document.readyState === 'complete') {
-            closePreloader();
+    if (preloader) {
+        let progress = 0;
+        const startTime = performance.now();
+        const duration = 1600; // 1.6s scanner animation experience
+        
+        function updateScannerSequence(now) {
+            if (preloaderClosed) return;
+            const elapsed = now - startTime;
+            progress = Math.min(Math.round((elapsed / duration) * 100), 100);
+            
+            // Update progress bar fill & percentage displays
+            if (preloaderProgressFill) preloaderProgressFill.style.width = progress + '%';
+            if (preloaderPercentText) preloaderPercentText.textContent = progress + '%';
+            if (percentNum) percentNum.textContent = progress + '%';
+            
+            // Phase triggers based on search & lock telemetry
+            if (progress < 55) {
+                if (preloaderPhaseTag && preloaderPhaseTag.textContent !== 'SEARCH_PROTOCOL_ACTIVE') {
+                    preloaderPhaseTag.textContent = 'SEARCH_PROTOCOL_ACTIVE';
+                    preloaderPhaseTag.className = 'text-cyan small fw-bold';
+                }
+                if (preloaderPhrase && preloaderPhrase.textContent !== 'Scanning for the best web developer...') {
+                    preloaderPhrase.textContent = 'Scanning for the best web developer...';
+                }
+            } else if (progress < 85) {
+                if (preloaderPhaseTag && preloaderPhaseTag.textContent !== 'TARGET_ACQUIRED') {
+                    preloaderPhaseTag.textContent = 'TARGET_ACQUIRED';
+                    preloaderPhaseTag.className = 'text-success small fw-bold';
+                }
+                if (preloaderPhrase && !preloaderPhrase.innerHTML.includes('100% Compatibility!')) {
+                    preloaderPhrase.innerHTML = 'Match found: <span class="text-accent">100% Compatibility! 🎯</span>';
+                }
+            } else {
+                if (preloaderPhaseTag && preloaderPhaseTag.textContent !== 'SYSTEM_UNLOCKED') {
+                    preloaderPhaseTag.textContent = 'SYSTEM_UNLOCKED';
+                    preloaderPhaseTag.className = 'text-cyan small fw-bold';
+                }
+                if (preloaderPhrase && !preloaderPhrase.innerHTML.includes("That's me!")) {
+                    preloaderPhrase.innerHTML = 'Oh! You found it... <span class="text-accent">That\'s me! 👋</span>';
+                }
+            }
+            
+            if (progress < 100) {
+                requestAnimationFrame(updateScannerSequence);
+            } else {
+                // Keep the final discovery phrase visible briefly before revealing the site
+                setTimeout(() => {
+                    closePreloader();
+                }, 450);
+            }
         }
-
-        // Fallback timeout to ensure page is accessible even if resources hang
+        
+        requestAnimationFrame(updateScannerSequence);
+        
+        // Safety fallback timeout to ensure preloader always closes
         setTimeout(() => {
             closePreloader();
-        }, 1200);
+        }, 2800);
     } else {
-        // Fallback if elements aren't present (e.g. admin panel)
         initJetpackScrollAnimations();
     }
 
-    // --- Bento Project Modal Trigger ---
-    const bentoCards = document.querySelectorAll('.project-bento-card');
+    // --- Mobile Menu Toggle ---
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileNavDrawer = document.getElementById('mobile-nav-drawer');
+    if (mobileMenuBtn && mobileNavDrawer) {
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileNavDrawer.classList.toggle('open');
+            const isOpen = mobileNavDrawer.classList.contains('open');
+            mobileMenuBtn.setAttribute('aria-expanded', isOpen);
+        });
+    }
+
+    // --- Project Modal Trigger ---
+    const bentoCards = document.querySelectorAll('.project-bento-card, .cyber-project-card');
     const projectModal = document.getElementById('project-modal');
     const closeProjectModalBtn = document.getElementById('close-project-modal');
 
@@ -297,30 +356,38 @@ document.addEventListener('DOMContentLoaded', () => {
                 const tags = JSON.parse(card.getAttribute('data-project-tags') || '[]');
 
                 // Populate modal content
-                document.getElementById('modal-project-img').src = img;
-                document.getElementById('modal-project-title').textContent = title;
-                document.getElementById('modal-project-tagline').textContent = tagline;
-                document.getElementById('modal-project-link').href = link;
+                const modalImg = document.getElementById('modal-project-img');
+                if (modalImg) modalImg.src = img;
+                const modalTitle = document.getElementById('modal-project-title');
+                if (modalTitle) modalTitle.textContent = title;
+                const modalTagline = document.getElementById('modal-project-tagline');
+                if (modalTagline) modalTagline.textContent = tagline;
+                const modalLink = document.getElementById('modal-project-link');
+                if (modalLink) modalLink.href = link;
 
                 // Populate highlights
                 const bulletsList = document.getElementById('modal-project-bullets');
-                bulletsList.innerHTML = '';
-                bullets.forEach(b => {
-                    const li = document.createElement('li');
-                    li.className = 'mb-2';
-                    li.textContent = b;
-                    bulletsList.appendChild(li);
-                });
+                if (bulletsList) {
+                    bulletsList.innerHTML = '';
+                    bullets.forEach(b => {
+                        const li = document.createElement('li');
+                        li.className = 'mb-2';
+                        li.textContent = b;
+                        bulletsList.appendChild(li);
+                    });
+                }
 
                 // Populate tags
                 const tagsWrapper = document.getElementById('modal-project-tags');
-                tagsWrapper.innerHTML = '';
-                tags.forEach(t => {
-                    const span = document.createElement('span');
-                    span.className = 'badge bg-secondary-subtle text-secondary small px-2 py-1';
-                    span.textContent = t;
-                    tagsWrapper.appendChild(span);
-                });
+                if (tagsWrapper) {
+                    tagsWrapper.innerHTML = '';
+                    tags.forEach(t => {
+                        const span = document.createElement('span');
+                        span.className = 'cyber-mini-badge';
+                        span.textContent = t;
+                        tagsWrapper.appendChild(span);
+                    });
+                }
 
                 // Open modal
                 projectModal.classList.add('active');
@@ -352,15 +419,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Blog Category Filter ---
-    const filterBtns = document.querySelectorAll('.blog-filter-btn');
+    const filterBtns = document.querySelectorAll('.blog-filter-btn, .cyber-filter-pill');
     const blogCardCols = document.querySelectorAll('.blog-card-col');
 
     if (filterBtns.length > 0 && blogCardCols.length > 0) {
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                const filter = btn.getAttribute('data-filter');
-
-                // Update active state
                 filterBtns.forEach(b => {
                     b.classList.remove('active');
                     b.setAttribute('aria-pressed', 'false');
@@ -368,16 +432,90 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.classList.add('active');
                 btn.setAttribute('aria-pressed', 'true');
 
-                // Show/hide cards
+                const filterVal = btn.getAttribute('data-filter');
                 blogCardCols.forEach(col => {
-                    const category = col.getAttribute('data-category');
-                    if (filter === 'all' || category === filter) {
+                    const cardCategory = col.getAttribute('data-category');
+                    if (filterVal === 'all' || cardCategory === filterVal) {
                         col.classList.remove('hidden');
+                        col.style.display = '';
                     } else {
                         col.classList.add('hidden');
+                        col.style.display = 'none';
                     }
                 });
             });
         });
     }
+
+    // --- High-Tech Dynamic Text Typing Animation ---
+    const typingEls = document.querySelectorAll('#hero-typewriter-text, #typing-text');
+    typingEls.forEach(el => {
+        let phrases = [];
+        try {
+            const attr = el.getAttribute('data-roles');
+            if (attr) phrases = JSON.parse(attr);
+        } catch(e) {}
+
+        if (!phrases || !phrases.length) {
+            phrases = [
+                "Frontend Developer",
+                "React.js Specialist",
+                "SPFx & SharePoint Engineer",
+                "UI/UX & Design Systems Architect",
+                "High-Performance Web Engineer"
+            ];
+        }
+
+        let phraseIndex = 0;
+        let charIndex = el.textContent ? el.textContent.trim().length : 0;
+        let isDeleting = charIndex > 0;
+        let typeSpeed = 70;
+
+        function runTypeLoop() {
+            const currentPhrase = phrases[phraseIndex];
+            
+            if (isDeleting) {
+                charIndex--;
+                typeSpeed = 35;
+            } else {
+                charIndex++;
+                typeSpeed = 75;
+            }
+            
+            el.textContent = currentPhrase.substring(0, charIndex);
+
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                isDeleting = true;
+                typeSpeed = 2200; // Pause at end of phrase
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                typeSpeed = 350; // Pause before typing next phrase
+            }
+
+            setTimeout(runTypeLoop, typeSpeed);
+        }
+        
+        setTimeout(runTypeLoop, isDeleting ? 1800 : 400);
+    });
+
+    // --- Code Block Copy to Clipboard ---
+    const codeCopyBtns = document.querySelectorAll('.code-copy-btn');
+    codeCopyBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const wrapper = btn.closest('.code-block-wrapper');
+            const codeEl = wrapper ? wrapper.querySelector('code') : null;
+            if (codeEl) {
+                navigator.clipboard.writeText(codeEl.innerText || codeEl.textContent).then(() => {
+                    const origHtml = btn.innerHTML;
+                    btn.innerHTML = '<i class="bi bi-check2 text-success me-1"></i>Copied!';
+                    setTimeout(() => {
+                        btn.innerHTML = origHtml;
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Copy failed:', err);
+                });
+            }
+        });
+    });
 });

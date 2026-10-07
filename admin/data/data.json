@@ -177,6 +177,42 @@
             ],
             "image": "assets/images/vocalease.webp",
             "link": "https://github.com/Balamuruganpm/vocalease"
+        },
+        {
+            "title": "SharePoint SPFx Intranet Workspace",
+            "tagline": "Enterprise Employee Portal & Custom SPFx Web Parts",
+            "bullets": [
+                "Engineered customizable SharePoint Framework (SPFx) web parts for enterprise intranet solutions.",
+                "Integrated Microsoft Graph API and PnP JS for automated list manipulation and user directory synchronization.",
+                "Implemented secure Entra ID authentication and role-based permissions.",
+                "Delivered sub-second render speeds with client-side caching and responsive CSS Grid design."
+            ],
+            "tags": [
+                "SPFx",
+                "SharePoint Online",
+                "TypeScript",
+                "Microsoft Graph"
+            ],
+            "image": "assets/images/spfx-sharepoint.webp",
+            "link": "https://github.com/Balamuruganpm"
+        },
+        {
+            "title": "CyberPulse Design Tokens & UI System",
+            "tagline": "High-Performance Modular Component Architecture",
+            "bullets": [
+                "Crafted a bespoke design token architecture with dark-mode glassmorphism and WCAG 2.2 AA accessibility.",
+                "Developed reusable UI widgets with vanilla JavaScript micro-interactions and zero heavy dependencies.",
+                "Built interactive HTML5 canvas developer games with 60 FPS performance.",
+                "Achieved 98+ Google Lighthouse scores across Performance, Accessibility, and SEO."
+            ],
+            "tags": [
+                "JavaScript ES6+",
+                "Design Systems",
+                "Bootstrap 5",
+                "Lighthouse 98+"
+            ],
+            "image": "assets/images/modern-js-2026.webp",
+            "link": "https://github.com/Balamuruganpm"
         }
     ],
     "awards": [
@@ -223,5 +259,5 @@
             "password": "$2y$10$pKs1TOonbuEURwLfpSFtUO1yVVI3saacNnGX4yWEsPur0/CErWW7O"
         }
     ],
-    "views": 1682
+    "views": 1686
 }

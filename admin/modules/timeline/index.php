@@ -1,6 +1,6 @@
 <?php
 /**
- * Admin Module: Timeline & Education Manager
+ * Admin Module: Timeline & Education Manager (Glassmorphic Dark Edition)
  */
 $admin_current_page = 'timeline';
 $page_title = 'Experience & Education';
@@ -119,8 +119,8 @@ include __DIR__ . '/../../layout/header.php';
 ?>
 
 <div class="mb-4">
-    <h1 class="h3 fw-bold text-dark mb-1 font-title">Career & Academic Timelines</h1>
-    <p class="text-secondary small mb-0">Manage work history, accomplishments, and academic milestones</p>
+    <h1 class="h3 fw-bold text-white mb-1">Career & Academic Timelines</h1>
+    <p class="text-secondary small mb-0">Manage professional experience history, key achievements, and academic credentials</p>
 </div>
 
 <?php if (!empty($message)): ?>
@@ -133,16 +133,16 @@ include __DIR__ . '/../../layout/header.php';
 <div class="row g-4">
     <!-- Work Timeline Panel -->
     <div class="col-lg-6">
-        <div class="card admin-card p-4 h-100">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h3 class="h5 fw-bold text-dark mb-0 font-title"><i class="bi bi-briefcase-fill text-accent me-2"></i>Work Timeline</h3>
+        <div class="admin-card p-4 h-100">
+            <div class="admin-card-header">
+                <h3 class="admin-card-title"><i class="bi bi-briefcase-fill text-warning"></i> Work Experience</h3>
                 <?php if ($edit_exp_item): ?>
-                    <a href="index.php" class="btn btn-admin-secondary btn-sm"><i class="bi bi-plus-lg me-1"></i>New</a>
+                    <a href="index.php" class="btn btn-admin-secondary btn-sm"><i class="bi bi-plus-lg me-1"></i>New Entry</a>
                 <?php endif; ?>
             </div>
 
             <!-- Form -->
-            <form method="POST" action="index.php" class="mb-4 pb-4 border-bottom border-secondary-subtle">
+            <form method="POST" action="index.php" class="mb-4 pb-4 border-bottom border-secondary border-opacity-25">
                 <input type="hidden" name="csrf_token" value="<?php echo CSRF_TOKEN; ?>">
                 <input type="hidden" name="action" value="<?php echo $edit_exp_item ? 'edit_experience' : 'add_experience'; ?>">
                 <?php if ($edit_exp_item): ?>
@@ -156,7 +156,7 @@ include __DIR__ . '/../../layout/header.php';
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Company Name</label>
-                        <input type="text" name="company" class="form-control" placeholder="Company Name" required value="<?php echo e($edit_exp_item['company'] ?? ''); ?>">
+                        <input type="text" name="company" class="form-control" placeholder="RMM Technologies" required value="<?php echo e($edit_exp_item['company'] ?? ''); ?>">
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Duration Period</label>
@@ -164,15 +164,15 @@ include __DIR__ . '/../../layout/header.php';
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Location</label>
-                        <input type="text" name="location" class="form-control" placeholder="Salem, India" value="<?php echo e($edit_exp_item['location'] ?? ''); ?>">
+                        <input type="text" name="location" class="form-control" placeholder="Coimbatore, India" value="<?php echo e($edit_exp_item['location'] ?? ''); ?>">
                     </div>
                     <div class="col-12">
-                        <label class="form-label">Bullet Highlights (one per line)</label>
+                        <label class="form-label">Bullet Highlights (One per line)</label>
                         <textarea name="bullets" rows="3" class="form-control" placeholder="Enter key achievements..." required><?php echo ($edit_exp_item && is_array($edit_exp_item['bullets'])) ? e(implode("\n", $edit_exp_item['bullets'])) : ''; ?></textarea>
                     </div>
                     <div class="col-12">
-                        <button type="submit" class="btn btn-warning-custom w-100 justify-content-center py-2.5">
-                            <i class="bi <?php echo $edit_exp_item ? 'bi-save' : 'bi-plus-circle'; ?> me-1"></i><?php echo $edit_exp_item ? 'Save Experience Updates' : 'Add Experience Entry'; ?>
+                        <button type="submit" class="btn btn-admin-primary w-100 justify-content-center py-2.5">
+                            <i class="bi <?php echo $edit_exp_item ? 'bi-save' : 'bi-plus-circle'; ?> me-1"></i> <?php echo $edit_exp_item ? 'Save Experience Updates' : 'Add Experience Entry'; ?>
                         </button>
                     </div>
                 </div>
@@ -184,7 +184,7 @@ include __DIR__ . '/../../layout/header.php';
                     <p class="text-secondary small text-center py-3 mb-0">No experience records found.</p>
                 <?php else: ?>
                     <?php foreach ($experience as $idx => $exp): ?>
-                        <div class="p-3 rounded-3 border border-secondary-subtle position-relative" style="background: var(--admin-surface);">
+                        <div class="p-3 rounded-3 border border-secondary border-opacity-25 position-relative" style="background: rgba(15, 23, 42, 0.6);">
                             <div class="position-absolute top-0 end-0 p-3 d-flex gap-2">
                                 <a href="index.php?edit_exp=<?php echo $idx; ?>" class="btn btn-admin-secondary btn-sm p-1.5" title="Edit">
                                     <i class="bi bi-pencil-square text-info"></i>
@@ -198,8 +198,8 @@ include __DIR__ . '/../../layout/header.php';
                                     </button>
                                 </form>
                             </div>
-                            <h4 class="text-dark fw-bold small mb-0 pe-5"><?php echo e($exp['role']); ?></h4>
-                            <div class="text-accent small fw-semibold mb-1"><?php echo e($exp['company']); ?></div>
+                            <h4 class="text-white fw-bold small mb-0 pe-5"><?php echo e($exp['role']); ?></h4>
+                            <div class="text-warning small fw-semibold mb-1"><?php echo e($exp['company']); ?></div>
                             <div class="text-secondary small d-flex gap-3 mb-2 flex-wrap" style="font-size: 0.76rem;">
                                 <span><i class="bi bi-calendar3 me-1"></i><?php echo e($exp['duration']); ?></span>
                                 <span><i class="bi bi-geo-alt me-1"></i><?php echo e($exp['location']); ?></span>
@@ -218,16 +218,16 @@ include __DIR__ . '/../../layout/header.php';
 
     <!-- Education Timeline Panel -->
     <div class="col-lg-6">
-        <div class="card admin-card p-4 h-100">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h3 class="h5 fw-bold text-dark mb-0 font-title"><i class="bi bi-mortarboard-fill text-accent me-2"></i>Education Timeline</h3>
+        <div class="admin-card p-4 h-100">
+            <div class="admin-card-header">
+                <h3 class="admin-card-title"><i class="bi bi-mortarboard-fill text-info"></i> Education Timeline</h3>
                 <?php if ($edit_edu_item): ?>
-                    <a href="index.php" class="btn btn-admin-secondary btn-sm"><i class="bi bi-plus-lg me-1"></i>New</a>
+                    <a href="index.php" class="btn btn-admin-secondary btn-sm"><i class="bi bi-plus-lg me-1"></i>New Entry</a>
                 <?php endif; ?>
             </div>
 
             <!-- Form -->
-            <form method="POST" action="index.php" class="mb-4 pb-4 border-bottom border-secondary-subtle">
+            <form method="POST" action="index.php" class="mb-4 pb-4 border-bottom border-secondary border-opacity-25">
                 <input type="hidden" name="csrf_token" value="<?php echo CSRF_TOKEN; ?>">
                 <input type="hidden" name="action" value="<?php echo $edit_edu_item ? 'edit_education' : 'add_education'; ?>">
                 <?php if ($edit_edu_item): ?>
@@ -241,7 +241,7 @@ include __DIR__ . '/../../layout/header.php';
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Institution / College</label>
-                        <input type="text" name="institution" class="form-control" placeholder="College Name" required value="<?php echo e($edit_edu_item['institution'] ?? ''); ?>">
+                        <input type="text" name="institution" class="form-control" placeholder="AVS College of Technology" required value="<?php echo e($edit_edu_item['institution'] ?? ''); ?>">
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Duration Period</label>
@@ -252,12 +252,12 @@ include __DIR__ . '/../../layout/header.php';
                         <input type="text" name="location" class="form-control" placeholder="Salem, India" value="<?php echo e($edit_edu_item['location'] ?? ''); ?>">
                     </div>
                     <div class="col-12">
-                        <label class="form-label">Score / CGPA / Metric</label>
-                        <input type="text" name="metric" class="form-control" placeholder="CGPA - 8.27 or Percentage - 85%" value="<?php echo e($edit_edu_item['metric'] ?? ''); ?>">
+                        <label class="form-label">Score / CGPA Metric</label>
+                        <input type="text" name="metric" class="form-control" placeholder="CGPA: 8.27 or Percentage: 85%" value="<?php echo e($edit_edu_item['metric'] ?? ''); ?>">
                     </div>
                     <div class="col-12">
-                        <button type="submit" class="btn btn-warning-custom w-100 justify-content-center py-2.5">
-                            <i class="bi <?php echo $edit_edu_item ? 'bi-save' : 'bi-plus-circle'; ?> me-1"></i><?php echo $edit_edu_item ? 'Save Education Updates' : 'Add Education Entry'; ?>
+                        <button type="submit" class="btn btn-admin-primary w-100 justify-content-center py-2.5">
+                            <i class="bi <?php echo $edit_edu_item ? 'bi-save' : 'bi-plus-circle'; ?> me-1"></i> <?php echo $edit_edu_item ? 'Save Education Updates' : 'Add Education Entry'; ?>
                         </button>
                     </div>
                 </div>
@@ -269,7 +269,7 @@ include __DIR__ . '/../../layout/header.php';
                     <p class="text-secondary small text-center py-3 mb-0">No education records found.</p>
                 <?php else: ?>
                     <?php foreach ($education as $idx => $edu): ?>
-                        <div class="p-3 rounded-3 border border-secondary-subtle position-relative" style="background: var(--admin-surface);">
+                        <div class="p-3 rounded-3 border border-secondary border-opacity-25 position-relative" style="background: rgba(15, 23, 42, 0.6);">
                             <div class="position-absolute top-0 end-0 p-3 d-flex gap-2">
                                 <a href="index.php?edit_edu=<?php echo $idx; ?>" class="btn btn-admin-secondary btn-sm p-1.5" title="Edit">
                                     <i class="bi bi-pencil-square text-info"></i>
@@ -283,13 +283,13 @@ include __DIR__ . '/../../layout/header.php';
                                     </button>
                                 </form>
                             </div>
-                            <h4 class="text-dark fw-bold small mb-0 pe-5"><?php echo e($edu['degree']); ?></h4>
-                            <div class="text-accent small fw-semibold mb-1"><?php echo e($edu['institution']); ?></div>
+                            <h4 class="text-white fw-bold small mb-0 pe-5"><?php echo e($edu['degree']); ?></h4>
+                            <div class="text-info small fw-semibold mb-1"><?php echo e($edu['institution']); ?></div>
                             <div class="text-secondary small d-flex gap-3 mb-2 flex-wrap" style="font-size: 0.76rem;">
                                 <span><i class="bi bi-calendar3 me-1"></i><?php echo e($edu['duration']); ?></span>
                                 <span><i class="bi bi-geo-alt me-1"></i><?php echo e($edu['location']); ?></span>
                                 <?php if (!empty($edu['metric'])): ?>
-                                    <span class="badge bg-secondary-subtle text-secondary"><?php echo e($edu['metric']); ?></span>
+                                    <span class="admin-badge badge-info-subtle"><?php echo e($edu['metric']); ?></span>
                                 <?php endif; ?>
                             </div>
                         </div>

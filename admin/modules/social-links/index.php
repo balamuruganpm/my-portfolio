@@ -1,9 +1,9 @@
 <?php
 /**
- * Admin Module: Social Media & Portfolio Links
+ * Admin Module: Social Media & Portfolio Links (Glassmorphic Dark Edition)
  */
 $admin_current_page = 'social-links';
-$page_title = 'Social Links';
+$page_title = 'Social Profiles';
 
 require_once __DIR__ . '/../../config/admin-bootstrap.php';
 
@@ -38,8 +38,8 @@ include __DIR__ . '/../../layout/header.php';
 ?>
 
 <div class="mb-4">
-    <h1 class="h3 fw-bold text-dark mb-1 font-title">Social Links & External Profiles</h1>
-    <p class="text-secondary small mb-0">Manage URL addresses to your design repositories, developer portfolios, and social communication channels</p>
+    <h1 class="h3 fw-bold text-white mb-1">Social Profiles & External Links</h1>
+    <p class="text-secondary small mb-0">Manage URLs to your design repositories, developer portfolios, and social channels</p>
 </div>
 
 <?php if (!empty($message)): ?>
@@ -49,64 +49,64 @@ include __DIR__ . '/../../layout/header.php';
     </div>
 <?php endif; ?>
 
-<div class="card admin-card p-4 p-md-5">
+<div class="admin-card p-4 p-md-5">
     <form method="POST" action="index.php">
         <input type="hidden" name="csrf_token" value="<?php echo CSRF_TOKEN; ?>">
 
         <div class="row g-4">
             <div class="col-md-6">
-                <label class="form-label"><i class="bi bi-bezier2 me-1 text-accent"></i>Figma Profile URL</label>
+                <label class="form-label"><i class="bi bi-bezier2 me-1 text-warning"></i>Figma Profile URL</label>
                 <input type="url" name="figma" class="form-control" value="<?php echo e($socials['figma'] ?? ''); ?>" placeholder="https://www.figma.com/@...">
             </div>
             <div class="col-md-6">
-                <label class="form-label"><i class="bi bi-linkedin me-1 text-accent"></i>LinkedIn URL</label>
+                <label class="form-label"><i class="bi bi-linkedin me-1 text-info"></i>LinkedIn URL</label>
                 <input type="url" name="linkedin" class="form-control" value="<?php echo e($socials['linkedin'] ?? ''); ?>" placeholder="https://www.linkedin.com/in/...">
             </div>
             <div class="col-md-6">
-                <label class="form-label"><i class="bi bi-github me-1 text-accent"></i>GitHub Profile URL</label>
+                <label class="form-label"><i class="bi bi-github me-1 text-white"></i>GitHub Profile URL</label>
                 <input type="url" name="github" class="form-control" value="<?php echo e($socials['github'] ?? ''); ?>" placeholder="https://github.com/...">
             </div>
             <div class="col-md-6">
-                <label class="form-label"><i class="bi bi-bootstrap me-1 text-accent"></i>Behance Portfolio URL</label>
+                <label class="form-label"><i class="bi bi-bootstrap me-1 text-primary"></i>Behance Portfolio URL</label>
                 <input type="url" name="behance" class="form-control" value="<?php echo e($socials['behance'] ?? ''); ?>" placeholder="https://www.behance.net/...">
             </div>
             <div class="col-md-6">
-                <label class="form-label"><i class="bi bi-dribbble me-1 text-accent"></i>Dribbble Profile URL</label>
+                <label class="form-label"><i class="bi bi-dribbble me-1 text-danger"></i>Dribbble Profile URL</label>
                 <input type="url" name="dribbble" class="form-control" value="<?php echo e($socials['dribbble'] ?? ''); ?>" placeholder="https://dribbble.com/...">
             </div>
             <div class="col-md-6">
-                <label class="form-label"><i class="bi bi-facebook me-1 text-accent"></i>Facebook Page URL</label>
+                <label class="form-label"><i class="bi bi-facebook me-1 text-primary"></i>Facebook Page URL</label>
                 <input type="url" name="facebook" class="form-control" value="<?php echo e($socials['facebook'] ?? ''); ?>" placeholder="https://www.facebook.com/...">
             </div>
             <div class="col-md-6">
-                <label class="form-label"><i class="bi bi-twitter-x me-1 text-accent"></i>Twitter / X URL</label>
+                <label class="form-label"><i class="bi bi-twitter-x me-1 text-white"></i>Twitter / X URL</label>
                 <input type="url" name="twitter" class="form-control" value="<?php echo e($socials['twitter'] ?? ''); ?>" placeholder="https://twitter.com/...">
             </div>
             <div class="col-md-6">
-                <label class="form-label"><i class="bi bi-instagram me-1 text-accent"></i>Instagram Profile URL</label>
+                <label class="form-label"><i class="bi bi-instagram me-1 text-warning"></i>Instagram Profile URL</label>
                 <input type="url" name="instagram" class="form-control" value="<?php echo e($socials['instagram'] ?? ''); ?>" placeholder="https://instagram.com/...">
             </div>
             <div class="col-md-6">
-                <label class="form-label"><i class="bi bi-code-square me-1 text-accent"></i>CodePen Profile URL</label>
+                <label class="form-label"><i class="bi bi-code-square me-1 text-success"></i>CodePen Profile URL</label>
                 <input type="url" name="codepen" class="form-control" value="<?php echo e($socials['codepen'] ?? ''); ?>" placeholder="https://codepen.io/...">
             </div>
             <div class="col-md-6">
-                <label class="form-label"><i class="bi bi-discord me-1 text-accent"></i>Discord Invite URL</label>
+                <label class="form-label"><i class="bi bi-discord me-1 text-indigo"></i>Discord Invite URL</label>
                 <input type="url" name="discord" class="form-control" value="<?php echo e($socials['discord'] ?? ''); ?>" placeholder="https://discordapp.com/...">
             </div>
             <div class="col-md-6">
-                <label class="form-label"><i class="bi bi-whatsapp me-1 text-accent"></i>WhatsApp API Link</label>
+                <label class="form-label"><i class="bi bi-whatsapp me-1 text-success"></i>WhatsApp API Link</label>
                 <input type="url" name="whatsapp" class="form-control" value="<?php echo e($socials['whatsapp'] ?? ''); ?>" placeholder="https://wa.me/...">
             </div>
             <div class="col-md-6">
-                <label class="form-label"><i class="bi bi-link-45deg me-1 text-accent"></i>Contra Profile URL</label>
+                <label class="form-label"><i class="bi bi-link-45deg me-1 text-info"></i>Contra Profile URL</label>
                 <input type="url" name="contra" class="form-control" value="<?php echo e($socials['contra'] ?? ''); ?>" placeholder="https://...contra.com/">
             </div>
         </div>
 
-        <div class="mt-5 pt-3 border-top border-secondary-subtle">
-            <button type="submit" class="btn btn-warning-custom px-4 py-2.5">
-                <i class="bi bi-check2-circle me-1"></i>Save Social Links
+        <div class="mt-5 pt-3 border-top border-secondary border-opacity-25">
+            <button type="submit" class="btn btn-admin-primary px-4 py-2.5">
+                <i class="bi bi-check2-circle me-1"></i> Save Social Links
             </button>
         </div>
     </form>

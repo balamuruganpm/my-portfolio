@@ -1,6 +1,6 @@
 <?php
 /**
- * Admin Module: Blogs & Articles Manager
+ * Admin Module: Blogs & Articles Manager (Glassmorphic Dark Edition)
  */
 $admin_current_page = 'blogs';
 $page_title = 'Blogs & Articles';
@@ -47,12 +47,18 @@ include __DIR__ . '/../../layout/header.php';
 
 <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
     <div>
-        <h1 class="h3 fw-bold text-dark mb-1 font-title">Blogs & Articles Manager</h1>
+        <h1 class="h3 fw-bold text-white mb-1">Blogs & Articles Engine</h1>
         <p class="text-secondary small mb-0">Write tutorials, technical guides, career insights, and manage discussions</p>
     </div>
-    <a href="add.php" class="btn btn-warning-custom">
-        <i class="bi bi-pencil-square"></i> Write New Post
-    </a>
+    <div class="d-flex align-items-center gap-2">
+        <div class="search-command-bar d-none d-md-block" style="max-width: 250px;">
+            <i class="bi bi-search"></i>
+            <input type="text" class="form-control form-control-sm" placeholder="Search articles..." data-table-search="#blogs-table">
+        </div>
+        <a href="add.php" class="btn btn-admin-primary">
+            <i class="bi bi-pencil-square me-1"></i> Write New Article
+        </a>
+    </div>
 </div>
 
 <?php if (!empty($message)): ?>
@@ -62,88 +68,86 @@ include __DIR__ . '/../../layout/header.php';
     </div>
 <?php endif; ?>
 
-<div class="card admin-card overflow-hidden">
-    <div class="table-responsive">
-        <table class="admin-table">
-            <thead>
+<div class="admin-table-wrapper">
+    <table class="table admin-table" id="blogs-table">
+        <thead>
+            <tr>
+                <th style="width: 70px;">Cover</th>
+                <th>Date</th>
+                <th>Article Title</th>
+                <th>Category</th>
+                <th>Views</th>
+                <th>Discussion</th>
+                <th class="text-end" style="width: 150px;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if (empty($blogs)): ?>
                 <tr>
-                    <th style="width: 70px;">Media</th>
-                    <th>Date</th>
-                    <th>Article Title</th>
-                    <th>Category</th>
-                    <th>Views</th>
-                    <th>Discussion</th>
-                    <th class="text-end" style="width: 150px;">Actions</th>
+                    <td colspan="7" class="text-center py-5 text-secondary">
+                        <i class="bi bi-journal-x fs-2 d-block mb-2 text-muted"></i>
+                        No blog posts found. Click "Write New Article" to publish.
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                <?php if (empty($blogs)): ?>
+            <?php else: ?>
+                <?php 
+                $display_blogs = array_reverse($blogs);
+                foreach ($display_blogs as $blog): 
+                    $cat_label = !empty($blog['category']) ? $blog['category'] : 'Blog';
+                    $thumb_img = !empty($blog['image']) ? BASE_URL . $blog['image'] : BASE_URL . 'assets/images/placeholder.webp';
+                    
+                    $comm_count = 0;
+                    foreach ($comments as $c) {
+                        if (isset($c['blog_id']) && (int)$c['blog_id'] === (int)$blog['id']) {
+                            $comm_count++;
+                        }
+                    }
+                    $short_url = BASE_URL . 'blogs/detail?id=' . $blog['id'];
+                ?>
                     <tr>
-                        <td colspan="7" class="text-center py-5 text-secondary">
-                            <i class="bi bi-journal-x fs-2 d-block mb-2 text-muted"></i>
-                            No blog posts found. Click "Write New Post" to publish an article.
+                        <td>
+                            <img src="<?php echo e($thumb_img); ?>" alt="<?php echo e($blog['title']); ?> Thumbnail" title="<?php echo e($blog['title']); ?> Thumbnail" class="rounded-3 border border-secondary border-opacity-25" style="width: 44px; height: 44px; object-fit: cover;">
+                        </td>
+                        <td>
+                            <span class="text-secondary small"><?php echo date('M d, Y', strtotime($blog['date'])); ?></span>
+                        </td>
+                        <td>
+                            <span class="fw-bold text-white d-block"><?php echo e($blog['title']); ?></span>
+                        </td>
+                        <td>
+                            <span class="admin-badge badge-accent-subtle"><?php echo e($cat_label); ?></span>
+                        </td>
+                        <td>
+                            <span class="text-secondary small"><i class="bi bi-eye me-1 text-info"></i><?php echo number_format($blog['views'] ?? 0); ?></span>
+                        </td>
+                        <td>
+                            <span class="admin-badge <?php echo $comm_count > 0 ? 'badge-warning-subtle' : 'badge-info-subtle'; ?>">
+                                <i class="bi bi-chat-left-text me-1"></i><?php echo $comm_count; ?>
+                            </span>
+                        </td>
+                        <td class="text-end">
+                            <div class="d-inline-flex gap-2">
+                                <button type="button" class="btn btn-admin-secondary btn-sm p-1.5 text-warning" onclick="copyShortlink('<?php echo $short_url; ?>', this)" title="Copy Shortlink">
+                                    <i class="bi bi-lightning-fill"></i>
+                                </button>
+                                <a href="add.php?edit_id=<?php echo $blog['id']; ?>" class="btn btn-admin-secondary btn-sm p-1.5" title="Edit">
+                                    <i class="bi bi-pencil-square text-info"></i>
+                                </a>
+                                <form method="POST" action="index.php" onsubmit="return confirm('Delete this blog article and media files?');" class="d-inline">
+                                    <input type="hidden" name="csrf_token" value="<?php echo CSRF_TOKEN; ?>">
+                                    <input type="hidden" name="action" value="delete">
+                                    <input type="hidden" name="id" value="<?php echo $blog['id']; ?>">
+                                    <button type="submit" class="btn btn-admin-secondary btn-sm p-1.5 text-danger" title="Delete">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
-                <?php else: ?>
-                    <?php 
-                    $display_blogs = array_reverse($blogs);
-                    foreach ($display_blogs as $blog): 
-                        $cat_label = !empty($blog['category']) ? $blog['category'] : 'Blog';
-                        $thumb_img = !empty($blog['image']) ? BASE_URL . $blog['image'] : BASE_URL . 'assets/images/placeholder.webp';
-                        
-                        $comm_count = 0;
-                        foreach ($comments as $c) {
-                            if (isset($c['blog_id']) && (int)$c['blog_id'] === (int)$blog['id']) {
-                                $comm_count++;
-                            }
-                        }
-                        $short_url = BASE_URL . 'blogs/detail?id=' . $blog['id'];
-                    ?>
-                        <tr>
-                            <td>
-                                <img src="<?php echo e($thumb_img); ?>" alt="<?php echo e($blog['title']); ?> Thumbnail" title="<?php echo e($blog['title']); ?> Thumbnail" class="rounded-3 border border-secondary-subtle" style="width: 48px; height: 48px; object-fit: cover;">
-                            </td>
-                            <td>
-                                <span class="text-secondary small"><?php echo date('M d, Y', strtotime($blog['date'])); ?></span>
-                            </td>
-                            <td>
-                                <span class="fw-bold text-dark"><?php echo e($blog['title']); ?></span>
-                            </td>
-                            <td>
-                                <span class="badge bg-secondary-subtle text-secondary"><?php echo e($cat_label); ?></span>
-                            </td>
-                            <td>
-                                <span class="text-secondary small"><i class="bi bi-eye me-1"></i><?php echo number_format($blog['views'] ?? 0); ?></span>
-                            </td>
-                            <td>
-                                <span class="badge <?php echo $comm_count > 0 ? 'bg-warning text-dark' : 'bg-secondary-subtle text-secondary'; ?>">
-                                    <i class="bi bi-chat-left-text me-1"></i><?php echo $comm_count; ?>
-                                </span>
-                            </td>
-                            <td class="text-end">
-                                <div class="d-inline-flex gap-2">
-                                    <button type="button" class="btn btn-admin-secondary btn-sm p-1.5 text-warning" onclick="copyShortlink('<?php echo $short_url; ?>', this)" title="Copy Shortlink">
-                                        <i class="bi bi-lightning-fill"></i>
-                                    </button>
-                                    <a href="add.php?edit_id=<?php echo $blog['id']; ?>" class="btn btn-admin-secondary btn-sm p-1.5" title="Edit">
-                                        <i class="bi bi-pencil-square text-info"></i>
-                                    </a>
-                                    <form method="POST" action="index.php" onsubmit="return confirm('Delete this blog article and media files?');" class="d-inline">
-                                        <input type="hidden" name="csrf_token" value="<?php echo CSRF_TOKEN; ?>">
-                                        <input type="hidden" name="action" value="delete">
-                                        <input type="hidden" name="id" value="<?php echo $blog['id']; ?>">
-                                        <button type="submit" class="btn btn-admin-secondary btn-sm p-1.5 text-danger" title="Delete">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            </tbody>
-        </table>
-    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </tbody>
+    </table>
 </div>
 
 <?php include __DIR__ . '/../../layout/footer.php'; ?>

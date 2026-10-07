@@ -1,6 +1,6 @@
 <?php
 /**
- * Admin Module: Add / Edit Portfolio Project
+ * Admin Module: Add / Edit Portfolio Project (Glassmorphic Dark Edition)
  */
 $admin_current_page = 'portfolio';
 
@@ -75,8 +75,8 @@ include __DIR__ . '/../../layout/header.php';
         <i class="bi bi-arrow-left me-1"></i> Back
     </a>
     <div>
-        <h1 class="h3 fw-bold text-dark mb-1 font-title"><?php echo $editing_project ? 'Edit Portfolio Project' : 'Add New Portfolio Project'; ?></h1>
-        <p class="text-secondary small mb-0">Publish or update showcase cards in your frontend portfolio grid</p>
+        <h1 class="h3 fw-bold text-white mb-1"><?php echo $editing_project ? 'Edit Portfolio Project' : 'Add New Portfolio Project'; ?></h1>
+        <p class="text-secondary small mb-0">Publish or update showcase cards in your public portfolio gallery</p>
     </div>
 </div>
 
@@ -93,7 +93,7 @@ include __DIR__ . '/../../layout/header.php';
 
     <div class="row g-4">
         <div class="col-lg-8">
-            <div class="card admin-card p-4 p-md-5 mb-4">
+            <div class="admin-card p-4 p-md-5 mb-4">
                 <div class="mb-4">
                     <label class="form-label">Project Title</label>
                     <input type="text" name="title" class="form-control" placeholder="e.g. Vocalease" required value="<?php echo e($editing_project['title'] ?? ''); ?>">
@@ -103,32 +103,32 @@ include __DIR__ . '/../../layout/header.php';
                     <input type="text" name="tagline" class="form-control" placeholder="e.g. Accessible Communication Platform" required value="<?php echo e($editing_project['tagline'] ?? ''); ?>">
                 </div>
                 <div class="mb-4">
-                    <label class="form-label">Live Project or GitHub URL</label>
+                    <label class="form-label">Live Project or GitHub Link</label>
                     <input type="url" name="link" class="form-control" placeholder="https://github.com/..." value="<?php echo e($editing_project['link'] ?? ''); ?>">
                 </div>
                 <div class="mb-0">
-                    <label class="form-label">Bullet Highlights (one per line)</label>
+                    <label class="form-label">Feature Highlights (One per line)</label>
                     <textarea name="bullets" rows="5" class="form-control" placeholder="Enter key feature bullets..." required><?php echo ($editing_project && is_array($editing_project['bullets'])) ? e(implode("\n", $editing_project['bullets'])) : ''; ?></textarea>
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-warning-custom px-5 py-2.5">
+            <button type="submit" class="btn btn-admin-primary px-5 py-2.5">
                 <i class="bi bi-check2-circle me-1"></i> <?php echo $editing_project ? 'Save Project Changes' : 'Publish Project'; ?>
             </button>
         </div>
 
         <div class="col-lg-4">
-            <div class="card admin-card p-4 mb-4">
-                <h3 class="h6 fw-bold text-dark mb-3 font-title"><i class="bi bi-tags-fill text-accent me-2"></i>Technologies & Tags</h3>
+            <div class="admin-card p-4 mb-4">
+                <h3 class="admin-card-title mb-3"><i class="bi bi-tags-fill text-warning"></i> Technologies & Tags</h3>
                 <label class="form-label">Tags (comma-separated)</label>
                 <input type="text" name="tags" class="form-control" placeholder="React.js, Accessibility, CSS3" required value="<?php echo ($editing_project && is_array($editing_project['tags'])) ? e(implode(', ', $editing_project['tags'])) : ''; ?>">
             </div>
 
-            <div class="card admin-card p-4">
-                <h3 class="h6 fw-bold text-dark mb-3 font-title"><i class="bi bi-image-fill text-accent me-2"></i>Cover Image</h3>
+            <div class="admin-card p-4">
+                <h3 class="admin-card-title mb-3"><i class="bi bi-image-fill text-info"></i> Cover Image</h3>
                 <?php if ($editing_project && !empty($editing_project['image'])): ?>
                     <div class="mb-3 text-center">
-                        <img src="<?php echo BASE_URL . e($editing_project['image']); ?>" alt="<?php echo e($editing_project['title']); ?> Cover Preview" title="<?php echo e($editing_project['title']); ?> Cover Preview" class="rounded-3 border border-secondary-subtle w-100" style="max-height: 140px; object-fit: cover;">
+                        <img src="<?php echo BASE_URL . e($editing_project['image']); ?>" alt="<?php echo e($editing_project['title']); ?> Cover Preview" title="<?php echo e($editing_project['title']); ?> Cover Preview" class="rounded-3 border border-secondary border-opacity-25 w-100" style="max-height: 140px; object-fit: cover;">
                     </div>
                 <?php endif; ?>
                 <label class="form-label"><?php echo $editing_project ? 'Replace Image' : 'Upload Image'; ?></label>

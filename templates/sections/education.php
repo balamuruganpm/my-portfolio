@@ -5,10 +5,13 @@
 if (!empty($educationList)) {
 ?>
 <!-- Education Section -->
-<section id="education-section" class="py-4" aria-label="<?php echo e($eduLabel); ?>" data-mascot-speech="<?php echo e($eduSpeech); ?>">
-    <div class="skills-container-card p-4 p-md-5">
-        <h2 class="h3 fw-bold text-dark mb-5 d-flex align-items-center gap-2 font-title">
-            <span class="title-accent-bar"></span> Academic Journey
+<section id="education-section" class="py-2 mb-4" aria-label="<?php echo e($eduLabel); ?>" data-mascot-speech="<?php echo e($eduSpeech); ?>">
+    <div class="cyber-card-frame p-4 p-md-5">
+        <div class="d-flex align-items-center gap-2 mb-3">
+            <span class="hud-mono-tag font-mono text-cyan">// ACADEMIC_CREDENTIALS</span>
+        </div>
+        <h2 class="h3 fw-bold text-white mb-4 font-title">
+            Education &amp; Qualifications
         </h2>
         
         <div class="timeline-wrapper d-flex position-relative">
@@ -18,16 +21,16 @@ if (!empty($educationList)) {
                 $eduIndex = 1;
                 foreach ($educationList as $edu) { 
                 ?>
-                    <div class="timeline-item-block reveal-card" data-index="<?php echo $eduIndex; ?>">
-                        <div class="card-header-timeline d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3 mb-3">
+                    <div class="cyber-timeline-item reveal-card p-3.5 p-md-4 rounded-3" data-index="<?php echo $eduIndex; ?>">
+                        <div class="card-header-timeline d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3 mb-2">
                             <div class="text-start">
-                                <h3 class="h4 fw-bold font-title text-dark mb-1 timeline-degree-heading"><?php echo e($edu['degree']); ?></h3>
-                                <p class="text-secondary m-0 fw-semibold"><?php echo e($edu['institution']); ?></p>
+                                <h3 class="h5 fw-bold font-title text-white mb-1 timeline-degree-heading"><?php echo e($edu['degree']); ?></h3>
+                                <p class="text-cyan m-0 font-mono small"><?php echo e($edu['institution']); ?></p>
                             </div>
                             <div class="d-flex flex-wrap gap-2 align-items-center justify-content-md-end justify-content-start">
-                                <span class="badge badge-accent-light"><?php echo e($edu['duration']); ?></span>
-                                <span class="badge badge-location-light"><?php echo e($edu['location']); ?></span>
-                                <span class="badge bg-secondary-subtle text-secondary small fw-semibold px-2 py-1"><?php echo e($edu['metric']); ?></span>
+                                <span class="badge bg-dark text-cyan border border-secondary border-opacity-50 font-mono small"><?php echo e($edu['duration']); ?></span>
+                                <span class="badge bg-dark text-secondary border border-secondary border-opacity-50 font-mono small"><?php echo e($edu['location']); ?></span>
+                                <span class="badge bg-dark text-white border border-secondary border-opacity-50 font-mono small"><?php echo e($edu['metric']); ?></span>
                             </div>
                         </div>
                     </div>

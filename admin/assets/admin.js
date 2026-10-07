@@ -1,6 +1,6 @@
 /**
- * Balamurugan P M — Admin Console Client Engine (2026 Edition)
- * Includes count-up animations, toast notifications, WYSIWYG editor, and drag-and-drop uploader.
+ * Balamurugan P M — Admin Console Client Engine (Glassmorphic Dark Edition)
+ * Controls ApexCharts analytics, AJAX SPA-like actions, toast alerts, WYSIWYG editor, and table filters.
  */
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -10,6 +10,10 @@ document.addEventListener('DOMContentLoaded', function () {
     initWysiwygEditor();
     initCopyShortlinks();
     initPasswordToggles();
+    initTableLiveFilters();
+    initApexAnalyticsCharts();
+    initAjaxForms();
+    initCommandBar();
 });
 
 /**
@@ -22,7 +26,7 @@ function initCounterAnimations() {
         if (isNaN(target)) return;
 
         let current = 0;
-        const duration = 1000;
+        const duration = 800;
         const increment = target / (duration / 16);
 
         function updateCounter() {
@@ -46,6 +50,7 @@ window.showToast = function (message, type = 'success') {
     if (!container) {
         container = document.createElement('div');
         container.id = 'toast-container';
+        container.className = 'admin-toast-container';
         document.body.appendChild(container);
     }
 
@@ -63,6 +68,173 @@ window.showToast = function (message, type = 'success') {
         setTimeout(() => toast.remove(), 300);
     }, 4000);
 };
+
+/**
+ * ApexCharts Analytics Engine Initialization
+ */
+function initApexAnalyticsCharts() {
+    const trafficChartEl = document.getElementById('apex-traffic-chart');
+    if (trafficChartEl && typeof ApexCharts !== 'undefined') {
+        const trafficOptions = {
+            series: [{
+                name: 'Profile Visits',
+                data: [42, 78, 110, 160, 240, 310, 480, 590, 720, 890, 1050, 1280]
+            }, {
+                name: 'Project Views',
+                data: [20, 45, 60, 95, 140, 190, 310, 400, 510, 640, 780, 950]
+            }],
+            chart: {
+                type: 'area',
+                height: 300,
+                toolbar: { show: false },
+                background: 'transparent',
+                fontFamily: 'Plus Jakarta Sans, sans-serif'
+            },
+            colors: ['#ff5722', '#6366f1'],
+            fill: {
+                type: 'gradient',
+                gradient: {
+                    shadeIntensity: 1,
+                    opacityFrom: 0.45,
+                    opacityTo: 0.05,
+                    stops: [0, 90, 100]
+                }
+            },
+            dataLabels: { enabled: false },
+            stroke: { curve: 'smooth', width: 3 },
+            xaxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                axisBorder: { show: false },
+                axisTicks: { show: false },
+                labels: { style: { colors: '#9ca3af' } }
+            },
+            yaxis: {
+                labels: { style: { colors: '#9ca3af' } }
+            },
+            grid: {
+                borderColor: 'rgba(255, 255, 255, 0.06)',
+                strokeDashArray: 4
+            },
+            tooltip: { theme: 'dark' },
+            legend: {
+                position: 'top',
+                horizontalAlign: 'right',
+                labels: { colors: '#d1d5db' }
+            }
+        };
+        const trafficChart = new ApexCharts(trafficChartEl, trafficOptions);
+        trafficChart.render();
+    }
+
+    const distributionChartEl = document.getElementById('apex-content-distribution');
+    if (distributionChartEl && typeof ApexCharts !== 'undefined') {
+        const distributionOptions = {
+            series: [12, 18, 8, 5],
+            chart: {
+                type: 'donut',
+                height: 280,
+                background: 'transparent',
+                fontFamily: 'Plus Jakarta Sans, sans-serif'
+            },
+            labels: ['Portfolio Projects', 'Blog Articles', 'Technical Skills', 'Certificates'],
+            colors: ['#ff5722', '#6366f1', '#10b981', '#f59e0b'],
+            stroke: { width: 0 },
+            legend: {
+                position: 'bottom',
+                labels: { colors: '#d1d5db' }
+            },
+            dataLabels: { enabled: false },
+            tooltip: { theme: 'dark' }
+        };
+        const distributionChart = new ApexCharts(distributionChartEl, distributionOptions);
+        distributionChart.render();
+    }
+}
+
+/**
+ * Table Search / Live Filtering
+ */
+function initTableLiveFilters() {
+    const searchInputs = document.querySelectorAll('[data-table-search]');
+    searchInputs.forEach(input => {
+        const targetSelector = input.getAttribute('data-table-search');
+        const table = document.querySelector(targetSelector);
+        if (!table) return;
+
+        input.addEventListener('input', function () {
+            const term = this.value.toLowerCase().trim();
+            const rows = table.querySelectorAll('tbody tr');
+
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                if (text.includes(term)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    });
+}
+
+/**
+ * AJAX Form Handling Helper
+ */
+function initAjaxForms() {
+    document.querySelectorAll('form[data-ajax="true"]').forEach(form => {
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn ? submitBtn.innerHTML : '';
+
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status"></span> Saving...';
+            }
+
+            const formData = new FormData(form);
+
+            fetch(form.action || window.location.href, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    window.showToast(data.message || 'Changes saved successfully!', 'success');
+                } else {
+                    window.showToast(data.message || 'Error occurred while saving.', 'danger');
+                }
+            })
+            .catch(() => {
+                // Fallback submit if endpoint does not return JSON
+                form.submit();
+            })
+            .finally(() => {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnText;
+                }
+            });
+        });
+    });
+}
+
+/**
+ * Global Keyboard Command Shortcut (Ctrl+K)
+ */
+function initCommandBar() {
+    document.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+            e.preventDefault();
+            const searchInput = document.querySelector('.search-command-bar input');
+            if (searchInput) searchInput.focus();
+        }
+    });
+}
 
 /**
  * Password Visibility Toggle
@@ -85,7 +257,7 @@ function initPasswordToggles() {
 }
 
 /**
- * Conditional fields for Blog, Article, and Job categories
+ * Conditional fields toggle
  */
 function initCategoryFieldToggle() {
     const categorySelect = document.querySelector('select[name="category"]');
@@ -93,11 +265,9 @@ function initCategoryFieldToggle() {
 
     function toggleFields() {
         const selectedValue = categorySelect.value.toLowerCase();
-
         document.querySelectorAll('.conditional-section').forEach(section => {
             section.classList.remove('show');
         });
-
         const targetSection = document.getElementById(`fields-for-${selectedValue}`);
         if (targetSection) {
             targetSection.classList.add('show');
@@ -115,7 +285,6 @@ function initSeoAutoFill() {
     const titleInput = document.querySelector('input[name="title"]');
     const slugInput = document.getElementById('slug-input');
     const slugPreview = document.getElementById('slug-preview');
-    const seoTitleInput = document.getElementById('seo-title');
 
     if (!titleInput || !slugInput) return;
 
@@ -130,16 +299,11 @@ function initSeoAutoFill() {
 
     titleInput.addEventListener('input', function () {
         const calculatedSlug = slugify(this.value);
-
         if (!slugInput.dataset.userEdited) {
             slugInput.value = calculatedSlug;
             if (slugPreview) {
                 slugPreview.innerText = '/blogs/detail?slug=' + (calculatedSlug || '...');
             }
-        }
-
-        if (seoTitleInput && !seoTitleInput.dataset.userEdited) {
-            seoTitleInput.placeholder = this.value;
         }
     });
 
@@ -150,12 +314,6 @@ function initSeoAutoFill() {
             slugPreview.innerText = '/blogs/detail?slug=' + (cleaned || '...');
         }
     });
-
-    if (seoTitleInput) {
-        seoTitleInput.addEventListener('input', function () {
-            this.dataset.userEdited = "true";
-        });
-    }
 }
 
 /**
@@ -218,7 +376,7 @@ function initWysiwygEditor() {
             
             if (modeIndicator) {
                 modeIndicator.innerText = 'Visual Mode';
-                modeIndicator.className = 'badge bg-light text-secondary border px-2.5 py-1';
+                modeIndicator.className = 'badge bg-dark text-warning border border-warning px-2.5 py-1';
             }
 
             if (editorToolbar) editorToolbar.style.display = 'flex';
