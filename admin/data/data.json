@@ -1,0 +1,227 @@
+{
+    "profile": {
+        "name": "Balamurugan P M",
+        "title": "Frontend Developer",
+        "subtitle": "Frontend Developer | React.js | JavaScript | SPFx | SharePoint Online",
+        "email": "balamuruganedsty@gmail.com",
+        "phone": [
+            "+91 9677804820",
+            "+91 7449191790"
+        ],
+        "location": "Salem, Tamil Nadu, India",
+        "website": "balamurugan.rf.gd",
+        "designfolio": "https://balamurugan-p-m.designfolio.me/",
+        "biography": "Frontend Developer with professional experience building responsive and user-focused web applications using React.js, JavaScript, HTML5, CSS3, PHP, and modern web technologies. I work on frontend development, SharePoint applications, SPFx solutions, and responsive web interfaces with a focus on clean implementation, usability, and performance.",
+        "stats": {
+            "experience": "01+",
+            "totalProjects": "12+",
+            "designProjects": "01",
+            "developmentProjects": "11+"
+        }
+    },
+    "pages": {
+        "home": {
+            "title": "Balamurugan P M | Frontend Developer | React.js | JavaScript | SPFx",
+            "description": "Balamurugan P M is a Frontend Developer specializing in React.js, JavaScript, SharePoint Online, SPFx, HTML5, CSS3, and responsive web development in Tamil Nadu, India."
+        },
+        "about": {
+            "title": "About Me | Balamurugan P M",
+            "description": "Read the biography, timeline of career experience, and education history of Balamurugan P M."
+        },
+        "portfolio": {
+            "title": "Portfolio Works | Balamurugan P M",
+            "description": "View the capabilities, design skills, frontend technologies, and featured projects of Balamurugan P M."
+        },
+        "contact": {
+            "title": "Contact Us | Balamurugan P M",
+            "description": "Get in touch with Balamurugan P M. Send messages or find social links here."
+        }
+    },
+    "accessibility": {
+        "experience": {
+            "label": "Career Ladder Timeline",
+            "speech": "Step by step, climbing my career ladder! \ud83e\uddd7\u200d\u2642\ufe0f"
+        },
+        "skills": {
+            "label": "Skills and Tools Competencies",
+            "speech": "Oh, you see my stack! Go ahead, see my skills & know me more! \ud83d\ude80"
+        },
+        "portfolio": {
+            "label": "Portfolio Works Gallery",
+            "speech": "Check out my creations! Which one is your favorite? \ud83c\udfa8"
+        },
+        "blogs": {
+            "label": "Blogs and Articles Feed",
+            "speech": "I write things too! Take a look at my articles. \u270d\ufe0f"
+        },
+        "contact": {
+            "label": "Contact Information and Form",
+            "speech": "Drop a line! Let's build something awesome together! \u2709\ufe0f"
+        },
+        "education": {
+            "label": "Education History Timeline",
+            "speech": "My academic journey! Knowledge is power! \ud83c\udf93"
+        },
+        "mascot": {
+            "default_speech": "Want to talk? Hire me! \ud83d\udc4b",
+            "bento_speech": "Welcome to my hub! Click any card to explore my work, skills, or drop a line! \ud83d\ude80"
+        }
+    },
+    "roles": [
+        "Frontend Developer",
+        "React.js Developer",
+        "SPFx Developer",
+        "SharePoint Developer"
+    ],
+    "skills": [
+        "HTML5",
+        "CSS3",
+        "JavaScript",
+        "React.js",
+        "Responsive Web Design",
+        "SharePoint",
+        "SharePoint Online",
+        "SharePoint Framework (SPFx)",
+        "PHP",
+        "Bootstrap",
+        "Tailwind CSS",
+        "REST APIs",
+        "JSON",
+        "Git",
+        "GitHub",
+        "Visual Studio Code",
+        "Figma"
+    ],
+    "tools": [
+        "Git",
+        "GitHub",
+        "Visual Studio Code",
+        "Figma"
+    ],
+    "experience": [
+        {
+            "role": "Frontend Developer",
+            "company": "RMM Technologies Private Limited",
+            "duration": "Jul 2025 - Present",
+            "location": "Coimbatore, Tamil Nadu, India",
+            "bullets": [
+                "Develop and maintain responsive web applications using HTML5, CSS3, JavaScript, React.js, and PHP.",
+                "Build responsive frontend interfaces based on project requirements with a focus on usability, accessibility, performance, and maintainability.",
+                "Develop and improve frontend components to support scalable and user-focused web applications.",
+                "Collaborate with development team members to implement frontend solutions and deliver project requirements effectively.",
+                "Work with SharePoint and SharePoint Online to support enterprise web applications and intranet development."
+            ]
+        },
+        {
+            "role": "UI/UX Trainer",
+            "company": "Skillchemy (TechForge Academy Company)",
+            "duration": "2024 - 2025",
+            "location": "Remote, India",
+            "bullets": [
+                "Trained students and professionals in UI design principles, interface design, prototyping, and Figma.",
+                "Guided learners in creating structured and user-focused interface designs based on project requirements.",
+                "Provided practical guidance on design workflows, visual hierarchy, usability, and responsive interface concepts."
+            ]
+        },
+        {
+            "role": "Software Developer",
+            "company": "TechForge",
+            "duration": "2023 - 2025",
+            "location": "Salem, Tamil Nadu, India",
+            "bullets": [
+                "Contributed to the development of responsive and user-focused web interfaces across multiple projects.",
+                "Supported frontend development and web implementation based on project requirements.",
+                "Collaborated with development teams to implement maintainable and scalable web solutions.",
+                "Assisted with frontend development activities, interface implementation, testing, and project support.",
+                "Provided technical guidance and development support to junior interns during project activities."
+            ]
+        }
+    ],
+    "education": [
+        {
+            "degree": "B.E. in Computer Science and Engineering",
+            "institution": "AVS College of Technology",
+            "duration": "2021 - 2025",
+            "location": "Salem, Tamil Nadu, India",
+            "metric": "CGPA - 8.27"
+        },
+        {
+            "degree": "Higher Secondary Certificate (HSC)",
+            "institution": "Jayam Matric Hr Sec School",
+            "duration": "2020 - 2021",
+            "location": "Salem, Tamil Nadu, India",
+            "metric": "Percentage - 85.9%"
+        },
+        {
+            "degree": "Secondary School Leaving Certificate (SSLC)",
+            "institution": "Jayam Matric Hr Sec School",
+            "duration": "2018 - 2019",
+            "location": "Salem, Tamil Nadu, India",
+            "metric": "Percentage - 80.2%"
+        }
+    ],
+    "projects": [
+        {
+            "title": "Vocalease",
+            "tagline": "Accessible Communication Platform",
+            "bullets": [
+                "Designed and developed an accessible communication platform focused on supporting people with disabilities and sign language users.",
+                "Developed interactive frontend components to create a responsive and user-focused communication experience.",
+                "Integrated frontend components with backend services and persistent data storage to support real-time communication.",
+                "Focused on accessibility, responsive layouts, intuitive interactions, and usability across the application."
+            ],
+            "tags": [
+                "React.js",
+                "Accessibility",
+                "Responsive Web Design"
+            ],
+            "image": "assets/images/vocalease.webp",
+            "link": "https://github.com/Balamuruganpm/vocalease"
+        }
+    ],
+    "awards": [
+        {
+            "title": "Web Technology - TNSkills",
+            "description": "Reached State Zone Level (Level 3) in a competitive web technology event."
+        },
+        {
+            "title": "Web Designing",
+            "description": "Secured 1st Place in a web design competition among 20+ participants."
+        }
+    ],
+    "certificates": [
+        {
+            "name": "Figma",
+            "issuer": "GUVI Geek Networks, IITM Research Park"
+        },
+        {
+            "name": "Advanced JavaScript",
+            "issuer": "CareerNinja | LearnTube"
+        },
+        {
+            "name": "Web Development",
+            "issuer": "Great Learning"
+        }
+    ],
+    "socials": {
+        "figma": "https://www.figma.com/@balamuruganpm",
+        "linkedin": "https://www.linkedin.com/in/balamurugan-p-m",
+        "github": "https://github.com/Balamuruganpm",
+        "behance": "https://www.behance.net/balamuruganpm",
+        "dribbble": "https://dribbble.com/balamuruganedsty",
+        "facebook": "https://www.facebook.com/balaselfiebd",
+        "twitter": "https://twitter.com/balaselfie_bd",
+        "instagram": "https://instagram.com/balamurugan.pm",
+        "codepen": "https://codepen.io/balamurugan_pm",
+        "discord": "https://discordapp.com/users/1104967812440670269",
+        "whatsapp": "https://wa.me/+919677804820",
+        "contra": "https://balamuruganpm.contra.com/"
+    },
+    "users": [
+        {
+            "username": "admin",
+            "password": "$2y$10$pKs1TOonbuEURwLfpSFtUO1yVVI3saacNnGX4yWEsPur0/CErWW7O"
+        }
+    ],
+    "views": 1682
+}

@@ -1,0 +1,55 @@
+/* Tablets and small desktops */
+@media (min-width: 768px) {
+    .glow-bg::before {
+        width: 450px;
+        height: 450px;
+        top: -100px;
+        left: -100px;
+    }
+    .glow-bg::after {
+        width: 450px;
+        height: 450px;
+        bottom: -100px;
+        right: -100px;
+    }
+    
+    .glass-card {
+        padding: 2.2rem;
+    }
+    
+    .timeline {
+        padding-left: 2rem;
+    }
+    .timeline-dot {
+        left: -2.4rem;
+        width: 16px;
+        height: 16px;
+    }
+}
+
+/* Medium & Large desktops */
+@media (min-width: 1024px) {
+    .navbar-custom {
+        padding: 1rem 3rem;
+    }
+    
+    .glass-card {
+        padding: 3rem;
+    }
+    
+    .stat-item h2 {
+        font-size: 2.8rem;
+    }
+}
+
+/* Large displays */
+@media (min-width: 1200px) {
+    .glow-bg::before {
+        width: 550px;
+        height: 550px;
+    }
+    .glow-bg::after {
+        width: 550px;
+        height: 550px;
+    }
+}

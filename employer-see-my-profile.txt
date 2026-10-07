@@ -1,0 +1,70 @@
+======================================================================
+RECRUITER & EMPLOYER PORTAL | PROFILE: BALAMURUGAN P M
+======================================================================
+
+Dear Hiring Manager / Recruiter,
+
+Thank you for visiting my portfolio. Below is a structured, resume-ready summary of my background, skills, and projects, designed for quick screening, ATS parsers, and direct inquiries.
+
+----------------------------------------------------------------------
+CONTACT DETAILS & CHANNELS
+----------------------------------------------------------------------
+Name: Balamurugan P M
+Primary Role: Frontend Developer & UI/UX Designer
+Email: balamuruganedsty@gmail.com
+Phone: +91 9677804820
+Location: Salem, Tamil Nadu, India (Open to relocation to Salem, Coimbatore & Remote opportunities)
+Portfolio: http://balamurugan.rf.gd
+LinkedIn: https://www.linkedin.com/in/balamurugan-p-m
+GitHub: https://github.com/Balamuruganpm
+Figma Design Profile: https://www.figma.com/@balamuruganpm
+
+----------------------------------------------------------------------
+PROFESSIONAL SUMMARY
+----------------------------------------------------------------------
+Frontend Developer and UI/UX Designer with professional experience developing responsive, accessible, and user-centered web applications. Expert at translating project requirements and visual Figma designs into clean, modular, and maintainable frontend solutions. Experienced with HTML5, CSS3, JavaScript, React.js, PHP, and Microsoft enterprise technologies, including SharePoint, SharePoint Online, and SharePoint Framework (SPFx). Strongly focused on usability, access guidelines (ARIA), semantic HTML, page performance, and responsive frontend implementation.
+
+- Experience: 1+ Years Professional Track
+- Key Strengths: React.js, JavaScript, HTML5, CSS3, Responsive Web Design, SharePoint SPFx, Figma.
+
+----------------------------------------------------------------------
+WORK EXPERIENCE SUMMARY
+----------------------------------------------------------------------
+1. Frontend Developer | RMM Technologies Private Limited (July 2025 - Present) | Coimbatore, Tamil Nadu, India
+   - Develop and maintain responsive web applications using HTML5, CSS3, JavaScript, React.js, and PHP.
+   - Translate project requirements into responsive, user-focused frontend interfaces.
+   - Collaborate with development team members to implement maintainable and scalable web solutions.
+   - Build and improve frontend components while considering accessibility, performance, and responsive layouts.
+   - Work with SharePoint and SharePoint Online to support enterprise web applications and intranet development.
+   
+2. UI/UX Trainer | Skillchemy (TechForge Academy Company) (2024 - 2025) | Remote, India
+   - Trained students and professionals in UI/UX design principles, interface design, prototyping, and Figma.
+   - Guided learners in translating ideas and requirements into structured, user-focused interface designs.
+   - Provided practical guidance on design workflows, visual hierarchy, usability, and responsive interface concepts.
+   
+3. Software Developer | TechForge (2023 - 2025) | Salem, Tamil Nadu, India
+   - Contributed to the design and development of responsive web interfaces across multiple projects.
+   - Supported frontend development and web implementation based on project requirements.
+   - Collaborated with development teams to build maintainable and user-focused web solutions.
+   - Provided technical guidance and development support to junior interns during project activities.
+
+----------------------------------------------------------------------
+CORE PROJECTS
+----------------------------------------------------------------------
+- Vocalease (Accessible Communication Platform): 
+  Designed and developed an accessible communication platform focused on supporting people with disabilities and sign language users. Engineered a real-time web interface featuring persistent storage, accessible user interactions, intuitive navigation, and a seamless communication experience built on React, WebSockets, and UI/UX design systems.
+
+----------------------------------------------------------------------
+EDUCATION & CREDENTIALS
+----------------------------------------------------------------------
+- B.E. Computer Science and Engineering | AVS College of Technology, Salem, Tamil Nadu, India (CGPA: 8.27 / 10)
+- Higher Secondary Certificate (HSC) | Jayam Matric Hr Sec School, Salem, India (85.9%)
+- Secondary School Leaving Certificate (SSLC) | Jayam Matric Hr Sec School, Salem, India (80.2%)
+- State finalist (Level 3) in Web Technology (TNSkills Competitive Events)
+- 1st Place Winner in regional Web Designing Event among 30+ participants.
+
+======================================================================
+* Let's schedule a call! You can reach me directly via:
+  - Phone: +91 9677804820
+  - WhatsApp: https://wa.me/+919677804820
+======================================================================

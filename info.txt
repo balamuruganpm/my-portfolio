@@ -1,0 +1,94 @@
+==================================================
+Balamurugan P M - Portfolio Information
+==================================================
+
+Contact Information
+--------------------------------------------------
+Name: Balamurugan P M
+Title: Frontend Developer - React.js - JavaScript - SPFx - SharePoint Online
+Email: balamuruganedsty@gmail.com
+Phone: +91 9677804820
+Location: Salem, Tamil Nadu, India (Available for roles in Salem, Coimbatore & Remote/across India)
+Personal Site: balamurugan.rf.gd
+DesignFolio: https://balamurugan-p-m.designfolio.me/
+Contra: https://balamuruganpm.contra.com/
+
+Professional Summary
+--------------------------------------------------
+Frontend Developer with professional experience building responsive and user-focused web applications using React.js, JavaScript, HTML5, CSS3, PHP, and modern web technologies. I work on frontend development, SharePoint applications, SPFx solutions, and responsive web interfaces with a focus on clean implementation, usability, and performance.
+
+What I Do / Role
+--------------------------------------------------
+- Frontend Development - React.js - JavaScript - SPFx - SharePoint Online
+
+Key Stats
+--------------------------------------------------
+- 1+ Years of Experience
+- 12+ Total Projects
+  * 01 Design Project
+  * 11+ Development Projects
+
+Skills
+--------------------------------------------------
+- Frontend: HTML5, CSS3, JavaScript, React.js, Responsive Web Design
+- Microsoft Technologies: SharePoint, SharePoint Online, SharePoint Framework (SPFx)
+- Web Development: PHP, Bootstrap, Tailwind CSS, REST APIs, JSON
+- Development Tools: Git, GitHub, Visual Studio Code
+- UI and Design: Figma, UI Design, Prototyping, Responsive Interface Design
+
+Professional Experience
+--------------------------------------------------
+- Frontend Developer @ RMM Technologies Private Limited (Jul 2025 - Present) | Coimbatore, Tamil Nadu, India
+  * Develop and maintain responsive web applications using HTML5, CSS3, JavaScript, React.js, and PHP.
+  * Translate project requirements into responsive, user-focused frontend interfaces.
+  * Collaborate with development team members to implement maintainable and scalable web solutions.
+  * Build and improve frontend components while considering accessibility, performance, and responsive layouts.
+  * Work with SharePoint and SharePoint Online to support enterprise web applications and intranet development.
+
+- UI/UX Trainer @ Skillchemy (TechForge Academy Company) (2024 - 2025) | Remote, India
+  * Trained students and professionals in UI design principles, interface design, prototyping, and Figma.
+  * Guided learners in creating structured and user-focused interface designs based on project requirements.
+  * Provided practical guidance on design workflows, visual hierarchy, usability, and responsive interface concepts.
+
+- Software Developer @ TechForge (2023 - 2025) | Salem, Tamil Nadu, India
+  * Contributed to the development of responsive and user-focused web interfaces across multiple projects.
+  * Supported frontend development and web implementation based on project requirements.
+  * Collaborated with development teams to implement maintainable and scalable web solutions.
+  * Assisted with frontend development activities, interface implementation, testing, and project support.
+  * Provided technical guidance and development support to junior interns during project activities.
+
+Projects
+--------------------------------------------------
+- Vocalease (Accessible Communication Platform)
+  * Designed and developed an accessible communication platform focused on supporting people with disabilities and sign language users.
+  * Developed interactive frontend components to create a responsive and user-focused communication experience.
+  * Integrated frontend components with backend services and persistent data storage to support real-time communication.
+  * Focused on accessibility, responsive layouts, intuitive interactions, and usability across the application.
+
+Education
+--------------------------------------------------
+- B.E. in Computer Science and Engineering (2021 - 2025)
+  AVS College of Technology | Salem, Tamil Nadu, India
+  CGPA: 8.27
+  
+- Higher Secondary Certificate - HSC (2020 - 2021)
+  Jayam Matric Hr Sec School | Salem, India
+  Percentage: 85.9%
+  
+- Secondary School Leaving Certificate - SSLC (2018 - 2019)
+  Jayam Matric Hr Sec School | Salem, India
+  Percentage: 80.2%
+
+Awards
+--------------------------------------------------
+- Web Technology - TNSkills
+  * Reached State Zone Level (Level 3) in a competitive web technology event.
+- Web Designing
+  * Secured 1st Place in a web design competition among 20+ participants.
+
+Certificates
+--------------------------------------------------
+- Figma: GUVI Geek Networks, IITM Research Park
+- Advanced JavaScript: CareerNinja | LearnTube
+- Web Development: Great Learning
+==================================================

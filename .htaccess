@@ -1,0 +1,76 @@
+# ============================================================
+# Cache Control & Expiration (Performance & Lighthouse)
+# ============================================================
+<IfModule mod_headers.c>
+  <FilesMatch "\.(ico|pdf|jpg|jpeg|png|gif|webp|avif|js|css|svg|woff|woff2)$">
+    Header set Cache-Control "max-age=31536000, public, immutable"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # Images
+  ExpiresByType image/jpg "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/avif "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+
+  # Web Fonts
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType font/woff "access plus 1 year"
+  ExpiresByType font/ttf "access plus 1 year"
+  ExpiresByType application/font-woff2 "access plus 1 year"
+
+  # CSS & JS
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType text/javascript "access plus 1 year"
+
+  # HTML
+  ExpiresByType text/html "access plus 600 seconds"
+</IfModule>
+
+# ============================================================
+# Compression (GZIP & Deflate)
+# ============================================================
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript application/x-javascript application/json image/svg+xml font/woff2
+</IfModule>
+
+# ============================================================
+# Security & Protection for Core System Directories
+# ============================================================
+<IfModule mod_authz_core.c>
+  <FilesMatch "^(config|includes|admin/data)/.*$">
+    Require all denied
+  </FilesMatch>
+</IfModule>
+
+# ============================================================
+# Rewrite Engine
+# ============================================================
+Options -MultiViews
+RewriteEngine On
+
+# Enforce HTTPS on Production (exclude local test environments)
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP_HOST} !^(localhost|127\.0\.0\.1|.*\.local|.*\.test)$ [NC]
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+# ============================================================
+# Front-Controller & Clean URL Routing
+# ============================================================
+# Allow existing physical files directly (css, js, images, pdfs, robots.txt, manifest)
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+
+# Allow admin directory requests directly
+RewriteCond %{REQUEST_URI} ^.*/admin(/.*)?$ [NC]
+RewriteRule ^ - [L]
+
+# Route all virtual page URLs through root index.php
+RewriteRule ^(.*)$ index.php [QSA,L]

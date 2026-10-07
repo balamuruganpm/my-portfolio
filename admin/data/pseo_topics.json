@@ -1,0 +1,126 @@
+[
+    {
+        "slug": "react-js",
+        "name": "React.js & Next.js Development",
+        "category": "React.js",
+        "headline": "React 19 & Next.js Architecture Solutions",
+        "description": "In-depth technical guides, React 19 compiler optimization, Server Actions, streaming SSR, and Next.js App Router design patterns for scalable web apps.",
+        "keywords": ["React 19", "Next.js", "Server Components", "React Compiler", "Frontend Architecture", "Web Performance"],
+        "icon": "bi-react",
+        "faqs": [
+            {
+                "q": "What are the main performance benefits of React 19?",
+                "a": "React 19 introduces the automatic React Compiler (React Forget), removing manual useMemo and useCallback hooks while enabling streamed HTML boundaries and Server Actions for single-digit millisecond latency."
+            },
+            {
+                "q": "How does Next.js App Router improve SEO?",
+                "a": "Next.js App Router renders Server Components by default, sending lightweight HTML directly to search crawlers without client-side rendering delays."
+            }
+        ]
+    },
+    {
+        "slug": "javascript",
+        "name": "Modern JavaScript (ES2026)",
+        "category": "JavaScript",
+        "headline": "ECMAScript 2026 & Clean Architecture Patterns",
+        "description": "Master state-of-the-art ES2026 features including explicit resource management, array grouping, microtask event loops, and clean modular code standards.",
+        "keywords": ["JavaScript ES2026", "Clean Code", "SOLID Principles", "Async JavaScript", "Design Patterns"],
+        "icon": "bi-code-slash",
+        "faqs": [
+            {
+                "q": "What is explicit resource management in ES2026?",
+                "a": "ES2026 introduces the top-level 'using' statement for automatic resource cleanup of event listeners, WebSockets, and database cursors upon exiting block scope."
+            }
+        ]
+    },
+    {
+        "slug": "spfx",
+        "name": "SharePoint Framework (SPFx)",
+        "category": "SPFx",
+        "headline": "Enterprise SPFx & Microsoft 365 Web Parts",
+        "description": "Comprehensive SPFx development tutorials covering PnP JS, React web parts, application customizers, Teams tabs, and Azure Entra ID security integration.",
+        "keywords": ["SPFx", "SharePoint Framework", "Microsoft 365", "PnP JS", "React SharePoint", "Microsoft Teams"],
+        "icon": "bi-microsoft",
+        "faqs": [
+            {
+                "q": "How do you secure SPFx web parts with Microsoft Entra ID?",
+                "a": "SPFx leverages AadHttpClient and MSGraphClient to acquire OAuth tokens transparently from modern SharePoint sessions."
+            }
+        ]
+    },
+    {
+        "slug": "web-performance",
+        "name": "Web Performance & Core Web Vitals",
+        "category": "Web Performance",
+        "headline": "Crushing INP & Sub-1.2s LCP Score Guidelines",
+        "description": "Actionable engineering strategies for eliminating Interaction to Next Paint (INP) latency, zero CLS layouts, and 100/100 Lighthouse performance scores.",
+        "keywords": ["Core Web Vitals", "INP", "LCP", "PageSpeed", "Web Vitals", "Lighthouse"],
+        "icon": "bi-speedometer",
+        "faqs": [
+            {
+                "q": "How do you optimize Interaction to Next Paint (INP)?",
+                "a": "Break long tasks into microtasks using scheduler.yield() or offload heavy UI calculations to web workers to keep main threads responsive."
+            }
+        ]
+    },
+    {
+        "slug": "ai-machine-learning",
+        "name": "AI & Gemini Model Integration",
+        "category": "AI & Machine Learning",
+        "headline": "Full-Stack Generative AI Integration",
+        "description": "Architecting low-latency AI applications using Google Gemini API, streaming Server-Sent Events, function calling, and structured JSON schemas.",
+        "keywords": ["Gemini AI", "LLM", "Generative AI", "AI Web Apps", "Function Calling", "Python AI"],
+        "icon": "bi-cpu-fill",
+        "faqs": [
+            {
+                "q": "How do you stream LLM outputs to frontend UIs?",
+                "a": "Use Server-Sent Events (SSE) or Fetch API readable streams to render text tokens progressively as they generate."
+            }
+        ]
+    },
+    {
+        "slug": "css-ui",
+        "name": "CSS Subgrid & Modern Layouts",
+        "category": "CSS & UI",
+        "headline": "CSS Subgrid, Container Queries & Design Systems",
+        "description": "Pixel-perfect multi-column layouts using CSS Subgrid, container query breakpoints, fluid clamp() typography, and accessible UI token design.",
+        "keywords": ["CSS Subgrid", "CSS Grid", "Container Queries", "Responsive Web Design", "UI Design"],
+        "icon": "bi-layout-grid-fill",
+        "faqs": [
+            {
+                "q": "Why use CSS Subgrid over regular CSS Grid?",
+                "a": "CSS Subgrid enables nested child elements to align directly to parent track lines, ensuring card titles and footers stay perfectly aligned across rows."
+            }
+        ]
+    },
+    {
+        "slug": "typescript",
+        "name": "TypeScript 5.5 Enterprise",
+        "category": "TypeScript",
+        "headline": "Type Safety & Generics at Enterprise Scale",
+        "description": "Leveraging TypeScript 5.5 inferred type predicates, isolated declarations, template literal types, and strict null check architecture.",
+        "keywords": ["TypeScript 5.5", "Type Predicates", "Generics", "Enterprise TypeScript", "Node.js"],
+        "icon": "bi-shield-check",
+        "faqs": [
+            {
+                "q": "What is type predicate inference in TypeScript 5.5?",
+                "a": "TypeScript 5.5 automatically infers return type predicates for functions returning booleans, eliminating manual 'x is Type' assertions."
+            }
+        ]
+    },
+    {
+        "slug": "accessibility-ux",
+        "name": "Web Accessibility (WCAG 2.2)",
+        "category": "Accessibility & UX",
+        "headline": "WCAG 2.2 AA Compliance & Accessible UI Systems",
+        "description": "Building universally accessible web interfaces with screen reader ARIA roles, focus traps, keyboard navigation, and high contrast design standards.",
+        "keywords": ["WCAG 2.2", "Web Accessibility", "a11y", "ARIA", "Inclusive Design"],
+        "icon": "bi-universal-access",
+        "faqs": [
+            {
+                "q": "What is the minimum contrast ratio for WCAG 2.2 AA text?",
+                "a": "WCAG 2.2 AA requires a minimum 4.5:1 contrast ratio for normal body text and 3:1 for large typography and essential UI graphics."
+            }
+        ]
+    }
+]

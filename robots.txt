@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Exclude internal configuration, includes, and admin
+Disallow: /admin/
+Disallow: /config/
+Disallow: /includes/
+Disallow: /templates/
+Disallow: /pages/
+
+Sitemap: https://balamuruganpm.unaux.com/sitemap.xml
+Sitemap: https://balamuruganpm.unaux.com/news-sitemap.xml
+Sitemap: https://balamuruganpm.unaux.com/rss.xml
