@@ -75,20 +75,4 @@ $meta_description = !empty($pageMetaDescription) ? $pageMetaDescription : (!empt
 
     <!-- Structured JSON-LD Schema -->
     <?php include_once BASE_PATH . 'templates/seo/schema.php'; ?>
-
-    <?php 
-    // Render Adcash AutoTag scripts only if ads are enabled in Admin Profile Settings AND user is on Game or Blog pages
-    $_reqUri = strtolower($_SERVER['REQUEST_URI'] ?? '');
-    $_isGamePage = (isset($thisPage) && $thisPage === 'Arcade') || strpos($_reqUri, '/game') !== false || strpos($_reqUri, '/arcade') !== false;
-    $_isBlogPage = (isset($thisPage) && ($thisPage === 'Blogs' || $thisPage === 'Category')) || strpos($_reqUri, '/blog') !== false || strpos($_reqUri, '/category') !== false;
-    if (!empty($adsEnabled) && ($_isGamePage || $_isBlogPage)): 
-    ?>
-    <!-- Adcash AutoTag Scripts (Game & Blog pages only) -->
-    <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
-    <script type="text/javascript">
-        aclib.runAutoTag({
-            zoneId: '6vzmj1asna',
-        });
-    </script>
-    <?php endif; ?>
 </head>

@@ -32,7 +32,7 @@ $techBlogs = array_slice($allBlogs, 0, 4);
         <!-- Tech News Grid -->
         <div class="row g-4">
             <?php foreach ($techBlogs as $index => $blog): 
-                $blogUrl = !empty($blog['slug']) ? (BASE_URL . 'blogs/detail?slug=' . $blog['slug']) : (BASE_URL . 'blogs/detail?id=' . $blog['id']);
+                $blogUrl = !empty($blog['slug']) ? (BASE_URL . 'blogs/' . $blog['slug']) : (BASE_URL . 'blogs/detail?id=' . $blog['id']);
                 $thumb = !empty($blog['image']) ? (BASE_URL . $blog['image']) : (BASE_URL . 'assets/images/balamurugan-pm.webp');
                 $category = !empty($blog['category']) ? $blog['category'] : 'Tech News';
                 $date = !empty($blog['date']) ? date('M d, Y', strtotime($blog['date'])) : date('M d, Y');

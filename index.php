@@ -36,15 +36,19 @@ $router->get('/portfolio.php', [PortfolioController::class, 'index']);
 // Blog Routes (Clean URL & Slug support)
 $router->get('/blogs', [BlogController::class, 'index']);
 $router->get('/blogs.php', [BlogController::class, 'index']);
-$router->get('/blogs/{slug}', [BlogController::class, 'detail']);
-$router->get('/category/{category}', [BlogController::class, 'category']);
-$router->get('/category', [BlogController::class, 'category']);
 $router->get('/blogs/detail', [BlogController::class, 'detail']);
+$router->get('/blogs/detail.php', [BlogController::class, 'detail']);
 $router->get('/blog-detail', [BlogController::class, 'detail']);
 $router->get('/blog-detail.php', [BlogController::class, 'detail']);
-$router->post('/blogs/{slug}', [BlogController::class, 'detail']);
+$router->get('/category/{category}', [BlogController::class, 'category']);
+$router->get('/category', [BlogController::class, 'category']);
+$router->get('/blogs/{slug}', [BlogController::class, 'detail']);
+
 $router->post('/blogs/detail', [BlogController::class, 'detail']);
+$router->post('/blogs/detail.php', [BlogController::class, 'detail']);
+$router->post('/blog-detail', [BlogController::class, 'detail']);
 $router->post('/blog-detail.php', [BlogController::class, 'detail']);
+$router->post('/blogs/{slug}', [BlogController::class, 'detail']);
 
 // Contact Routes
 $router->get('/contact', [ContactController::class, 'index']);

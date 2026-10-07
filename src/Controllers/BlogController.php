@@ -58,12 +58,20 @@ class BlogController extends Controller
      */
     public function detail(string $slug = ''): void
     {
-        if (empty($slug)) {
+        if (empty($slug) || $slug === 'detail' || $slug === 'detail.php') {
             $slug = $_GET['slug'] ?? '';
         }
         $id = (int)($_GET['id'] ?? 0);
 
-        $post = $this->blogService->findBlog($slug, $id);
+        // If no slug was found but id is present or slug is numeric
+        if (empty($slug) && is_numeric($id) && $id > 0) {
+            $post = $this->blogService->findBlog('', $id);
+        } else {
+            $post = $this->blogService->findBlog($slug, $id);
+            if (!$post && is_numeric($slug)) {
+                $post = $this->blogService->findBlog('', (int)$slug);
+            }
+        }
 
         if (!$post) {
             $this->redirect(BASE_URL . 'blogs');

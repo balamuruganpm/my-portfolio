@@ -14,10 +14,6 @@ if (!empty($blogs)) {
 <!-- Blogs Section -->
 <section id="blogs-section" class="py-4" aria-label="<?php echo e($blogsLabel); ?>" data-mascot-speech="<?php echo e($blogsSpeech); ?>">
     <?php if ($adsEnabled): ?>
-        <!-- Background Scripts -->
-        <script src="https://pl31286313.profitableratecpmnetwork.com/e2/a9/87/e2a98719b38240fb664d2d652dee4b37.js"></script>
-        <script src="https://pl31286316.profitableratecpmnetwork.com/42/a7/fe/42a7fe54f131cdff87ac27996fb1a2dc.js"></script>
-
         <!-- Top Leaderboard Ad (728x90) -->
         <div class="my-3 text-center overflow-auto">
             <script type="text/javascript">
@@ -77,7 +73,7 @@ if (!empty($blogs)) {
                 $dateFormatted = date('M d, Y', strtotime($post['date']));
                 $category = !empty($post['category']) ? $post['category'] : 'Blog';
                 $tags = !empty($post['tags']) ? $post['tags'] : [];
-                $detailUrl = !empty($post['slug']) ? (BASE_URL . 'blogs/detail?slug=' . $post['slug']) : (BASE_URL . 'blogs/detail?id=' . $post['id']);
+                $detailUrl = !empty($post['slug']) ? (BASE_URL . 'blogs/' . $post['slug']) : (BASE_URL . 'blogs/detail?id=' . $post['id']);
             ?>
                 <div class="col-md-6 col-lg-4 col-12 blog-card-col" data-category="<?php echo e(strtolower($category)); ?>">
                     <article class="cyber-news-card h-100 p-3 d-flex flex-column justify-content-between">

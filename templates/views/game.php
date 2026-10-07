@@ -6,10 +6,6 @@
 <div class="container py-4">
 <section class="py-2" id="arcade-game-hub" aria-label="Developer Arcade and MiniCraft">
     <?php if ($adsEnabled): ?>
-        <!-- Background Scripts -->
-        <script src="https://pl31286313.profitableratecpmnetwork.com/e2/a9/87/e2a98719b38240fb664d2d652dee4b37.js"></script>
-        <script src="https://pl31286316.profitableratecpmnetwork.com/42/a7/fe/42a7fe54f131cdff87ac27996fb1a2dc.js"></script>
-
         <!-- Top Leaderboard Ad (728x90) -->
         <div class="my-3 text-center overflow-auto">
             <script type="text/javascript">
