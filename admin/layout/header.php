@@ -13,17 +13,23 @@ $admin_current_page = $admin_current_page ?? 'dashboard';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo isset($page_title) ? e($page_title) : 'Admin Console'; ?> | <?php echo e($profileName); ?></title>
     
-    <!-- Google Fonts -->
+    <!-- Preconnect & DNS-Prefetch for Fast CDN Asset Loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    
+    <!-- Google Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap">
     
     <!-- Bootstrap CSS & Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     
-    <!-- ApexCharts CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.45.1/dist/apexcharts.min.js"></script>
+    <!-- ApexCharts CDN (Deferred to prevent render blocking) -->
+    <?php if ($admin_current_page === 'dashboard'): ?>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.45.1/dist/apexcharts.min.js" defer></script>
+    <?php endif; ?>
     
     <!-- Admin Console Glassmorphic Dark Stylesheet -->
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>admin/assets/admin.css?v=<?php echo CSS_VERSION; ?>">

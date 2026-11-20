@@ -132,11 +132,19 @@ class SeoController extends Controller
         $profile = $this->profileService->getProfile();
         $skills = $this->profileService->getSkills();
         $experience = $this->profileService->getExperience();
+        $blogs = $this->blogService->getPublishedBlogs();
 
-        echo "# " . $profile['name'] . " — LLM Summary & Developer Dossier\n\n";
-        echo "> " . $profile['subtitle'] . "\n\n";
+        echo "# " . ($profile['name'] ?? 'Balamurugan P M') . " — LLM Context & Developer Dossier\n\n";
+        echo "> " . ($profile['subtitle'] ?? 'Frontend Developer & Enterprise SharePoint SPFx Specialist') . "\n\n";
         echo "## Executive Biography\n";
-        echo $profile['biography'] . "\n\n";
+        echo ($profile['biography'] ?? '') . "\n\n";
+
+        echo "## Contact Coordinates\n";
+        echo "- Email: " . ($profile['email'] ?? 'balamuruganedsty@gmail.com') . "\n";
+        echo "- Website: " . SITE_URL . "\n";
+        echo "- Location: " . ($profile['location'] ?? 'Tamil Nadu, India') . "\n";
+        echo "- GitHub: https://github.com/balamurugan1207\n";
+        echo "- LinkedIn: https://linkedin.com/in/balamurugan-pm\n\n";
 
         echo "## Core Technical Competencies\n";
         foreach ($skills as $skill) {
@@ -146,6 +154,12 @@ class SeoController extends Controller
         echo "\n## Work Experience\n";
         foreach ($experience as $exp) {
             echo "- **" . ($exp['role'] ?? '') . "** at " . ($exp['company'] ?? '') . " (" . ($exp['period'] ?? '') . ")\n";
+        }
+
+        echo "\n## Published Technical Articles & Engineering Guides\n";
+        foreach ($blogs as $b) {
+            $slug = $b['slug'] ?? '';
+            echo "- [" . ($b['title'] ?? '') . "](" . SITE_URL . "blogs/" . urlencode($slug) . ") — " . ($b['snippet'] ?? '') . "\n";
         }
         exit;
     }

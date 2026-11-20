@@ -36,7 +36,7 @@
 
                 <!-- WhatsApp / Phone Card -->
                 <?php if (!empty($profilePhone) && is_array($profilePhone)): ?>
-                    <div class="cyber-contact-card p-4 d-flex align-items-center gap-3">
+                    <div class="cyber-contact-card gap-2 p-4 d-flex align-items-center gap-3">
                         <div class="cyber-contact-icon text-success flex-shrink-0">
                             <i class="bi bi-whatsapp fs-4" aria-hidden="true"></i>
                         </div>

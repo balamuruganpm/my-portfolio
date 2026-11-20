@@ -1,170 +1,577 @@
-/* ==========================================================================
-   BALA.DEV // RESPONSIVE & MOBILE POLISH STYLES (2026 EDITION)
-   ========================================================================== */
+/**
+ * Responsive OS Adaptations (4K Ultra-Wide down to Smartwatch Level)
+ * Enforces Strict 100vw x 100vh Single-Viewport Constraint
+ */
 
-/* ─── Mobile Devices (< 576px) ─── */
-@media (max-width: 575.98px) {
-    body {
+/* ============================================================ */
+/* 4K ULTRA-WIDE & LARGE MONITORS (>= 2560px)                   */
+/* ============================================================ */
+@media (min-width: 2560px) {
+    .os-dossier-dialog {
+        max-width: 1440px;
+    }
+    
+    .dossier-card {
+        padding: 30px;
+        border-radius: 24px;
+    }
+    
+    .dossier-card-title {
+        font-size: 28px;
+    }
+    
+    .dossier-card-text p {
+        font-size: 17px;
+        line-height: 1.7;
+    }
+    
+    .dock-icon-wrapper {
+        width: 64px;
+        height: 64px;
+    }
+
+    .dock-img {
+        width: 100%;
+        height: 100%;
+    }
+    
+    .dock-label {
         font-size: 14px;
     }
-
-    .container {
-        padding-left: 1rem;
-        padding-right: 1rem;
+    
+    .dock-inner-container {
+        padding: 10px 32px;
+        gap: 24px;
     }
 
-    /* Header & Brand */
-    .brand-name {
-        font-size: 1rem;
-    }
-
-    .status-indicator-pill {
-        display: none !important;
-    }
-
-    /* Hero Center Stage */
-    .avatar-orbital-stage {
-        width: 170px;
-        height: 170px;
-        margin-bottom: 1.5rem !important;
-    }
-
-    .ring-outer {
-        width: 170px;
-        height: 170px;
-    }
-
-    .ring-mid {
+    /* Desktop Home Icons on 4K */
+    .icon-media-wrapper {
         width: 140px;
         height: 140px;
     }
 
-    .ring-inner {
-        width: 115px;
-        height: 115px;
+    .desktop-icon-label {
+        font-size: 22px;
+        margin-top: 10px;
     }
 
-    .avatar-core-frame {
-        width: 95px;
-        height: 95px;
+    .os-desktop-col {
+        gap: 50px;
     }
 
-    .floating-cyber-pill {
-        display: none !important;
+    .hero-spiderman img {
+        width: 180px;
     }
 
-    .hero-giant-title {
-        font-size: 2rem !important;
+    .hero-batman img {
+        width: 200px;
     }
 
-    .hero-lead-text {
-        font-size: 0.92rem !important;
+    .os-desktop-watermark {
+        font-size: 30px;
+        bottom: 40px;
+    }
+}
+
+/* ============================================================ */
+/* TABLETS & SMALL LAPTOPS (769px to 1024px)                    */
+/* ============================================================ */
+@media (max-width: 1024px) {
+    .os-dossier-dialog {
+        max-width: 95vw;
     }
 
-    .hero-actions-dock {
-        flex-direction: column;
+    .os-desktop-icons-layer {
+        padding: clamp(20px, 5vh, 40px) clamp(12px, 2.5vw, 24px);
+    }
+
+    .icon-media-wrapper {
+        width: 64px;
+        height: 64px;
+    }
+
+    .desktop-icon-label {
+        font-size: 12px;
+    }
+
+    .os-desktop-col {
+        gap: 24px;
+    }
+
+    .os-central-hero {
+        width: min(420px, calc(100vw - 160px)) !important;
+        max-width: calc(100vw - 160px) !important;
+    }
+}
+
+/* ============================================================ */
+/* MOBILE PHONES (320px to 768px) - Zero Collision Architecture  */
+/* ============================================================ */
+@media (max-width: 768px) {
+    
+    /* Top HUD Bar on Mobile */
+    .os-hud-bar {
+        padding: 0 10px;
+        top: 8px;
+    }
+
+    .os-hud-badge {
+        padding: 3px 8px;
+        font-size: 10px;
+        gap: 4px;
+    }
+
+    /* Central Artistic Typography on Mobile (Calculated to NEVER overlap icons) */
+    .os-central-hero {
+        width: min(290px, calc(100vw - 110px)) !important;
+        max-width: calc(100vw - 110px) !important;
+    }
+
+    .hero-oval-pill {
+        padding: 3px 12px;
+        margin-bottom: 5px;
+    }
+
+    .oval-name {
+        font-size: 10px;
+        letter-spacing: 0.16em;
+    }
+
+    .title-sans {
+        font-size: clamp(2rem, 7.5vw, 2.9rem);
+    }
+
+    .title-script {
+        font-size: clamp(2.4rem, 8.8vw, 3.5rem);
+    }
+
+    .hero-year-row {
+        gap: 6px;
+        margin-bottom: 6px;
+    }
+
+    .year-num {
+        font-size: clamp(1.8rem, 6.2vw, 2.5rem);
+    }
+
+    .hero-selection-box {
+        padding: 3px 6px;
+        margin: 0 4px;
+    }
+
+    .sel-avatar-img {
+        width: clamp(42px, 11vw, 56px);
+        height: clamp(42px, 11vw, 56px);
+    }
+
+    .sel-avatar-greeting {
+        font-size: 10px;
+        bottom: -13px;
+        padding: 0 6px;
+    }
+
+    .hero-typing-wrapper {
+        padding: 3px 10px;
+        gap: 5px;
+        margin-bottom: 8px;
+        max-width: 100%;
+    }
+
+    .typing-tag {
+        font-size: 8.5px;
+    }
+
+    .typing-text {
+        font-size: 10.5px;
+    }
+
+    .hero-disciplines-row {
+        gap: 5px;
+        margin-bottom: 8px;
+    }
+
+    .discipline-tag {
+        font-size: 7px;
+        letter-spacing: 0.08em;
+    }
+
+    .central-cta-btn {
+        padding: 5px 12px;
+        font-size: 10.5px;
+    }
+
+    /* Floating Activity on Mobile */
+    .os-activity-corner {
+        bottom: 12px;
+        left: 10px;
+    }
+
+    .os-activity-trigger-btn {
+        padding: 5px 10px;
+        font-size: 10px;
+    }
+
+    .os-activity-panel {
+        width: min(300px, calc(100vw - 20px));
+        bottom: calc(100% + 8px);
+        max-height: 65vh;
+        overflow-y: auto;
+    }
+
+    /* Desktop Home Screen on Mobile: Icons Edge Hugging to prevent overlap */
+    .os-desktop-icons-layer {
+        padding: clamp(12px, 3vh, 20px) clamp(6px, 1.8vw, 12px);
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .os-desktop-col {
+        gap: clamp(12px, 3.5vh, 22px);
+    }
+
+    .os-col-left {
+        align-items: flex-start;
+    }
+
+    .os-col-right {
+        align-items: flex-end;
+    }
+
+    .icon-media-wrapper {
+        width: clamp(40px, 9.5vw, 48px);
+        height: clamp(40px, 9.5vw, 48px);
+    }
+
+    .desktop-icon-label {
+        font-size: clamp(8.5px, 2.2vw, 10.5px);
+        margin-top: 3px;
+    }
+
+    .hero-spiderman {
+        top: 8px;
+        left: 8px;
+    }
+
+    .hero-spiderman img {
+        width: 48px;
+    }
+
+    .hero-batman {
+        top: 8px;
+        right: 8px;
+    }
+
+    .hero-batman img {
+        width: 54px;
+    }
+
+    .os-desktop-watermark {
+        font-size: 13px;
+        bottom: 12px;
+    }
+
+    /* Dossier modal on mobile - Whole Page Scrolling */
+    .os-dossier-stage {
+        padding-top: 10px;
+        padding-bottom: 110px; /* Floating bottom dock clearance */
+        padding-left: 10px;
+        padding-right: 10px;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+    }
+
+    .os-dossier-dialog {
+        max-width: 100%;
+        height: auto !important;
+        min-height: min-content;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .dossier-card {
+        padding: 12px 14px;
+        border-radius: 14px;
+        height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+    }
+
+    /* About Section Natural Page Flow on Mobile */
+    .os-stage[data-active-app="about"] #dossier-top-card {
+        max-height: none !important;
+        overflow: visible !important;
+        padding: 12px 14px;
+        flex: none !important;
+    }
+
+    .os-stage[data-active-app="about"] .dossier-card-bottom {
+        flex: none !important;
+        height: auto !important;
+        min-height: min-content;
+        overflow: visible !important;
+        padding: 12px 14px;
+    }
+
+    .dossier-card-scroll-body {
+        overflow: visible !important;
+        height: auto !important;
+        max-height: none !important;
+    }
+
+    .dossier-card-title {
+        font-size: 15px;
+    }
+
+    .dossier-card-text p {
+        font-size: 11.5px;
+        line-height: 1.5;
+        margin-bottom: 6px !important;
+    }
+
+    /* Floating dock on mobile */
+    .os-bottom-dock {
+        position: fixed !important;
+        bottom: 10px !important;
+        width: 96vw;
+        max-width: 440px;
+        z-index: 100 !important;
+    }
+
+    .dock-inner-container {
         width: 100%;
-    }
-
-    .hero-actions-dock .cyber-btn {
-        width: 100%;
-        justify-content: center;
-    }
-
-    /* Cards & Frames */
-    .cyber-card-frame,
-    .cyber-form-card {
-        padding: 1.5rem 1.15rem !important;
-    }
-
-    .cyber-module-card,
-    .cyber-showcase-card {
-        padding: 1.25rem 1rem !important;
-    }
-
-    .showcase-img-wrap {
-        height: 170px !important;
-    }
-
-    .cyber-project-img-frame {
-        height: 180px !important;
-    }
-
-    /* Floating Mascot Scaling */
-    .floating-jetpack-container {
-        bottom: 16px;
-        right: 16px;
-        transform: scale(0.75);
-        transform-origin: bottom right;
-    }
-
-    .jetpack-tooltip {
-        font-size: 0.62rem;
+        justify-content: space-around;
         padding: 4px 8px;
+        gap: 4px;
     }
 
-    /* Arcade Controls */
-    .minicraft-inv-slot {
+    .dock-icon-wrapper {
+        width: 34px;
+        height: 34px;
+    }
+
+    .dock-img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .dock-label {
+        font-size: 9.5px;
+    }
+}
+
+/* ============================================================ */
+/* SMALL MOBILE PHONES (320px to 480px)                         */
+/* ============================================================ */
+@media (max-width: 480px) {
+    .os-desktop-icons-layer {
+        padding: 12px 6px;
+    }
+
+    .icon-media-wrapper {
+        width: 38px;
+        height: 38px;
+    }
+
+    .desktop-icon-label {
+        font-size: 8.5px;
+    }
+
+    .os-desktop-col {
+        gap: 14px;
+    }
+
+    .os-central-hero {
+        width: calc(100vw - 88px) !important;
+        max-width: 250px !important;
+    }
+
+    .title-sans {
+        font-size: clamp(1.6rem, 6.2vw, 2.2rem);
+    }
+
+    .title-script {
+        font-size: clamp(1.9rem, 7.5vw, 2.6rem);
+    }
+
+    .year-num {
+        font-size: 1.5rem;
+    }
+
+    .sel-avatar-img {
         width: 36px;
         height: 36px;
     }
+
+    .hero-spiderman img {
+        width: 36px;
+    }
+
+    .hero-batman img {
+        width: 40px;
+    }
+
+    .os-desktop-watermark {
+        font-size: 11px;
+        bottom: 8px;
+    }
 }
 
-/* ─── Tablets & Small Desktops (576px - 991.98px) ─── */
-@media (min-width: 576px) and (max-width: 991.98px) {
-    .avatar-orbital-stage {
-        width: 190px;
-        height: 190px;
+/* ============================================================ */
+/* SHORT SCREENS (e.g. landscape phones, small laptops < 540px h) */
+/* ============================================================ */
+@media (max-height: 540px) {
+    .os-desktop-icons-layer {
+        padding: 14px 20px;
     }
 
-    .ring-outer {
-        width: 190px;
-        height: 190px;
+    .icon-media-wrapper {
+        width: 46px;
+        height: 46px;
     }
 
-    .ring-mid {
-        width: 155px;
-        height: 155px;
+    .desktop-icon-label {
+        font-size: 11px;
+        margin-top: 2px;
     }
 
-    .ring-inner {
+    .os-desktop-col {
+        gap: 10px;
+    }
+
+    .os-dossier-stage {
+        padding-top: 6px;
+        padding-bottom: 56px;
+    }
+    
+    .dossier-card-text p {
+        font-size: 10px;
+        line-height: 1.35;
+    }
+    
+    .dock-icon-wrapper {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .dock-label {
+        display: none;
+    }
+    
+    .os-bottom-dock {
+        bottom: 4px;
+    }
+}
+
+/* ============================================================ */
+/* SMARTWATCH & ULTRA-COMPACT DISPLAYS (< 280px width or height)*/
+/* ============================================================ */
+@media (max-width: 280px), (max-height: 320px) {
+    
+    .os-desktop-icons-layer {
+        padding: 6px 4px;
+    }
+
+    .icon-media-wrapper {
+        width: 32px;
+        height: 32px;
+    }
+
+    .desktop-icon-label {
+        font-size: 8.5px;
+        margin-top: 1px;
+    }
+
+    .os-desktop-col {
+        gap: 6px;
+    }
+
+    .hero-spiderman img {
+        width: 30px;
+    }
+
+    .hero-batman img {
+        width: 34px;
+    }
+
+    .os-desktop-watermark {
+        font-size: 10px;
+        bottom: 4px;
+    }
+
+    /* Dock in watch mode */
+    .os-bottom-dock {
+        bottom: 2px;
+        width: 98vw;
+    }
+
+    .dock-inner-container {
+        padding: 2px 4px;
+        gap: 2px;
+    }
+
+    .dock-icon-wrapper {
+        width: 22px;
+        height: 22px;
+    }
+
+    .dock-label {
+        display: none;
+    }
+
+    /* Dossier in watch mode */
+    .os-dossier-stage {
+        padding: 4px 4px 38px 4px;
+    }
+
+    .dossier-card {
+        padding: 6px 8px;
+        border-radius: 8px;
+    }
+
+    .dossier-mono-tag {
+        font-size: 8px;
+        padding: 1px 5px;
+    }
+
+    .dossier-card-title {
+        font-size: 11px;
+        margin-bottom: 4px !important;
+    }
+
+    .dossier-card-text p {
+        font-size: 9px;
+        line-height: 1.3;
+        margin-bottom: 4px !important;
+    }
+
+    .dossier-close-btn {
+        width: 20px;
+        height: 20px;
+        font-size: 9px;
+    }
+
+    .dossier-tab-pills {
+        display: none !important;
+    }
+}
+
+/* ============================================================ */
+/* RESPONSIVE: HOME BOTTOM 3D FEATURED PROJECTS DECK            */
+/* ============================================================ */
+@media (max-width: 992px) {
+    .home-3d-card {
         width: 130px;
-        height: 130px;
+        height: 86px;
     }
-
-    .avatar-core-frame {
-        width: 110px;
-        height: 110px;
-    }
-
-    .floating-jetpack-container {
-        bottom: 20px;
-        right: 20px;
-        transform: scale(0.85);
-        transform-origin: bottom right;
+    .home-3d-center-btn {
+        padding: 5px 16px;
+        font-size: 11px;
     }
 }
 
-/* ─── Desktops & Large Displays (≥ 992px) ─── */
-@media (min-width: 992px) {
-    .ladder-track-col {
-        display: block;
-    }
-}
-
-/* ─── High DPI & Retina Display Optimization ─── */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-    body {
-        -webkit-font-smoothing: subpixel-antialiased;
-    }
-}
-
-/* ─── Reduced Motion Accessibility ─── */
-@media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
+@media (max-width: 768px) {
+    .os-home-3d-deck {
+        display: none !important;
     }
 }

@@ -92,6 +92,9 @@ abstract class Controller
             'certificatesList' => $this->profileService->getCertificates(),
             'projectsList'     => $this->portfolioService->getAllProjects(),
             'projects'         => $this->portfolioService->getAllProjects(),
+            'blogs'            => $this->blogService->getPublishedBlogs(),
+            'publishedBlogs'   => $this->blogService->getPublishedBlogs(),
+            'categories'       => $this->blogService->getCategories(),
 
             'accessibility'         => $accessibility,
             'expLabel'              => $accessibility['experience']['label'] ?? 'Career Ladder Timeline',

@@ -1,521 +1,1054 @@
-// Clean anti-bot / hosting redirect parameters (?i=1, ?i=2) from the URL bar
-(function() {
-    if (window.location.search && /[?&]i=\d+/.test(window.location.search)) {
-        var newSearch = window.location.search.replace(/([?&])i=\d+(&|$)/, function(match, p1, p2) {
-            return p2 === '&' ? p1 : '';
-        }).replace(/[?&]$/, '');
-        var cleanUrl = window.location.pathname + (newSearch ? newSearch : '') + (window.location.hash || '');
-        if (window.history && window.history.replaceState) {
-            window.history.replaceState(null, document.title, cleanUrl);
+/**
+ * Master Antigravity Web OS Controller (v2.8)
+ * Single-Viewport 100vw x 100vh Responsive System Architecture
+ * Author: Balamurugan P M
+ */
+
+(function () {
+    'use strict';
+
+    // Core DOM Elements
+    const osViewport = document.getElementById('os-viewport');
+    const homeVideoEl = document.getElementById('os-home-video');
+    const sectionBgEl = document.getElementById('os-section-bg');
+    const dossierModal = document.getElementById('os-dossier-modal');
+    const desktopGrid = document.getElementById('os-desktop-grid');
+    const superheroesLayer = document.getElementById('os-superheroes');
+    const hudBar = document.getElementById('os-hud-bar');
+    const bottomTag = document.getElementById('bottom-tag') || document.getElementById('dossier-bottom-tag');
+    const bottomTitle = document.getElementById('bottom-title') || document.getElementById('dossier-bottom-title');
+    const bottomScrollBody = document.getElementById('dossier-scroll-body') || document.getElementById('dossier-bottom-scroll');
+    const centralHero = document.getElementById('os-central-hero');
+    const bottomDock = document.getElementById('os-dock');
+    const activityCorner = document.getElementById('os-activity-corner');
+    const activityTrigger = document.getElementById('os-activity-trigger');
+    const activityPanel = document.getElementById('os-activity-panel');
+    const activityCloseBtn = document.getElementById('activity-panel-close-btn');
+    const baseUrl = osViewport ? (osViewport.getAttribute('data-base-url') || '/') : '/';
+
+    // Section Background Mapping (Loads custom wallpapers when present; keeps ambient background otherwise)
+    const SECTION_BG_MAP = {
+        about: ['assets/images/os/about-bg.webp'],
+        portfolio: ['assets/images/os/projects-bg.webp', 'assets/images/os/portfolio-bg.webp'],
+        blogs: ['assets/images/os/blog-bg.webp', 'assets/images/os/blogs-bg.webp'],
+        game: ['assets/images/os/games-bg.webp'],
+        contact: ['assets/images/os/contact-bg.webp']
+    };
+
+    // Application Configuration Registry
+    const APPS = {
+        home: {
+            title: 'Bala @2027 – Portfolio',
+            route: baseUrl,
+            tag: '// HOME_DESKTOP',
+            heading: 'Desktop Home',
+            panelId: null
+        },
+        about: {
+            title: 'About Me | Balamurugan P M',
+            route: baseUrl + 'about',
+            tag: '// TECHNICAL_CAPABILITIES',
+            heading: 'Skills & Technology Stack',
+            panelId: 'panel-about'
+        },
+        portfolio: {
+            title: 'Portfolio Works | Balamurugan P M',
+            route: baseUrl + 'portfolio',
+            tag: '// PORTFOLIO_SHOWCASE',
+            heading: 'Featured Engineering Works & Projects',
+            panelId: 'panel-portfolio'
+        },
+        blogs: {
+            title: 'Blog & Articles | Balamurugan P M',
+            route: baseUrl + 'blogs',
+            tag: '// KNOWLEDGE_DISPATCH',
+            heading: 'Technical Articles & Engineering Publications',
+            panelId: 'panel-blogs'
+        },
+        game: {
+            title: 'Arcade & Retro Games | Balamurugan P M',
+            route: baseUrl + 'game',
+            tag: '// ARCADE_MATRIX',
+            heading: 'MiniCraft & Interactive Simulations',
+            panelId: 'panel-game'
+        },
+        contact: {
+            title: 'Contact Us | Balamurugan P M',
+            route: baseUrl + 'contact',
+            tag: '// TRANSMISSION_PORTAL',
+            heading: 'Direct Communications & Inquiries',
+            panelId: 'panel-contact'
         }
-    }
-})();
+    };
 
-document.addEventListener('DOMContentLoaded', () => {
+    let currentApp = osViewport ? (osViewport.getAttribute('data-active-app') || 'home') : 'home';
 
-    // --- Experience & Awards Timeline Climbing Animation ---
-    const climbers = document.querySelectorAll('.rope-climber');
-    let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    let scrollTimeout;
-
-    if (climbers.length > 0) {
-        window.addEventListener('scroll', () => {
-            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
-            climbers.forEach(climberItem => {
-                // Mark as climbing active
-                climberItem.classList.add('is-climbing');
-                
-                // Alternate climber frames based on scroll pixel threshold (every 12px scrolled)
-                climberItem.classList.toggle('frame-alt', Math.floor(scrollTop / 12) % 2 === 0);
-                
-                // Direction orientation
-                if (scrollTop > lastScrollTop) {
-                    // Scrolling Down
-                    climberItem.classList.add('moving-down');
-                    climberItem.classList.remove('moving-up');
-                } else if (scrollTop < lastScrollTop) {
-                    // Scrolling Up
-                    climberItem.classList.add('moving-up');
-                    climberItem.classList.remove('moving-down');
-                }
-            });
-            
-            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-            
-            // Stop animation when scrolling ends
-            clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(() => {
-                climbers.forEach(climberItem => {
-                    climberItem.classList.remove('is-climbing', 'moving-up', 'moving-down');
-                });
-            }, 150);
-        });
+    // Strictly ensure bottom dock is hidden on home page load
+    if (bottomDock && currentApp === 'home') {
+        bottomDock.classList.add('d-none');
+        bottomDock.style.display = 'none';
     }
 
-    // --- Education Timeline Student Animation ---
-    const studentMascot = document.getElementById('education-student');
-    let studentScrollTimeout;
-
-    if (studentMascot) {
-        window.addEventListener('scroll', () => {
-            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
-            // Mark as active/moving
-            studentMascot.classList.add('is-active');
-            
-            // Alternate frames based on scroll pixel threshold (every 12px scrolled)
-            studentMascot.classList.toggle('frame-alt', Math.floor(scrollTop / 12) % 2 === 0);
-            
-            // Stop animation when scrolling ends
-            clearTimeout(studentScrollTimeout);
-            studentScrollTimeout = setTimeout(() => {
-                studentMascot.classList.remove('is-active');
-            }, 150);
-        });
-    }
-
-    // --- Timeline Cards Reveal Animation ---
-    const revealCards = document.querySelectorAll('.reveal-card');
-    if (revealCards.length > 0) {
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.15
-        };
-
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    observer.unobserve(entry.target); // Reveal only once
-                }
-            });
-        }, observerOptions);
-
-        revealCards.forEach(card => observer.observe(card));
-    }
-
-    // --- Collapsible Timeline Details ---
-    const toggleButtons = document.querySelectorAll('.view-more-btn');
-    toggleButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const targetId = button.getAttribute('aria-controls');
-            const targetWrapper = document.getElementById(targetId);
-            const isExpanded = button.getAttribute('aria-expanded') === 'true';
-            
-            if (isExpanded) {
-                targetWrapper.style.maxHeight = '0px';
-                button.setAttribute('aria-expanded', 'false');
-                button.querySelector('.toggle-text').textContent = 'View more';
-                button.querySelector('.toggle-icon').style.transform = 'rotate(0deg)';
-            } else {
-                requestAnimationFrame(() => {
-                    targetWrapper.style.maxHeight = targetWrapper.scrollHeight + 'px';
-                });
-                button.setAttribute('aria-expanded', 'true');
-                button.querySelector('.toggle-text').textContent = 'View less';
-                button.querySelector('.toggle-icon').style.transform = 'rotate(180deg)';
-            }
-        });
-    });
-
-    // --- Futuristic Scanner Preloader Sequence ---
-    const preloader = document.getElementById('preloader');
-    const preloaderPhrase = document.getElementById('preloader-phrase');
-    const preloaderPhaseTag = document.getElementById('preloader-phase-tag');
-    const preloaderProgressFill = document.getElementById('preloader-progress-fill');
-    const preloaderPercentText = document.getElementById('preloader-percent-text');
-    const percentNum = document.getElementById('svg-fuel-percent');
-    const jetpackChar = document.getElementById('jetpack-character');
-
-    if (jetpackChar) {
-        jetpackChar.addEventListener('click', () => {
-            // Get WhatsApp redirect link from data attributes
-            const whatsappUrl = jetpackChar.getAttribute('data-whatsapp');
-            const customMsg = jetpackChar.getAttribute('data-whatsapp-message') || "Hi, I saw your portfolio";
-            if (whatsappUrl) {
-                const defaultMsg = encodeURIComponent(customMsg);
-                
-                // If it is already a wa.me URL, append the text query param
-                let targetUrl = whatsappUrl;
-                if (targetUrl.includes('wa.me')) {
-                    targetUrl += (targetUrl.includes('?') ? '&' : '?') + 'text=' + defaultMsg;
-                }
-                window.open(targetUrl, '_blank');
-            } else {
-                // Fallback to contact section scroll
-                const contactSec = document.getElementById('contact-section') || document.querySelector('.contact-section') || document.getElementById('contact');
-                if (contactSec) {
-                    contactSec.scrollIntoView({ behavior: 'smooth' });
-                }
-            }
-        });
-    }
-
-    let lastScrollY = window.scrollY || window.pageYOffset;
-    let jetpackTimeout;
-    let jetpackRaf;
-
-    // Scroll-based tilting, drift tracking, and dynamic flames/speech bubbles
-    function initJetpackScrollAnimations() {
-        if (jetpackChar) {
-            const mascotTooltip = document.querySelector('#jetpack-character .jetpack-tooltip');
-            const speechSections = document.querySelectorAll('[data-mascot-speech]');
-            let bubbleTimeout;
-
-            // 1. Dynamic Section Speech Bubble Observer
-            if (mascotTooltip && speechSections.length > 0) {
-                const mascotObserverOptions = {
-                    root: null,
-                    rootMargin: '-25% 0px -25% 0px', // Trigger when section is in viewport sweet-spot
-                    threshold: 0.15
-                };
-
-                const mascotObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const speechText = entry.target.getAttribute('data-mascot-speech');
-                            if (speechText && mascotTooltip.textContent !== speechText) {
-                                // Change text contents
-                                mascotTooltip.textContent = speechText;
-                                
-                                // Temporarily force show speech bubble
-                                mascotTooltip.classList.add('show-bubble');
-                                clearTimeout(bubbleTimeout);
-                                bubbleTimeout = setTimeout(() => {
-                                    mascotTooltip.classList.remove('show-bubble');
-                                }, 4000);
-                            }
-                        }
-                    });
-                }, mascotObserverOptions);
-
-                speechSections.forEach(section => mascotObserver.observe(section));
-            }
-
-            // 2. Scroll Physics & Thruster Flame Activation
-            window.addEventListener('scroll', () => {
-                // Ignore scroll anims if the character is not resting yet
-                if (!jetpackChar.classList.contains('resting')) return;
-
-                if (jetpackRaf) cancelAnimationFrame(jetpackRaf);
-                jetpackRaf = requestAnimationFrame(() => {
-                    const currentScrollY = window.scrollY || window.pageYOffset;
-                    const diff = currentScrollY - lastScrollY;
-                    
-                    // Show flying flames when actively scrolling
-                    if (Math.abs(diff) > 2) {
-                        jetpackChar.classList.add('char-blastoff', 'blast-off');
-                        jetpackChar.classList.remove('char-equipped');
-                    }
-                    
-                    // Calculate dynamic flight tilt and drift proportional to scroll speed
-                    const tilt = Math.min(Math.max(diff * 0.3, -25), 25);
-                    const driftX = Math.min(Math.max(-diff * 0.7, -35), 35);
-                    const driftY = Math.min(Math.max(-diff * 0.5, -25), 25);
-                    
-                    // Apply coordinates translation and rotation
-                    const isMobile = window.innerWidth <= 768;
-                    const scaleStr = isMobile ? ' scale(0.75)' : ' scale(1)';
-                    jetpackChar.style.transform = `translate(${driftX}px, ${driftY}px) rotate(${tilt}deg)${scaleStr}`;
-                    
-                    // Reset tooltip to default when scrolling near top
-                    if (currentScrollY < 150 && mascotTooltip) {
-                        const defaultSpeech = jetpackChar.getAttribute('data-default-speech') || "Want to talk? Hire me! 👋";
-                        if (mascotTooltip.textContent !== defaultSpeech) {
-                            mascotTooltip.textContent = defaultSpeech;
-                        }
-                    }
-
-                    lastScrollY = currentScrollY;
-                });
-                
-                // Reset to default smooth floating state and extinguish thruster flames when scroll stops
-                clearTimeout(jetpackTimeout);
-                jetpackTimeout = setTimeout(() => {
-                    const isMobileReset = window.innerWidth <= 768;
-                    const scaleStrReset = isMobileReset ? ' scale(0.75)' : ' scale(1)';
-                    jetpackChar.style.transform = `translate(0px, 0px) rotate(0deg)${scaleStrReset}`;
-                    
-                    // Exiting active flying state (turn off flames)
-                    jetpackChar.classList.remove('char-blastoff', 'blast-off');
-                    jetpackChar.classList.add('char-equipped');
-                }, 180);
-            }, { passive: true });
-        }
-    }
-
-    let preloaderClosed = false;
-    function closePreloader() {
-        if (preloaderClosed) return;
-        preloaderClosed = true;
-        
-        if (preloader) {
-            preloader.classList.add('loading-done');
-        }
-        document.body.classList.remove('preloader-active');
-        
-        if (jetpackChar) {
-            jetpackChar.className = "floating-jetpack-container resting char-equipped";
-        }
-        
-        setTimeout(() => {
-            if (preloader) preloader.style.display = 'none';
-        }, 600);
-        
-        initJetpackScrollAnimations();
-    }
-
-    if (preloader) {
-        let progress = 0;
-        const startTime = performance.now();
-        const duration = 1600; // 1.6s scanner animation experience
-        
-        function updateScannerSequence(now) {
-            if (preloaderClosed) return;
-            const elapsed = now - startTime;
-            progress = Math.min(Math.round((elapsed / duration) * 100), 100);
-            
-            // Update progress bar fill & percentage displays
-            if (preloaderProgressFill) preloaderProgressFill.style.width = progress + '%';
-            if (preloaderPercentText) preloaderPercentText.textContent = progress + '%';
-            if (percentNum) percentNum.textContent = progress + '%';
-            
-            // Phase triggers based on search & lock telemetry
-            if (progress < 55) {
-                if (preloaderPhaseTag && preloaderPhaseTag.textContent !== 'SEARCH_PROTOCOL_ACTIVE') {
-                    preloaderPhaseTag.textContent = 'SEARCH_PROTOCOL_ACTIVE';
-                    preloaderPhaseTag.className = 'text-cyan small fw-bold';
-                }
-                if (preloaderPhrase && preloaderPhrase.textContent !== 'Scanning for the best web developer...') {
-                    preloaderPhrase.textContent = 'Scanning for the best web developer...';
-                }
-            } else if (progress < 85) {
-                if (preloaderPhaseTag && preloaderPhaseTag.textContent !== 'TARGET_ACQUIRED') {
-                    preloaderPhaseTag.textContent = 'TARGET_ACQUIRED';
-                    preloaderPhaseTag.className = 'text-success small fw-bold';
-                }
-                if (preloaderPhrase && !preloaderPhrase.innerHTML.includes('100% Compatibility!')) {
-                    preloaderPhrase.innerHTML = 'Match found: <span class="text-accent">100% Compatibility! 🎯</span>';
-                }
-            } else {
-                if (preloaderPhaseTag && preloaderPhaseTag.textContent !== 'SYSTEM_UNLOCKED') {
-                    preloaderPhaseTag.textContent = 'SYSTEM_UNLOCKED';
-                    preloaderPhaseTag.className = 'text-cyan small fw-bold';
-                }
-                if (preloaderPhrase && !preloaderPhrase.innerHTML.includes("That's me!")) {
-                    preloaderPhrase.innerHTML = 'Oh! You found it... <span class="text-accent">That\'s me! 👋</span>';
-                }
-            }
-            
-            if (progress < 100) {
-                requestAnimationFrame(updateScannerSequence);
-            } else {
-                // Keep the final discovery phrase visible briefly before revealing the site
-                setTimeout(() => {
-                    closePreloader();
-                }, 450);
-            }
-        }
-        
-        requestAnimationFrame(updateScannerSequence);
-        
-        // Safety fallback timeout to ensure preloader always closes
-        setTimeout(() => {
-            closePreloader();
-        }, 2800);
-    } else {
-        initJetpackScrollAnimations();
-    }
-
-    // --- Mobile Menu Toggle ---
-    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    const mobileNavDrawer = document.getElementById('mobile-nav-drawer');
-    if (mobileMenuBtn && mobileNavDrawer) {
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileNavDrawer.classList.toggle('open');
-            const isOpen = mobileNavDrawer.classList.contains('open');
-            mobileMenuBtn.setAttribute('aria-expanded', isOpen);
-        });
-    }
-
-    // --- Project Modal Trigger ---
-    const bentoCards = document.querySelectorAll('.project-bento-card, .cyber-project-card');
-    const projectModal = document.getElementById('project-modal');
-    const closeProjectModalBtn = document.getElementById('close-project-modal');
-
-    if (bentoCards.length > 0 && projectModal && closeProjectModalBtn) {
-        bentoCards.forEach(card => {
-            card.addEventListener('click', () => {
-                const title = card.getAttribute('data-project-title');
-                const tagline = card.getAttribute('data-project-tagline');
-                const img = card.getAttribute('data-project-image');
-                const link = card.getAttribute('data-project-link');
-                const bullets = JSON.parse(card.getAttribute('data-project-bullets') || '[]');
-                const tags = JSON.parse(card.getAttribute('data-project-tags') || '[]');
-
-                // Populate modal content
-                const modalImg = document.getElementById('modal-project-img');
-                if (modalImg) modalImg.src = img;
-                const modalTitle = document.getElementById('modal-project-title');
-                if (modalTitle) modalTitle.textContent = title;
-                const modalTagline = document.getElementById('modal-project-tagline');
-                if (modalTagline) modalTagline.textContent = tagline;
-                const modalLink = document.getElementById('modal-project-link');
-                if (modalLink) modalLink.href = link;
-
-                // Populate highlights
-                const bulletsList = document.getElementById('modal-project-bullets');
-                if (bulletsList) {
-                    bulletsList.innerHTML = '';
-                    bullets.forEach(b => {
-                        const li = document.createElement('li');
-                        li.className = 'mb-2';
-                        li.textContent = b;
-                        bulletsList.appendChild(li);
-                    });
-                }
-
-                // Populate tags
-                const tagsWrapper = document.getElementById('modal-project-tags');
-                if (tagsWrapper) {
-                    tagsWrapper.innerHTML = '';
-                    tags.forEach(t => {
-                        const span = document.createElement('span');
-                        span.className = 'cyber-mini-badge';
-                        span.textContent = t;
-                        tagsWrapper.appendChild(span);
-                    });
-                }
-
-                // Open modal
-                projectModal.classList.add('active');
-                projectModal.setAttribute('aria-hidden', 'false');
-                document.body.style.overflow = 'hidden'; // Disable page scrolling
-            });
-        });
-
-        // Close modal helper
-        const closeModal = () => {
-            projectModal.classList.remove('active');
-            projectModal.setAttribute('aria-hidden', 'true');
-            document.body.style.overflow = ''; // Restore page scrolling
-        };
-
-        closeProjectModalBtn.addEventListener('click', closeModal);
-        projectModal.addEventListener('click', (e) => {
-            if (e.target === projectModal) {
-                closeModal();
-            }
-        });
-        
-        // Escape key close
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && projectModal.classList.contains('active')) {
-                closeModal();
-            }
-        });
-    }
-
-    // --- Blog Category Filter ---
-    const filterBtns = document.querySelectorAll('.blog-filter-btn, .cyber-filter-pill');
-    const blogCardCols = document.querySelectorAll('.blog-card-col');
-
-    if (filterBtns.length > 0 && blogCardCols.length > 0) {
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filterBtns.forEach(b => {
-                    b.classList.remove('active');
-                    b.setAttribute('aria-pressed', 'false');
-                });
-                btn.classList.add('active');
-                btn.setAttribute('aria-pressed', 'true');
-
-                const filterVal = btn.getAttribute('data-filter');
-                blogCardCols.forEach(col => {
-                    const cardCategory = col.getAttribute('data-category');
-                    if (filterVal === 'all' || cardCategory === filterVal) {
-                        col.classList.remove('hidden');
-                        col.style.display = '';
-                    } else {
-                        col.classList.add('hidden');
-                        col.style.display = 'none';
-                    }
-                });
-            });
-        });
-    }
-
-    // --- High-Tech Dynamic Text Typing Animation ---
-    const typingEls = document.querySelectorAll('#hero-typewriter-text, #typing-text');
-    typingEls.forEach(el => {
-        let phrases = [];
+    // Pre-cached Blogs Data
+    let cachedBlogs = [];
+    const blogsDataEl = document.getElementById('blogs-data');
+    if (blogsDataEl) {
         try {
-            const attr = el.getAttribute('data-roles');
-            if (attr) phrases = JSON.parse(attr);
-        } catch(e) {}
-
-        if (!phrases || !phrases.length) {
-            phrases = [
-                "Frontend Developer",
-                "React.js Specialist",
-                "SPFx & SharePoint Engineer",
-                "UI/UX & Design Systems Architect",
-                "High-Performance Web Engineer"
-            ];
+            cachedBlogs = JSON.parse(blogsDataEl.textContent.trim());
+        } catch (e) {
+            cachedBlogs = [];
         }
+    }
 
-        let phraseIndex = 0;
-        let charIndex = el.textContent ? el.textContent.trim().length : 0;
-        let isDeleting = charIndex > 0;
-        let typeSpeed = 70;
-
-        function runTypeLoop() {
-            const currentPhrase = phrases[phraseIndex];
-            
-            if (isDeleting) {
-                charIndex--;
-                typeSpeed = 35;
-            } else {
-                charIndex++;
-                typeSpeed = 75;
-            }
-            
-            el.textContent = currentPhrase.substring(0, charIndex);
-
-            if (!isDeleting && charIndex === currentPhrase.length) {
-                isDeleting = true;
-                typeSpeed = 2200; // Pause at end of phrase
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                phraseIndex = (phraseIndex + 1) % phrases.length;
-                typeSpeed = 350; // Pause before typing next phrase
-            }
-
-            setTimeout(runTypeLoop, typeSpeed);
+    // Pre-cached Projects Data & Modal Controller
+    let cachedProjects = [];
+    const projectsDataEl = document.getElementById('projects-data');
+    if (projectsDataEl) {
+        try {
+            cachedProjects = JSON.parse(projectsDataEl.textContent.trim());
+        } catch (e) {
+            cachedProjects = [];
         }
-        
-        setTimeout(runTypeLoop, isDeleting ? 1800 : 400);
-    });
+    }
 
-    // --- Code Block Copy to Clipboard ---
-    const codeCopyBtns = document.querySelectorAll('.code-copy-btn');
-    codeCopyBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const wrapper = btn.closest('.code-block-wrapper');
-            const codeEl = wrapper ? wrapper.querySelector('code') : null;
-            if (codeEl) {
-                navigator.clipboard.writeText(codeEl.innerText || codeEl.textContent).then(() => {
-                    const origHtml = btn.innerHTML;
-                    btn.innerHTML = '<i class="bi bi-check2 text-success me-1"></i>Copied!';
-                    setTimeout(() => {
-                        btn.innerHTML = origHtml;
-                    }, 2000);
-                }).catch(err => {
-                    console.error('Copy failed:', err);
-                });
+    const imageLightbox = document.getElementById('os-image-lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxImgCanvas = document.getElementById('lightbox-img-canvas');
+    const lightboxScrollViewport = document.getElementById('lightbox-scroll-viewport');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+    const lightboxZoomVal = document.getElementById('lightbox-zoom-val');
+    const zoomInBtn = document.getElementById('lightbox-zoom-in');
+    const zoomOutBtn = document.getElementById('lightbox-zoom-out');
+    const zoomFitBtn = document.getElementById('lightbox-zoom-fit');
+    const zoomWidthBtn = document.getElementById('lightbox-zoom-width');
+    const zoomResetBtn = document.getElementById('lightbox-zoom-reset');
+
+    let currentZoom = 1.0;
+    let currentMode = 'width'; // 'width' = full readable width for websites, 'fit' = fit screen
+
+    function updateZoom(newZoom) {
+        currentZoom = Math.min(3.0, Math.max(0.25, Math.round(newZoom * 100) / 100));
+        if (lightboxZoomVal) {
+            lightboxZoomVal.textContent = Math.round(currentZoom * 100) + '%';
+        }
+        if (lightboxImgCanvas) {
+            lightboxImgCanvas.style.transform = `scale(${currentZoom})`;
+        }
+    }
+
+    function setLightboxMode(mode) {
+        currentMode = mode;
+        if (!lightboxImg) return;
+        if (mode === 'fit') {
+            lightboxImg.classList.add('mode-fit');
+            lightboxImg.classList.remove('mode-full');
+            if (zoomFitBtn) zoomFitBtn.classList.add('active');
+            if (zoomWidthBtn) zoomWidthBtn.classList.remove('active');
+        } else {
+            lightboxImg.classList.remove('mode-fit');
+            lightboxImg.classList.add('mode-full');
+            if (zoomFitBtn) zoomFitBtn.classList.remove('active');
+            if (zoomWidthBtn) zoomWidthBtn.classList.add('active');
+        }
+    }
+
+    function openImageLightbox(imgSrc, title) {
+        if (!imageLightbox || !lightboxImg) return;
+        lightboxImg.src = imgSrc;
+        lightboxImg.alt = title || 'Full Portfolio View';
+        if (lightboxCaption) {
+            lightboxCaption.textContent = title || '';
+        }
+        setLightboxMode('width');
+        updateZoom(1.0);
+        if (lightboxScrollViewport) {
+            lightboxScrollViewport.scrollTop = 0;
+            lightboxScrollViewport.scrollLeft = 0;
+        }
+        imageLightbox.classList.add('show');
+    }
+
+    function closeImageLightbox() {
+        if (imageLightbox) {
+            imageLightbox.classList.remove('show');
+            setTimeout(() => {
+                if (!imageLightbox.classList.contains('show') && lightboxImg) {
+                    lightboxImg.src = '';
+                    updateZoom(1.0);
+                }
+            }, 300);
+        }
+    }
+
+    // Attach Lightbox Zoom & Mode Controls
+    if (zoomInBtn) {
+        zoomInBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            updateZoom(currentZoom + 0.25);
+        });
+    }
+    if (zoomOutBtn) {
+        zoomOutBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            updateZoom(currentZoom - 0.25);
+        });
+    }
+    if (zoomFitBtn) {
+        zoomFitBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            setLightboxMode('fit');
+            updateZoom(1.0);
+        });
+    }
+    if (zoomWidthBtn) {
+        zoomWidthBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            setLightboxMode('width');
+            updateZoom(1.0);
+        });
+    }
+    if (zoomResetBtn) {
+        zoomResetBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            setLightboxMode('width');
+            updateZoom(1.0);
+            if (lightboxScrollViewport) {
+                lightboxScrollViewport.scrollTop = 0;
             }
         });
+    }
+    if (lightboxImg) {
+        lightboxImg.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (currentMode === 'fit') {
+                setLightboxMode('width');
+                updateZoom(1.0);
+            } else {
+                setLightboxMode('fit');
+                updateZoom(1.0);
+            }
+        });
+    }
+    if (lightboxScrollViewport) {
+        lightboxScrollViewport.addEventListener('wheel', (e) => {
+            if (e.ctrlKey) {
+                e.preventDefault();
+                const delta = e.deltaY < 0 ? 0.15 : -0.15;
+                updateZoom(currentZoom + delta);
+            }
+        }, { passive: false });
+        lightboxScrollViewport.addEventListener('click', (e) => {
+            if (e.target === lightboxScrollViewport || e.target === lightboxImgCanvas) {
+                closeImageLightbox();
+            }
+        });
+    }
+
+    const projectModal = document.getElementById('os-project-modal');
+    const pModalImg = document.getElementById('project-modal-img');
+    const pModalTitle = document.getElementById('project-modal-title');
+    const pModalTagline = document.getElementById('project-modal-tagline');
+    const pModalBullets = document.getElementById('project-modal-bullets');
+    const pModalTags = document.getElementById('project-modal-tags');
+    const pModalLink = document.getElementById('project-modal-link');
+    const pModalBadge = document.getElementById('project-modal-badge');
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    }
+
+    function openProjectModal(proj) {
+        if (!proj) return;
+        if (!projectModal) {
+            const imgSrc = proj.image ? (baseUrl + proj.image.replace(/^\//, '')) : '';
+            openImageLightbox(imgSrc, proj.title);
+            return;
+        }
+        if (pModalTitle) pModalTitle.textContent = proj.title || 'Project';
+        if (pModalTagline) pModalTagline.textContent = proj.tagline || '';
+        if (pModalImg && proj.image) {
+            pModalImg.src = baseUrl + proj.image.replace(/^\//, '');
+            pModalImg.alt = proj.title || 'Project Preview';
+        }
+        if (pModalBadge) {
+            pModalBadge.textContent = (proj.tags && proj.tags[0]) ? proj.tags[0] : 'Featured';
+        }
+        if (pModalBullets) {
+            if (proj.bullets && Array.isArray(proj.bullets)) {
+                pModalBullets.innerHTML = proj.bullets.map(b => `<li>${escapeHtml(b)}</li>`).join('');
+            } else {
+                pModalBullets.innerHTML = '';
+            }
+        }
+        if (pModalTags) {
+            if (proj.tags && Array.isArray(proj.tags)) {
+                pModalTags.innerHTML = proj.tags.map(t => `<span class="dossier-badge">${escapeHtml(t)}</span>`).join('');
+            } else {
+                pModalTags.innerHTML = '';
+            }
+        }
+        if (pModalLink) {
+            if (proj.link) {
+                pModalLink.href = proj.link;
+                pModalLink.style.display = 'inline-flex';
+            } else {
+                pModalLink.style.display = 'none';
+            }
+        }
+        projectModal.classList.add('show');
+    }
+
+    function closeProjectModal() {
+        if (projectModal) {
+            projectModal.classList.remove('show');
+        }
+    }
+
+    // ============================================================
+    // BACKGROUND MANAGER (Persistent Video on Home, Smooth Fallback)
+    // ============================================================
+
+    function updatePageBackground(appName) {
+        if (!homeVideoEl) return;
+
+        if (appName === 'home') {
+            if (sectionBgEl) {
+                sectionBgEl.style.opacity = '0';
+                setTimeout(() => {
+                    if (currentApp === 'home' && sectionBgEl) {
+                        sectionBgEl.style.display = 'none';
+                        sectionBgEl.style.backgroundImage = 'none';
+                    }
+                }, 300);
+            }
+            homeVideoEl.style.display = 'block';
+            homeVideoEl.style.opacity = '1';
+            homeVideoEl.muted = true;
+            homeVideoEl.loop = true;
+            const playPromise = homeVideoEl.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(() => {});
+            }
+            return;
+        }
+
+        const candidates = SECTION_BG_MAP[appName] || [];
+        if (candidates.length === 0) {
+            if (sectionBgEl) sectionBgEl.style.display = 'none';
+            homeVideoEl.style.display = 'block';
+            homeVideoEl.style.opacity = '1';
+            return;
+        }
+
+        function tryCandidate(index) {
+            if (index >= candidates.length) {
+                // If candidate images not found, keep video background visible with glass blur
+                if (sectionBgEl) sectionBgEl.style.display = 'none';
+                homeVideoEl.style.display = 'block';
+                homeVideoEl.style.opacity = '1';
+                return;
+            }
+
+            const candidateUrl = baseUrl + candidates[index];
+            const testImg = new Image();
+            testImg.onload = function () {
+                if (currentApp !== appName) return; // Prevent out-of-order race
+                if (sectionBgEl) {
+                    sectionBgEl.style.backgroundImage = 'url("' + candidateUrl + '")';
+                    sectionBgEl.style.display = 'block';
+                    sectionBgEl.style.opacity = '1';
+                }
+                homeVideoEl.style.opacity = '0';
+            };
+            testImg.onerror = function () {
+                tryCandidate(index + 1);
+            };
+            testImg.src = candidateUrl;
+        }
+
+        tryCandidate(0);
+    }
+
+    // Video Autoplay Resilience & Seamless Infinite Looping
+    if (homeVideoEl) {
+        homeVideoEl.muted = true;
+        homeVideoEl.defaultMuted = true;
+        homeVideoEl.loop = true;
+        homeVideoEl.playsInline = true;
+
+        const loopAndPlay = function () {
+            if (currentApp === 'home') {
+                homeVideoEl.currentTime = 0;
+                const p = homeVideoEl.play();
+                if (p && typeof p.catch === 'function') {
+                    p.catch(() => {});
+                }
+            }
+        };
+
+        // Standard ended event listener for looping
+        homeVideoEl.addEventListener('ended', loopAndPlay);
+
+        // Sub-second near-end detection to ensure smooth seamless looping without pauses
+        homeVideoEl.addEventListener('timeupdate', function () {
+            if (homeVideoEl.duration && homeVideoEl.currentTime >= (homeVideoEl.duration - 0.25)) {
+                loopAndPlay();
+            }
+        });
+
+        // Resume if unexpectedly paused while on home desktop
+        homeVideoEl.addEventListener('pause', function () {
+            if (currentApp === 'home' && !document.hidden && homeVideoEl.paused) {
+                homeVideoEl.play().catch(() => {});
+            }
+        });
+
+        // Tab switch / visibility restore
+        document.addEventListener('visibilitychange', function () {
+            if (document.visibilityState === 'visible' && currentApp === 'home' && homeVideoEl.paused) {
+                homeVideoEl.play().catch(() => {});
+            }
+        });
+
+        // Autoplay policy unlocker on user interaction
+        const unlockAndPlay = function () {
+            if (currentApp === 'home') {
+                homeVideoEl.muted = true;
+                homeVideoEl.loop = true;
+                homeVideoEl.play().catch(() => {});
+            }
+        };
+
+        unlockAndPlay();
+        window.addEventListener('load', unlockAndPlay);
+        document.addEventListener('click', unlockAndPlay, { once: true });
+        document.addEventListener('touchstart', unlockAndPlay, { once: true, passive: true });
+        document.addEventListener('keydown', unlockAndPlay, { once: true });
+    }
+
+    // ============================================================
+    // APP SWITCHER & WINDOW MANAGER
+    // ============================================================
+
+    function launchApp(appName, updateHistory = true) {
+        if (!APPS[appName]) return;
+        currentApp = appName;
+
+        // If Home is clicked, minimize dossier
+        if (appName === 'home') {
+            closeDossier(updateHistory);
+            return;
+        }
+
+        // Open dossier window
+        if (osViewport) {
+            osViewport.classList.remove('desktop-active');
+            osViewport.classList.add('dossier-active');
+            osViewport.setAttribute('data-active-app', appName);
+        }
+        if (desktopGrid) desktopGrid.classList.add('fade-out');
+        if (superheroesLayer) superheroesLayer.classList.add('fade-out');
+        if (hudBar) hudBar.classList.add('fade-out');
+        if (centralHero) centralHero.classList.add('fade-out');
+        if (activityCorner) activityCorner.classList.add('fade-out');
+        if (activityPanel) activityPanel.classList.remove('show');
+        if (dossierModal) {
+            dossierModal.classList.add('visible');
+            dossierModal.scrollTop = 0;
+        }
+        if (bottomDock) {
+            bottomDock.classList.remove('d-none');
+            bottomDock.style.display = 'flex';
+        }
+
+        // Update background
+        updatePageBackground(appName);
+
+        // Update dossier bottom card header
+        const appConfig = APPS[appName];
+        if (bottomTag) bottomTag.textContent = appConfig.tag;
+        if (bottomTitle) bottomTitle.textContent = appConfig.heading;
+
+        // Update active panels
+        const panels = document.querySelectorAll('.dossier-panel');
+        panels.forEach(p => p.classList.remove('active'));
+        if (appConfig.panelId) {
+            const activePanel = document.getElementById(appConfig.panelId);
+            if (activePanel) {
+                activePanel.classList.add('active');
+                if (bottomScrollBody) bottomScrollBody.scrollTop = 0;
+            }
+        }
+
+        // Update mini pill tabs in bottom card
+        const miniPills = document.querySelectorAll('.dossier-mini-pill-btn');
+        miniPills.forEach(pill => {
+            pill.classList.toggle('active', pill.getAttribute('data-app') === appName);
+        });
+
+        // Update dock halos
+        updateDockState(appName);
+
+        // Update URL & title
+        if (updateHistory) {
+            window.history.pushState({ app: appName }, appConfig.title, appConfig.route);
+            document.title = appConfig.title;
+        }
+    }
+
+    function closeDossier(updateHistory = true) {
+        currentApp = 'home';
+        if (osViewport) {
+            osViewport.classList.remove('dossier-active');
+            osViewport.classList.add('desktop-active');
+            osViewport.setAttribute('data-active-app', 'home');
+        }
+        if (dossierModal) dossierModal.classList.remove('visible');
+        if (desktopGrid) desktopGrid.classList.remove('fade-out');
+        if (superheroesLayer) superheroesLayer.classList.remove('fade-out');
+        if (hudBar) hudBar.classList.remove('fade-out');
+        if (centralHero) centralHero.classList.remove('fade-out');
+        if (activityCorner) activityCorner.classList.remove('fade-out');
+        if (bottomDock) {
+            bottomDock.classList.add('d-none');
+            bottomDock.style.display = 'none';
+        }
+
+        // Restore video background
+        updatePageBackground('home');
+
+        updateDockState('home');
+
+        if (updateHistory) {
+            window.history.pushState({ app: 'home' }, APPS.home.title, APPS.home.route);
+            document.title = APPS.home.title;
+        }
+    }
+
+    function updateDockState(activeName) {
+        const dockItems = document.querySelectorAll('.dock-item');
+        dockItems.forEach(item => {
+            const app = item.getAttribute('data-app');
+            item.classList.toggle('active', app === activeName);
+        });
+
+        const desktopBtns = document.querySelectorAll('.os-desktop-icon-btn');
+        desktopBtns.forEach(sc => {
+            const app = sc.getAttribute('data-app');
+            sc.classList.toggle('active', app === activeName);
+        });
+    }
+
+    // ============================================================
+    // IN-APP BLOG DETAIL ROUTER
+    // ============================================================
+
+    function displayBlogPost(slug, updateHistory = true) {
+        const post = cachedBlogs.find(b => b.slug === slug);
+        const detailPanel = document.getElementById('panel-blog-detail');
+        const blogsPanel = document.getElementById('panel-blogs');
+        if (!detailPanel || !blogsPanel) return;
+
+        if (post) {
+            const dTitle = document.getElementById('detail-title');
+            const dCat = document.getElementById('detail-category');
+            const dDate = document.getElementById('detail-date');
+            const dViews = document.getElementById('detail-views');
+            const dSnippet = document.getElementById('detail-snippet');
+            const dBody = document.getElementById('detail-body');
+            const dImg = document.getElementById('detail-img');
+            const dTags = document.getElementById('detail-tags');
+
+            if (dTitle) dTitle.textContent = post.title || 'Technical Article';
+            if (dCat) dCat.textContent = post.category || 'Tech';
+            if (dDate) dDate.innerHTML = `<i class="bi bi-calendar3 me-1 text-cyan"></i>${post.date || 'Recent'}`;
+            if (dViews) dViews.innerHTML = `<i class="bi bi-eye text-cyan me-1"></i>${Number(post.views || 0).toLocaleString()} views`;
+            if (dSnippet) dSnippet.textContent = post.snippet || '';
+            if (dBody) dBody.innerHTML = post.content || '<p class="text-secondary">Full article content.</p>';
+            if (dImg && post.image) {
+                dImg.src = baseUrl + post.image.replace(/^\//, '');
+                dImg.alt = post.title || 'Article';
+            }
+            if (dTags && post.tags && Array.isArray(post.tags)) {
+                dTags.innerHTML = post.tags.map(t => `<span class="badge-mini-tag">#${t}</span>`).join('');
+            }
+
+            blogsPanel.classList.remove('active');
+            detailPanel.classList.add('active');
+            if (bottomScrollBody) bottomScrollBody.scrollTop = 0;
+            if (dossierModal) {
+                dossierModal.scrollTop = 0;
+            }
+            const detailContainer = document.getElementById('panel-blog-detail');
+            if (detailContainer && typeof detailContainer.scrollIntoView === 'function') {
+                detailContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            if (updateHistory) {
+                window.history.pushState({ app: 'blogs', slug: slug }, post.title, baseUrl + 'blogs/' + encodeURIComponent(slug));
+                document.title = `${post.title} | Balamurugan P M`;
+            }
+        } else {
+            // Fetch via AJAX if not in pre-cached dataset
+            fetch(baseUrl + 'blogs/' + encodeURIComponent(slug) + '?ajax=1')
+                .then(r => r.json())
+                .then(res => {
+                    if (res.activePost) {
+                        cachedBlogs.push(res.activePost);
+                        displayBlogPost(slug, updateHistory);
+                    }
+                })
+                .catch(() => {});
+        }
+    }
+
+    // ============================================================
+    // EVENT LISTENERS: SHORTCUTS, DOCK & ROUTING
+    // ============================================================
+
+    document.addEventListener('click', function (e) {
+        // Desktop Shortcut / Hotspot / 3D Icon / Central CTA / 3D Home Deck Click
+        const shortcut = e.target.closest('.os-desktop-icon-btn, .os-hotspot-btn, .os-app-shortcut, .central-cta-btn[data-app], .activity-shortcut-btn[data-app], .home-3d-card[data-app], .home-3d-center-btn[data-app]');
+        if (shortcut) {
+            e.preventDefault();
+            const app = shortcut.getAttribute('data-app');
+            launchApp(app);
+            return;
+        }
+
+        // Dock Item Click
+        const dockBtn = e.target.closest('.dock-item');
+        if (dockBtn) {
+            e.preventDefault();
+            const app = dockBtn.getAttribute('data-app');
+            launchApp(app);
+            return;
+        }
+
+        // Mini Pill Button in Dossier Bottom Card
+        const miniPill = e.target.closest('.dossier-mini-pill-btn[data-app]');
+        if (miniPill) {
+            e.preventDefault();
+            const app = miniPill.getAttribute('data-app');
+            launchApp(app);
+            return;
+        }
+
+        // Blog Article Item Click
+        const blogCard = e.target.closest('.read-blog-btn, .blog-link-btn, .blog-entry-card, .blog-grid-card');
+        if (blogCard) {
+            e.preventDefault();
+            const slug = blogCard.getAttribute('data-slug');
+            if (slug) {
+                if (currentApp !== 'blogs') {
+                    launchApp('blogs', false);
+                }
+                displayBlogPost(slug, true);
+                if (dossierModal) {
+                    dossierModal.scrollTop = 0;
+                }
+            }
+            return;
+        }
+
+        // Back from detail to blog list
+        if (e.target.closest('#blog-back-btn')) {
+            e.preventDefault();
+            const detailPanel = document.getElementById('panel-blog-detail');
+            const blogsPanel = document.getElementById('panel-blogs');
+            if (detailPanel && blogsPanel) {
+                detailPanel.classList.remove('active');
+                blogsPanel.classList.add('active');
+                if (dossierModal) {
+                    dossierModal.scrollTop = 0;
+                }
+                window.history.pushState({ app: 'blogs' }, APPS.blogs.title, APPS.blogs.route);
+                document.title = APPS.blogs.title;
+            }
+            return;
+        }
+
+        // Copy Article Link
+        if (e.target.closest('#blog-copy-link-btn')) {
+            e.preventDefault();
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    const label = document.getElementById('copy-btn-label');
+                    if (label) {
+                        label.textContent = 'Copied!';
+                        setTimeout(() => { label.textContent = 'Copy Link'; }, 2000);
+                    }
+                });
+            }
+            return;
+        }
+
+        // Portfolio Pure Image Card Click -> Open Lightbox
+        const portfolioCard = e.target.closest('.portfolio-image-card');
+        if (portfolioCard) {
+            e.preventDefault();
+            const imgSrc = portfolioCard.getAttribute('data-img');
+            const title = portfolioCard.getAttribute('data-title');
+            if (imgSrc) {
+                openImageLightbox(imgSrc, title);
+            }
+            return;
+        }
+
+        // Lightbox Close triggers
+        if (e.target.closest('#lightbox-close-btn')) {
+            e.preventDefault();
+            closeImageLightbox();
+            return;
+        }
+        if (e.target.id === 'os-image-lightbox') {
+            closeImageLightbox();
+            return;
+        }
+
+        // Project Showcase Card & Inspect Button Click
+        const projTrigger = e.target.closest('.open-project-btn, .project-showcase-card');
+        if (projTrigger) {
+            if (e.target.closest('a')) return; // Allow direct repository anchor clicks
+            e.preventDefault();
+            const pIdx = parseInt(projTrigger.getAttribute('data-project-idx'), 10);
+            if (!isNaN(pIdx) && cachedProjects[pIdx]) {
+                openProjectModal(cachedProjects[pIdx]);
+            }
+            return;
+        }
+
+        // Project Modal Close triggers
+        if (e.target.closest('#project-modal-close-btn, #project-modal-close-action')) {
+            e.preventDefault();
+            closeProjectModal();
+            return;
+        }
+        if (e.target.id === 'os-project-modal') {
+            closeProjectModal();
+            return;
+        }
+
+        // Dossier Close Button
+        const closeBtn = e.target.closest('#dossier-close-trigger, #dossier-bottom-close-btn');
+        if (closeBtn) {
+            e.preventDefault();
+            closeDossier();
+            return;
+        }
+
+        // Close when clicking outside dossier dialog on backdrop
+        if (e.target.id === 'os-dossier-modal') {
+            closeDossier();
+            return;
+        }
     });
-});
+
+    // Handle Browser Back / Forward buttons
+    window.addEventListener('popstate', function (e) {
+        if (e.state && e.state.app) {
+            if (e.state.app === 'home') {
+                closeDossier(false);
+            } else {
+                launchApp(e.state.app, false);
+                if (e.state.app === 'blogs' && e.state.slug) {
+                    displayBlogPost(e.state.slug, false);
+                }
+            }
+        } else {
+            // Determine by URL pathname
+            const path = window.location.pathname.replace(baseUrl, '').replace(/^\//, '').split('/')[0];
+            const matchingApp = Object.keys(APPS).find(k => k === path) || 'home';
+            if (matchingApp === 'home') {
+                closeDossier(false);
+            } else {
+                launchApp(matchingApp, false);
+            }
+        }
+    });
+
+    // Keyboard Shortcuts (Esc to close modals / window)
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+            if (imageLightbox && imageLightbox.classList.contains('show')) {
+                closeImageLightbox();
+                return;
+            }
+            if (projectModal && projectModal.classList.contains('show')) {
+                closeProjectModal();
+                return;
+            }
+            if (currentApp !== 'home') {
+                closeDossier();
+            }
+        }
+    });
+
+    // ============================================================
+    // AJAX CONTACT FORM HANDLER
+    // ============================================================
+
+    const contactForm = document.getElementById('dossier-contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const alertBox = document.getElementById('contact-alert-box');
+            const submitBtn = document.getElementById('c-submit-btn');
+            const originalText = submitBtn ? submitBtn.innerHTML : 'Send';
+
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1" role="status"></span> Transmitting...';
+            }
+
+            const formData = new FormData(contactForm);
+
+            fetch(contactForm.action, {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: formData
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (alertBox) {
+                    alertBox.classList.remove('d-none', 'alert-danger', 'alert-success');
+                    if (data.success) {
+                        alertBox.classList.add('alert', 'alert-success');
+                        alertBox.textContent = data.message || 'Transmission dispatched successfully! Bala has been notified.';
+                        contactForm.reset();
+                    } else {
+                        alertBox.classList.add('alert', 'alert-danger');
+                        alertBox.textContent = data.message || 'Failed to dispatch transmission. Please check inputs.';
+                    }
+                }
+            })
+            .catch(() => {
+                if (alertBox) {
+                    alertBox.classList.remove('d-none', 'alert-success');
+                    alertBox.classList.add('alert', 'alert-danger');
+                    alertBox.textContent = 'Network or transmission error. Please try again.';
+                }
+            })
+            .finally(() => {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
+                }
+            });
+        });
+    }
+
+    // ============================================================
+    // LIVE CLOCK & DATE WIDGET (HUD Bar)
+    // ============================================================
+    const hudTimeEl = document.getElementById('hud-time');
+    const hudDateEl = document.getElementById('hud-date');
+
+    function updateLiveClock() {
+        const now = new Date();
+        if (hudTimeEl) {
+            hudTimeEl.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+        }
+        if (hudDateEl) {
+            hudDateEl.textContent = now.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' });
+        }
+    }
+    updateLiveClock();
+    setInterval(updateLiveClock, 1000);
+
+    // ============================================================
+    // SKILLS TYPEWRITER ROTATION (Home Hero Center)
+    // ============================================================
+    const typingSkillsEl = document.getElementById('hero-typing-skills');
+    if (typingSkillsEl) {
+        const skillsList = [
+            "Frontend Architecture & Modern Web",
+            "React.js & Next.js SPAs",
+            "Enterprise SharePoint SPFx Intranets",
+            "Microsoft Graph API & PnP JS",
+            "Pixel-Perfect Figma Design Systems",
+            "Sub-Second LCP & Web Optimization"
+        ];
+        let skillIdx = 0;
+        let charIdx = 0;
+        let isDeleting = false;
+        let speed = 75;
+
+        function runTypewriter() {
+            const currentSkill = skillsList[skillIdx];
+
+            if (isDeleting) {
+                charIdx--;
+                typingSkillsEl.textContent = currentSkill.substring(0, charIdx);
+                speed = 35;
+            } else {
+                charIdx++;
+                typingSkillsEl.textContent = currentSkill.substring(0, charIdx);
+                speed = 75;
+            }
+
+            if (!isDeleting && charIdx === currentSkill.length) {
+                speed = 2200; // Pause at end of completed skill
+                isDeleting = true;
+            } else if (isDeleting && charIdx === 0) {
+                isDeleting = false;
+                skillIdx = (skillIdx + 1) % skillsList.length;
+                speed = 400; // Pause before next skill
+            }
+
+            setTimeout(runTypewriter, speed);
+        }
+
+        setTimeout(runTypewriter, 600);
+    }
+
+    // ============================================================
+    // LIVE GITHUB ACTIVITY INTEGRATION (Recent Activity Corner)
+    // ============================================================
+    function fetchLiveGithubActivity() {
+        fetch('https://api.github.com/users/Balamuruganpm/events/public', {
+            headers: { 'Accept': 'application/vnd.github.v3+json' }
+        })
+        .then(r => {
+            if (!r.ok) throw new Error('Status: ' + r.status);
+            return r.json();
+        })
+        .then(events => {
+            if (!Array.isArray(events) || events.length === 0) return;
+            const pushEvent = events.find(e => e.type === 'PushEvent') || events[0];
+            if (!pushEvent) return;
+
+            const repoName = pushEvent.repo ? pushEvent.repo.name : 'portfolio';
+            const cleanRepo = repoName.replace(/^[^/]+\//, '');
+            const commitMsg = pushEvent.payload && pushEvent.payload.commits && pushEvent.payload.commits[0]
+                ? pushEvent.payload.commits[0].message.slice(0, 48)
+                : 'Committed updates';
+
+            const eventDate = new Date(pushEvent.created_at);
+            const diffHours = Math.max(1, Math.round((Date.now() - eventDate.getTime()) / (1000 * 60 * 60)));
+            const timeText = diffHours < 24 ? `${diffHours}h ago` : `${Math.round(diffHours / 24)}d ago`;
+
+            const ghTiles = document.querySelectorAll('.activity-tile');
+            ghTiles.forEach(tile => {
+                if (tile.querySelector('.bi-github')) {
+                    const titleEl = tile.querySelector('.activity-tile-title');
+                    const linkEl = tile.querySelector('.activity-tile-link');
+                    if (titleEl) {
+                        titleEl.textContent = `Pushed to ${cleanRepo} (${timeText})`;
+                    }
+                    if (linkEl) {
+                        linkEl.innerHTML = `<span>"${commitMsg}"</span> <i class="bi bi-arrow-up-right ms-1"></i>`;
+                        linkEl.href = `https://github.com/${repoName}`;
+                    }
+                }
+            });
+        })
+        .catch(() => {
+            // Graceful fallback to static template content
+        });
+    }
+
+    fetchLiveGithubActivity();
+
+    // ============================================================
+    // RECENT ACTIVITY CORNER PANEL
+    // ============================================================
+    if (activityTrigger && activityPanel) {
+        activityTrigger.addEventListener('click', function (e) {
+            e.stopPropagation();
+            activityPanel.classList.toggle('show');
+        });
+
+        if (activityCloseBtn) {
+            activityCloseBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                activityPanel.classList.remove('show');
+            });
+        }
+
+        document.addEventListener('click', function (e) {
+            if (activityPanel.classList.contains('show') && !activityPanel.contains(e.target) && !activityTrigger.contains(e.target)) {
+                activityPanel.classList.remove('show');
+            }
+        });
+    }
+
+    // ============================================================
+    // SUBTLE MOUSE-FOLLOWING 3D TILT EFFECT
+    // ============================================================
+    const heroTiltEl = document.getElementById('central-hero-tilt');
+    if (heroTiltEl && window.matchMedia && window.matchMedia('(pointer: fine)').matches) {
+        let mouseX = 0, mouseY = 0;
+        let currentTiltX = 0, currentTiltY = 0;
+        let isHoveringHero = false;
+        let animFrameId = null;
+
+        function updateTilt() {
+            if (!isHoveringHero) {
+                currentTiltX += (0 - currentTiltX) * 0.1;
+                currentTiltY += (0 - currentTiltY) * 0.1;
+            } else {
+                currentTiltX += (mouseY - currentTiltX) * 0.12;
+                currentTiltY += (mouseX - currentTiltY) * 0.12;
+            }
+
+            heroTiltEl.style.transform = `perspective(800px) rotateX(${currentTiltX.toFixed(2)}deg) rotateY(${currentTiltY.toFixed(2)}deg)`;
+
+            if (isHoveringHero || Math.abs(currentTiltX) > 0.05 || Math.abs(currentTiltY) > 0.05) {
+                animFrameId = requestAnimationFrame(updateTilt);
+            } else {
+                heroTiltEl.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg)';
+                animFrameId = null;
+            }
+        }
+
+        const heroContainer = centralHero || heroTiltEl;
+
+        heroContainer.addEventListener('mousemove', function (e) {
+            const rect = heroTiltEl.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            const x = (e.clientX - centerX) / (rect.width / 2);
+            const y = (e.clientY - centerY) / (rect.height / 2);
+
+            // Clamp max tilt to 6 degrees
+            mouseX = Math.max(-1, Math.min(1, x)) * 6;
+            mouseY = Math.max(-1, Math.min(1, y)) * -6;
+            isHoveringHero = true;
+
+            if (!animFrameId) {
+                animFrameId = requestAnimationFrame(updateTilt);
+            }
+        });
+
+        heroContainer.addEventListener('mouseleave', function () {
+            isHoveringHero = false;
+            mouseX = 0;
+            mouseY = 0;
+            if (!animFrameId) {
+                animFrameId = requestAnimationFrame(updateTilt);
+            }
+        });
+    }
+
+    // Initial check on load
+    document.addEventListener('DOMContentLoaded', function () {
+        if (currentApp && currentApp !== 'home') {
+            launchApp(currentApp, false);
+            // Check if URL has a blog slug
+            const parts = window.location.pathname.replace(baseUrl, '').replace(/^\//, '').split('/');
+            if (parts[0] === 'blogs' && parts[1]) {
+                displayBlogPost(parts[1], false);
+            }
+        }
+    });
+
+})();

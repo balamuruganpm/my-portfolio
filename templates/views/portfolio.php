@@ -1,10 +1,6 @@
 <?php
 /**
  * View: Portfolio Projects
+ * Shell rendered in templates/layout/main.php
  */
 ?>
-<div class="container py-4">
-<?php
-include BASE_PATH . 'templates/sections/portfolio-grid.php';
-?>
-</div>

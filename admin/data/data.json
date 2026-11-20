@@ -162,8 +162,128 @@
     ],
     "projects": [
         {
-            "title": "Vocalease",
-            "tagline": "Accessible Communication Platform",
+            "id": 1,
+            "title": "Custom Apparel & T-Shirt Store",
+            "tagline": "Interactive Merchandise Store & Apparel Showcase",
+            "bullets": [
+                "Developed clean apparel storefront featuring customized streetwear and merchandise.",
+                "Implemented interactive catalog filters, size selectors, and rich product previews.",
+                "Created mobile-first shopping experience with fluid navigation and cart interactions."
+            ],
+            "tags": [
+                "Apparel E-Store",
+                "Merchandise",
+                "Mobile-First"
+            ],
+            "image": "assets/images/portfolio/tshirt-website-bala.webp",
+            "link": "https://github.com/Balamuruganpm"
+        },
+        {
+            "id": 2,
+            "title": "G7 Digital Solutions",
+            "tagline": "Enterprise Digital Agency & Technology Modernization Platform",
+            "bullets": [
+                "Engineered a multi-service corporate agency portal showcasing digital enterprise offerings.",
+                "Structured modular design components with crisp typography and high visual contrast.",
+                "Integrated client inquiry points with interactive service catalog presentation."
+            ],
+            "tags": [
+                "Agency Web",
+                "Corporate UI",
+                "Frontend"
+            ],
+            "image": "assets/images/portfolio/g7digital-bala.webp",
+            "link": "https://github.com/Balamuruganpm"
+        },
+        {
+            "id": 3,
+            "title": "Click Photography Studio",
+            "tagline": "Creative Photography Studio & Visual Showcase Portfolio",
+            "bullets": [
+                "Built an immersive, media-rich visual portfolio for professional photography services.",
+                "Implemented smooth high-definition gallery transitions and responsive lightboxes.",
+                "Delivered fast image loading with WebP compression and lazy loading architecture."
+            ],
+            "tags": [
+                "Creative Portfolio",
+                "Photography",
+                "Responsive Design"
+            ],
+            "image": "assets/images/portfolio/clickcphotography-bala.webp",
+            "link": "https://github.com/Balamuruganpm"
+        },
+        {
+            "id": 4,
+            "title": "Skillchemy Tech Academy",
+            "tagline": "EdTech Learning Platform & Digital Academy Portal",
+            "bullets": [
+                "Created modern educational platform for technical skill acquisition and mentorship.",
+                "Structured intuitive curriculum overviews, instructor highlights, and student testimonials.",
+                "Optimized landing conversion path with engaging visual hierarchy and calls to action."
+            ],
+            "tags": [
+                "EdTech",
+                "Figma Design",
+                "Education Portal"
+            ],
+            "image": "assets/images/portfolio/skillchemy-bala.webp",
+            "link": "https://github.com/Balamuruganpm"
+        },
+        {
+            "id": 5,
+            "title": "Booking App Platform",
+            "tagline": "Modern Mobile & Web Appointment Booking Application",
+            "bullets": [
+                "Crafted responsive booking interface with interactive calendar picker and real-time scheduling.",
+                "Designed intuitive booking confirmation flows with instant validation and feedback.",
+                "Optimized for high-speed mobile responsiveness and accessible touch targets."
+            ],
+            "tags": [
+                "Mobile UI",
+                "React",
+                "Scheduling"
+            ],
+            "image": "assets/images/portfolio/boking-app-bala.webp",
+            "link": "https://github.com/Balamuruganpm"
+        },
+        {
+            "id": 6,
+            "title": "Lyfre Index Health Portal",
+            "tagline": "Healthcare Analytics, Metrics & Life Index Dashboard",
+            "bullets": [
+                "Developed data-dense healthcare index platform presenting medical and wellness indicators.",
+                "Engineered responsive data cards, visual scoring metrics, and status badges.",
+                "Adhered strictly to accessible design standards with clean data presentation."
+            ],
+            "tags": [
+                "HealthTech",
+                "Dashboard UI",
+                "Data Visualization"
+            ],
+            "image": "assets/images/portfolio/LyfreIndex-bala.webp",
+            "link": "https://github.com/Balamuruganpm"
+        },
+        {
+            "id": 7,
+            "title": "Red Dragon Footwear",
+            "tagline": "E-Commerce Footwear Brand & Product Showcase Store",
+            "bullets": [
+                "Designed bold lifestyle and athletic footwear brand showcase with 3D product focus.",
+                "Implemented dynamic color-way toggles and interactive product zoom interactions.",
+                "Structured high-conversion checkout flows and modern retail card architecture."
+            ],
+            "tags": [
+                "E-Commerce",
+                "Product Design",
+                "Retail UI"
+            ],
+            "image": "assets/images/portfolio/ling-shoe-bala.webp",
+            "link": "https://github.com/Balamuruganpm"
+        },
+        {
+            "id": 8,
+            "title": "Vocalease Platform",
+            "tagline": "Accessible Communication & Speech Support Platform",
             "bullets": [
                 "Designed and developed an accessible communication platform focused on supporting people with disabilities and sign language users.",
                 "Developed interactive frontend components to create a responsive and user-focused communication experience.",
@@ -175,44 +295,8 @@
                 "Accessibility",
                 "Responsive Web Design"
             ],
-            "image": "assets/images/vocalease.webp",
+            "image": "assets/images/portfolio/vocalease.webp",
             "link": "https://github.com/Balamuruganpm/vocalease"
-        },
-        {
-            "title": "SharePoint SPFx Intranet Workspace",
-            "tagline": "Enterprise Employee Portal & Custom SPFx Web Parts",
-            "bullets": [
-                "Engineered customizable SharePoint Framework (SPFx) web parts for enterprise intranet solutions.",
-                "Integrated Microsoft Graph API and PnP JS for automated list manipulation and user directory synchronization.",
-                "Implemented secure Entra ID authentication and role-based permissions.",
-                "Delivered sub-second render speeds with client-side caching and responsive CSS Grid design."
-            ],
-            "tags": [
-                "SPFx",
-                "SharePoint Online",
-                "TypeScript",
-                "Microsoft Graph"
-            ],
-            "image": "assets/images/spfx-sharepoint.webp",
-            "link": "https://github.com/Balamuruganpm"
-        },
-        {
-            "title": "CyberPulse Design Tokens & UI System",
-            "tagline": "High-Performance Modular Component Architecture",
-            "bullets": [
-                "Crafted a bespoke design token architecture with dark-mode glassmorphism and WCAG 2.2 AA accessibility.",
-                "Developed reusable UI widgets with vanilla JavaScript micro-interactions and zero heavy dependencies.",
-                "Built interactive HTML5 canvas developer games with 60 FPS performance.",
-                "Achieved 98+ Google Lighthouse scores across Performance, Accessibility, and SEO."
-            ],
-            "tags": [
-                "JavaScript ES6+",
-                "Design Systems",
-                "Bootstrap 5",
-                "Lighthouse 98+"
-            ],
-            "image": "assets/images/modern-js-2026.webp",
-            "link": "https://github.com/Balamuruganpm"
         }
     ],
     "awards": [
@@ -259,5 +343,5 @@
             "password": "$2y$10$pKs1TOonbuEURwLfpSFtUO1yVVI3saacNnGX4yWEsPur0/CErWW7O"
         }
     ],
-    "views": 1688
+    "views": 1724
 }

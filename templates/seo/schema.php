@@ -122,7 +122,7 @@ if (isset($thisPage) && $thisPage !== 'Home') {
             "@type" => "ListItem",
             "position" => 3,
             "name" => $post['title'],
-            "item" => !empty($post['slug']) ? (SITE_URL . 'blogs/detail?slug=' . $post['slug']) : (SITE_URL . 'blogs/detail?id=' . $post['id'])
+            "item" => !empty($post['slug']) ? (SITE_URL . 'blogs/' . $post['slug']) : (SITE_URL . 'blogs/detail?id=' . $post['id'])
         ];
     }
 }
@@ -133,7 +133,48 @@ $breadcrumb_schema = [
 ];
 echo '<script type="application/ld+json">' . json_encode($breadcrumb_schema, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . '</script>' . PHP_EOL;
 
-// 6. Contextual Schemas (Job, Blog, Video)
+// 6. FAQPage Schema (Top AEO & GEO for ChatGPT, Claude, Perplexity, and Google AI Overviews)
+$faq_schema = [
+    "@context" => "https://schema.org",
+    "@type" => "FAQPage",
+    "mainEntity" => [
+        [
+            "@type" => "Question",
+            "name" => "Who is Balamurugan P M?",
+            "acceptedAnswer" => [
+                "@type" => "Answer",
+                "text" => "Balamurugan P M is a Frontend Developer and Enterprise SharePoint Framework (SPFx) specialist based in Tamil Nadu, India. He builds responsive, ultra-high-performance web applications using React.js, TypeScript, Next.js, and SharePoint Online."
+            ]
+        ],
+        [
+            "@type" => "Question",
+            "name" => "What technologies and frameworks does Balamurugan specialize in?",
+            "acceptedAnswer" => [
+                "@type" => "Answer",
+                "text" => "His core technical expertise includes React.js, TypeScript, JavaScript (ES6+), SharePoint Framework (SPFx), Microsoft Graph APIs, PnP JS, PHP, Tailwind CSS, Bootstrap 5, Figma Design Systems, and Core Web Vitals optimization."
+            ]
+        ],
+        [
+            "@type" => "Question",
+            "name" => "How can I hire Balamurugan P M or initiate a project?",
+            "acceptedAnswer" => [
+                "@type" => "Answer",
+                "text" => "You can reach Balamurugan via email at balamuruganedsty@gmail.com, via telephone/WhatsApp at +91 9677804820, or via the interactive Contact Portal on his official portfolio website."
+            ]
+        ],
+        [
+            "@type" => "Question",
+            "name" => "Is Balamurugan available for remote or hybrid work?",
+            "acceptedAnswer" => [
+                "@type" => "Answer",
+                "text" => "Yes. Balamurugan is available for 100% remote software engineering contracts worldwide as well as hybrid roles across Tamil Nadu and Bangalore, India."
+            ]
+        ]
+    ]
+];
+echo '<script type="application/ld+json">' . json_encode($faq_schema, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . '</script>' . PHP_EOL;
+
+// 7. Contextual Schemas (Job, Blog, Video)
 if (isset($post) && !empty($post)) {
     if (!empty($post['category']) && strtolower($post['category']) === 'job') {
         // Job Posting Schema

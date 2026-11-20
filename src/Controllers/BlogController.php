@@ -102,6 +102,18 @@ class BlogController extends Controller
         $comments = $this->blogService->getComments((int)$post['id']);
         $relatedBlogs = $this->blogService->getRelatedBlogs((int)$post['id'], $post['category'] ?? 'General');
 
+        // Check if request is AJAX / JSON API call
+        $isAjax = (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') || isset($_GET['ajax']);
+        if ($isAjax) {
+            $this->json([
+                'success'      => true,
+                'post'         => $post,
+                'comments'     => $comments,
+                'relatedBlogs' => $relatedBlogs,
+            ]);
+            return;
+        }
+
         $seoTitle = !empty($post['seo_title']) ? $post['seo_title'] : $post['title'];
         $seoDesc  = !empty($post['seo_description']) ? $post['seo_description'] : ($post['snippet'] ?? '');
         $seoKey   = !empty($post['seo_keywords']) ? $post['seo_keywords'] : (isset($post['tags']) ? implode(', ', $post['tags']) : '');
@@ -110,7 +122,8 @@ class BlogController extends Controller
             'pageTitle'           => Security::e($seoTitle) . " | Balamurugan P M",
             'pageMetaDescription' => Security::e($seoDesc),
             'pageMetaKeywords'    => Security::e($seoKey),
-            'thisPage'            => "Blogs",
+            'thisPage'            => "blogs",
+            'activePost'          => $post,
             'post'                => $post,
             'comments'            => $comments,
             'relatedBlogs'        => $relatedBlogs,

@@ -50,7 +50,7 @@ function runMinify(srcPath, destPath, type) {
         const processed = processCSS(srcPath);
         fs.writeFileSync(tempPath, processed);
         try {
-            execSync(`npx -y clean-css-cli -O2 -o "${destPath}" "${tempPath}"`, { stdio: 'ignore' });
+            execSync(`npx -y clean-css-cli -O2 -o "${destPath}" "${tempPath}"`, { stdio: 'ignore', timeout: 8000 });
             console.log(`✓ Minified CSS: ${path.basename(srcPath)} -> ${path.basename(destPath)}`);
         } catch (e) {
             console.warn(`⚠ Clean-CSS fallback triggered for ${path.basename(srcPath)}`);
@@ -61,7 +61,8 @@ function runMinify(srcPath, destPath, type) {
         try {
             execSync(`npx -y terser "${tempPath}" -o "${destPath}" --compress passes=3,drop_console=false,unsafe=true --mangle`, {
                 stdio: 'ignore',
-                maxBuffer: 10 * 1024 * 1024
+                maxBuffer: 10 * 1024 * 1024,
+                timeout: 8000
             });
             console.log(`✓ Minified JS: ${path.basename(srcPath)} -> ${path.basename(destPath)}`);
         } catch (e) {
