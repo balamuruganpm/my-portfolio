@@ -102,7 +102,7 @@ include __DIR__ . '/../../layout/header.php';
                             $comm_count++;
                         }
                     }
-                    $short_url = BASE_URL . 'blogs/detail?id=' . $blog['id'];
+                    $short_url = BASE_URL . 'b/' . $blog['id'];
                 ?>
                     <tr>
                         <td>

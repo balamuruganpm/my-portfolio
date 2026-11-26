@@ -237,26 +237,43 @@ include __DIR__ . '/../../layout/header.php';
                 </div>
             </div>
 
-            <!-- SEO & Meta Card -->
-            <div class="admin-card p-4 p-md-5 mb-4">
-                <h3 class="admin-card-title mb-3"><i class="bi bi-search text-info"></i> SEO &amp; Indexing Metadata</h3>
+            <!-- SEO & Meta Card + Google Search Result Preview -->
+            <div class="admin-card p-4 mb-4">
+                <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+                    <h3 class="admin-card-title mb-0"><i class="bi bi-search text-info"></i> SEO, GEO &amp; AEO Indexing</h3>
+                    <?php if ($editing_blog && !empty($editing_blog['id'])):
+                        $editShortUrl = BASE_URL . 'b/' . (int)$editing_blog['id'];
+                    ?>
+                        <button type="button" class="btn btn-admin-secondary btn-sm py-1 px-2" onclick="navigator.clipboard && navigator.clipboard.writeText('<?php echo e($editShortUrl); ?>').then(() => window.showToast && window.showToast('Shortlink copied!', 'success'))">
+                            <i class="bi bi-link-45deg text-info"></i> Copy Shortlink (/b/<?php echo (int)$editing_blog['id']; ?>)
+                        </button>
+                    <?php endif; ?>
+                </div>
+
+                <!-- Live Google SERP Preview -->
+                <div class="serp-preview-box mb-3">
+                    <div class="serp-url" id="serp-preview-url"><?php echo e(SITE_URL); ?>blogs/<span id="serp-slug-span"><?php echo e($editing_blog['slug'] ?? 'your-article-slug'); ?></span></div>
+                    <div class="serp-title" id="serp-preview-title"><?php echo e(!empty($editing_blog['seo_title']) ? $editing_blog['seo_title'] : ($editing_blog['title'] ?? 'Article Title | Balamurugan P M')); ?></div>
+                    <p class="serp-desc" id="serp-preview-desc"><?php echo e(!empty($editing_blog['seo_description']) ? $editing_blog['seo_description'] : ($editing_blog['snippet'] ?? 'Concise meta description shown in Google Search results and AI Overviews...')); ?></p>
+                </div>
+
                 <div class="row g-3">
                     <div class="col-12">
                         <label class="form-label">Custom URL Slug</label>
                         <input type="text" name="slug" id="slug-input" class="form-control" value="<?php echo e($editing_blog['slug'] ?? ''); ?>">
-                        <span id="slug-preview" class="text-secondary small font-monospace d-block mt-1">/blogs/detail?slug=...</span>
+                        <span id="slug-preview" class="text-secondary small font-monospace d-block mt-1">/blogs/<?php echo e($editing_blog['slug'] ?? '...'); ?></span>
                     </div>
                     <div class="col-12">
-                        <label class="form-label">SEO Title Override</label>
+                        <label class="form-label">SEO Title Override (50–60 chars recommended)</label>
                         <input type="text" name="seo_title" id="seo-title" class="form-control" value="<?php echo e($editing_blog['seo_title'] ?? ''); ?>">
                     </div>
                     <div class="col-12">
-                        <label class="form-label">SEO Keywords</label>
+                        <label class="form-label">SEO / AEO Keywords (comma-separated)</label>
                         <input type="text" name="seo_keywords" class="form-control" value="<?php echo e($editing_blog['seo_keywords'] ?? ''); ?>">
                     </div>
                     <div class="col-12">
-                        <label class="form-label">SEO Meta Description</label>
-                        <textarea name="seo_description" rows="2" class="form-control"><?php echo e($editing_blog['seo_description'] ?? ''); ?></textarea>
+                        <label class="form-label">SEO Meta Description (140–160 chars recommended)</label>
+                        <textarea name="seo_description" id="seo-description" rows="2" class="form-control"><?php echo e($editing_blog['seo_description'] ?? ''); ?></textarea>
                     </div>
                 </div>
             </div>
@@ -384,6 +401,33 @@ document.addEventListener('DOMContentLoaded', function() {
                 tagsInput.value = currentTags.join(', ');
             }
         });
+    });
+
+    // Live Google SERP Preview sync
+    const titleInput = document.querySelector('input[name="title"]');
+    const snippetInput = document.querySelector('textarea[name="snippet"]');
+    const slugInput = document.getElementById('slug-input');
+    const seoTitleInput = document.getElementById('seo-title');
+    const seoDescInput = document.getElementById('seo-description');
+    const serpTitle = document.getElementById('serp-preview-title');
+    const serpDesc = document.getElementById('serp-preview-desc');
+    const serpSlug = document.getElementById('serp-slug-span');
+
+    function syncSerpPreview() {
+        if (serpTitle) {
+            const t = (seoTitleInput && seoTitleInput.value.trim()) || (titleInput && titleInput.value.trim()) || 'Article Title';
+            serpTitle.textContent = t + ' | Balamurugan P M';
+        }
+        if (serpDesc) {
+            serpDesc.textContent = (seoDescInput && seoDescInput.value.trim()) || (snippetInput && snippetInput.value.trim()) || 'Concise meta description shown in Google Search results...';
+        }
+        if (serpSlug && slugInput) {
+            const raw = slugInput.value.trim() || (titleInput ? titleInput.value.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') : 'your-article-slug');
+            serpSlug.textContent = raw;
+        }
+    }
+    [titleInput, snippetInput, slugInput, seoTitleInput, seoDescInput].forEach(el => {
+        if (el) el.addEventListener('input', syncSerpPreview);
     });
 });
 </script>

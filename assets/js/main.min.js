@@ -24,6 +24,7 @@
     const activityTrigger = document.getElementById('os-activity-trigger');
     const activityPanel = document.getElementById('os-activity-panel');
     const activityCloseBtn = document.getElementById('activity-panel-close-btn');
+    const home3dDeck = document.getElementById('os-home-3d-deck');
     const baseUrl = osViewport ? (osViewport.getAttribute('data-base-url') || '/') : '/';
 
     // Section Background Mapping (Loads custom wallpapers when present; keeps ambient background otherwise)
@@ -457,6 +458,7 @@
         if (hudBar) hudBar.classList.add('fade-out');
         if (centralHero) centralHero.classList.add('fade-out');
         if (activityCorner) activityCorner.classList.add('fade-out');
+        if (home3dDeck) home3dDeck.classList.add('fade-out');
         if (activityPanel) activityPanel.classList.remove('show');
         if (dossierModal) {
             dossierModal.classList.add('visible');
@@ -515,6 +517,7 @@
         if (hudBar) hudBar.classList.remove('fade-out');
         if (centralHero) centralHero.classList.remove('fade-out');
         if (activityCorner) activityCorner.classList.remove('fade-out');
+        if (home3dDeck) home3dDeck.classList.remove('fade-out');
         if (bottomDock) {
             bottomDock.classList.add('d-none');
             bottomDock.style.display = 'none';
@@ -578,6 +581,12 @@
             if (dTags && post.tags && Array.isArray(post.tags)) {
                 dTags.innerHTML = post.tags.map(t => `<span class="badge-mini-tag">#${t}</span>`).join('');
             }
+            const dShortBtn = document.getElementById('blog-copy-shortlink-btn');
+            if (dShortBtn && post.id) {
+                const shortUrl = baseUrl + 'b/' + encodeURIComponent(post.id);
+                dShortBtn.setAttribute('data-shortlink', shortUrl);
+                dShortBtn.setAttribute('title', 'Copy Shortlink (' + shortUrl + ')');
+            }
 
             blogsPanel.classList.remove('active');
             detailPanel.classList.add('active');
@@ -637,6 +646,42 @@
             e.preventDefault();
             const app = miniPill.getAttribute('data-app');
             launchApp(app);
+            return;
+        }
+
+        // Blog Category / View All Filter Click
+        const catBtn = e.target.closest('.blog-cat-filter');
+        if (catBtn) {
+            e.preventDefault();
+            const cat = catBtn.getAttribute('data-cat') || 'all';
+            document.querySelectorAll('.blog-cat-filter').forEach(b => b.classList.remove('active'));
+            catBtn.classList.add('active');
+            document.querySelectorAll('#blog-cards-grid .blog-grid-card').forEach(card => {
+                const cardCat = (card.getAttribute('data-category') || '').toLowerCase();
+                card.style.display = (cat === 'all' || cardCat === cat) ? 'flex' : 'none';
+            });
+            return;
+        }
+
+        // Copy Article Shortlink (from card or detail view)
+        const shortlinkBtn = e.target.closest('.copy-shortlink-btn');
+        if (shortlinkBtn) {
+            e.preventDefault();
+            e.stopPropagation();
+            const shortUrl = shortlinkBtn.getAttribute('data-shortlink');
+            if (shortUrl && navigator.clipboard) {
+                navigator.clipboard.writeText(shortUrl).then(() => {
+                    const label = shortlinkBtn.querySelector('#shortlink-btn-label');
+                    if (label) {
+                        label.textContent = 'Copied!';
+                        setTimeout(() => { label.textContent = 'Copy Shortlink'; }, 2000);
+                    } else {
+                        const origHtml = shortlinkBtn.innerHTML;
+                        shortlinkBtn.innerHTML = '<i class="bi bi-check2 text-success"></i>';
+                        setTimeout(() => { shortlinkBtn.innerHTML = origHtml; }, 1800);
+                    }
+                });
+            }
             return;
         }
 

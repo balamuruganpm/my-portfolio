@@ -43,6 +43,7 @@ $router->get('/blog-detail.php', [BlogController::class, 'detail']);
 $router->get('/category/{category}', [BlogController::class, 'category']);
 $router->get('/category', [BlogController::class, 'category']);
 $router->get('/blogs/{slug}', [BlogController::class, 'detail']);
+$router->get('/b/{id}', [BlogController::class, 'shortlink']);
 
 $router->post('/blogs/detail', [BlogController::class, 'detail']);
 $router->post('/blogs/detail.php', [BlogController::class, 'detail']);

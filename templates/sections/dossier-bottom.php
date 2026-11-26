@@ -51,14 +51,14 @@ $activeHeader = $appHeaders[$currPage] ?? $appHeaders['about'];
         <div class="dossier-panel <?php echo ($currPage === 'about') ? 'active' : ''; ?>" id="panel-about" role="tabpanel">
             
             <!-- Skills Categorized Grid -->
-            <div class="mb-4">
-                <div class="row g-3">
+            <div class="mb-5">
+                <div class="row g-4">
                     <div class="col-md-4">
-                        <div class="dossier-subbox p-3 rounded-3 h-100">
-                            <h3 class="dossier-subbox-title font-mono small text-uppercase mb-2 text-cyan">
+                        <div class="dossier-subbox p-4 rounded-4 h-100">
+                            <h3 class="dossier-subbox-title font-mono small text-uppercase mb-3 text-cyan">
                                 <i class="bi bi-code-slash me-1"></i> Frontend Architecture
                             </h3>
-                            <div class="d-flex flex-wrap gap-1.5">
+                            <div class="d-flex flex-wrap gap-2">
                                 <span class="dossier-badge">React.js</span>
                                 <span class="dossier-badge">TypeScript</span>
                                 <span class="dossier-badge">JavaScript (ES6+)</span>
@@ -70,11 +70,11 @@ $activeHeader = $appHeaders[$currPage] ?? $appHeaders['about'];
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="dossier-subbox p-3 rounded-3 h-100">
-                            <h3 class="dossier-subbox-title font-mono small text-uppercase mb-2 text-warning">
+                        <div class="dossier-subbox p-4 rounded-4 h-100">
+                            <h3 class="dossier-subbox-title font-mono small text-uppercase mb-3 text-warning">
                                 <i class="bi bi-microsoft me-1"></i> Microsoft &amp; SPFx
                             </h3>
-                            <div class="d-flex flex-wrap gap-1.5">
+                            <div class="d-flex flex-wrap gap-2">
                                 <span class="dossier-badge">SharePoint Online</span>
                                 <span class="dossier-badge">SPFx Framework</span>
                                 <span class="dossier-badge">Microsoft Graph API</span>
@@ -84,11 +84,11 @@ $activeHeader = $appHeaders[$currPage] ?? $appHeaders['about'];
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="dossier-subbox p-3 rounded-3 h-100">
-                            <h3 class="dossier-subbox-title font-mono small text-uppercase mb-2 text-info">
+                        <div class="dossier-subbox p-4 rounded-4 h-100">
+                            <h3 class="dossier-subbox-title font-mono small text-uppercase mb-3 text-info">
                                 <i class="bi bi-tools me-1"></i> Web &amp; Design Tools
                             </h3>
-                            <div class="d-flex flex-wrap gap-1.5">
+                            <div class="d-flex flex-wrap gap-2">
                                 <span class="dossier-badge">PHP</span>
                                 <span class="dossier-badge">REST APIs / JSON</span>
                                 <span class="dossier-badge">Git &amp; GitHub</span>
@@ -101,19 +101,19 @@ $activeHeader = $appHeaders[$currPage] ?? $appHeaders['about'];
             </div>
 
             <!-- Professional Experience Timeline -->
-            <div class="mb-4">
+            <div class="mb-5">
                 <h3 class="h6 font-mono text-uppercase text-white mb-3 d-flex align-items-center gap-2">
                     <i class="bi bi-briefcase-fill text-accent"></i> Professional Career Timeline
                 </h3>
                 <div class="d-flex flex-column gap-3">
                     <?php if (!empty($experience) && is_array($experience)): ?>
                         <?php foreach ($experience as $exp): ?>
-                            <div class="dossier-subbox p-3 rounded-3">
-                                <div class="d-flex flex-column flex-sm-row sm-align-items-center justify-content-between mb-1.5">
+                            <div class="dossier-subbox p-4 rounded-4">
+                                <div class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-between gap-1 mb-2">
                                     <h4 class="h6 fw-bold text-white mb-0"><?php echo e($exp['role'] ?? ''); ?> <span class="text-secondary fw-normal">@ <?php echo e($exp['company'] ?? ''); ?></span></h4>
                                     <span class="dossier-time-tag font-mono small text-accent"><?php echo e($exp['duration'] ?? ''); ?></span>
                                 </div>
-                                <div class="text-secondary small font-mono mb-2">
+                                <div class="text-secondary small font-mono mb-3">
                                     <i class="bi bi-geo-alt me-1"></i><?php echo e($exp['location'] ?? ''); ?>
                                 </div>
                                 <?php if (!empty($exp['bullets']) && is_array($exp['bullets'])): ?>
@@ -130,19 +130,19 @@ $activeHeader = $appHeaders[$currPage] ?? $appHeaders['about'];
             </div>
 
             <!-- Education & Awards -->
-            <div class="row g-3">
+            <div class="row g-4">
                 <div class="col-md-6">
-                    <div class="dossier-subbox p-3 rounded-3 h-100">
+                    <div class="dossier-subbox p-4 rounded-4 h-100">
                         <h3 class="h6 font-mono text-uppercase text-white mb-3 d-flex align-items-center gap-2">
                             <i class="bi bi-mortarboard-fill text-info"></i> Education Journey
                         </h3>
-                        <div class="d-flex flex-column gap-2.5">
+                        <div class="d-flex flex-column gap-3">
                             <?php if (!empty($education) && is_array($education)): ?>
                                 <?php foreach ($education as $edu): ?>
-                                    <div class="border-subbox-item pb-2">
-                                        <div class="fw-bold text-white small"><?php echo e($edu['degree'] ?? ''); ?></div>
-                                        <div class="text-secondary small"><?php echo e($edu['institution'] ?? ''); ?> &bull; <span class="font-mono text-cyan"><?php echo e($edu['metric'] ?? ''); ?></span></div>
-                                        <div class="text-muted font-mono" style="font-size: 0.72rem;"><?php echo e($edu['duration'] ?? ''); ?> | <?php echo e($edu['location'] ?? ''); ?></div>
+                                    <div class="dossier-clean-item">
+                                        <div class="fw-bold text-white small mb-1"><?php echo e($edu['degree'] ?? ''); ?></div>
+                                        <div class="text-secondary small mb-1"><?php echo e($edu['institution'] ?? ''); ?> &bull; <span class="font-mono text-cyan"><?php echo e($edu['metric'] ?? ''); ?></span></div>
+                                        <div class="text-muted font-mono" style="font-size: 0.74rem;"><?php echo e($edu['duration'] ?? ''); ?> | <?php echo e($edu['location'] ?? ''); ?></div>
                                     </div>
                                 <?php endforeach; ?>
                             <?php endif; ?>
@@ -150,21 +150,21 @@ $activeHeader = $appHeaders[$currPage] ?? $appHeaders['about'];
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="dossier-subbox p-3 rounded-3 h-100">
+                    <div class="dossier-subbox p-4 rounded-4 h-100">
                         <h3 class="h6 font-mono text-uppercase text-white mb-3 d-flex align-items-center gap-2">
                             <i class="bi bi-trophy-fill text-warning"></i> Certifications &amp; Honors
                         </h3>
-                        <div class="d-flex flex-column gap-2 mb-3">
+                        <div class="d-flex flex-column gap-3 mb-3">
                             <?php if (!empty($awards) && is_array($awards)): ?>
                                 <?php foreach ($awards as $award): ?>
-                                    <div class="border-subbox-item pb-2">
-                                        <div class="fw-bold text-warning small"><i class="bi bi-award me-1"></i><?php echo e($award['title'] ?? ''); ?></div>
+                                    <div class="dossier-clean-item">
+                                        <div class="fw-bold text-warning small mb-1"><i class="bi bi-award me-1"></i><?php echo e($award['title'] ?? ''); ?></div>
                                         <div class="text-secondary small"><?php echo e($award['description'] ?? ''); ?></div>
                                     </div>
                                 <?php endforeach; ?>
                             <?php endif; ?>
                         </div>
-                        <div class="d-flex flex-wrap gap-1.5">
+                        <div class="d-flex flex-wrap gap-2">
                             <?php if (!empty($certificates) && is_array($certificates)): ?>
                                 <?php foreach ($certificates as $cert): ?>
                                     <span class="dossier-badge" title="Issuer: <?php echo e($cert['issuer'] ?? ''); ?>">
@@ -198,6 +198,7 @@ $activeHeader = $appHeaders[$currPage] ?? $appHeaders['about'];
                                     <div class="hover-zoom-icon">
                                         <i class="bi bi-arrows-fullscreen"></i>
                                     </div>
+                                    <span class="hover-project-title"><?php echo e($projTitle); ?></span>
                                     <span class="hover-zoom-label font-mono">View Full Image</span>
                                 </div>
                             </div>
@@ -210,33 +211,47 @@ $activeHeader = $appHeaders[$currPage] ?? $appHeaders['about'];
         </div>
 
         <!-- ========================================== -->
-        <!-- TAB 3: BLOG ARTICLES FEED (Modern Responsive Grid) -->
+        <!-- TAB 3: BLOG ARTICLES FEED (Minimal Editorial Grid) -->
         <!-- ========================================== -->
         <div class="dossier-panel <?php echo ($currPage === 'blogs' && empty($activePost)) ? 'active' : ''; ?>" id="panel-blogs" role="tabpanel">
-            <div class="blog-cards-grid">
+            <!-- Minimal Filter & View All Bar -->
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-4">
+                <div class="d-flex flex-wrap align-items-center gap-2" id="blog-filter-bar">
+                    <button type="button" class="dossier-mini-pill-btn blog-cat-filter active" data-cat="all">
+                        View All (<?php echo count($blogs ?? []); ?>)
+                    </button>
+                    <?php if (!empty($categories) && is_array($categories)): ?>
+                        <?php foreach (array_slice($categories, 0, 5, true) as $catName => $catCount): ?>
+                            <button type="button" class="dossier-mini-pill-btn blog-cat-filter" data-cat="<?php echo e(strtolower($catName)); ?>">
+                                <?php echo e($catName); ?> (<?php echo (int)$catCount; ?>)
+                            </button>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+            <div class="blog-cards-grid" id="blog-cards-grid">
                 <?php if (!empty($blogs) && is_array($blogs)): ?>
                     <?php foreach ($blogs as $blog): ?>
                         <?php 
                             $blogImg = !empty($blog['image']) ? (BASE_URL . ltrim($blog['image'], '/')) : (BASE_URL . 'assets/images/core-web-vitals.webp');
                             $wordCount = str_word_count(strip_tags($blog['content'] ?? ''));
                             $readTime = max(1, ceil($wordCount / 200));
+                            $shortUrl = BASE_URL . 'b/' . (int)($blog['id'] ?? 0);
+                            $blogCat = strtolower(trim($blog['category'] ?? 'tech'));
                         ?>
-                        <article class="blog-grid-card dossier-subbox" data-slug="<?php echo e($blog['slug'] ?? ''); ?>">
-                            <!-- Card Media Banner -->
-                            <div class="blog-card-media-wrap mb-3">
+                        <article class="blog-grid-card dossier-subbox" data-slug="<?php echo e($blog['slug'] ?? ''); ?>" data-category="<?php echo e($blogCat); ?>">
+                            <!-- Card Media Banner (Clean, Unobstructed) -->
+                            <div class="blog-card-media-wrap">
                                 <img src="<?php echo e($blogImg); ?>" alt="<?php echo e($blog['title'] ?? 'Article Thumbnail'); ?>" class="blog-card-img" loading="lazy">
-                                <div class="blog-media-badge-overlay">
-                                    <span class="blog-category-chip font-mono"><?php echo e($blog['category'] ?? 'Tech'); ?></span>
-                                    <span class="blog-time-chip font-mono"><i class="bi bi-clock me-1"></i><?php echo $readTime; ?> min read</span>
-                                </div>
                             </div>
 
-                            <!-- Card Content Body -->
-                            <div class="blog-card-body d-flex flex-column justify-content-between p-3.5 flex-grow-1">
+                            <!-- Minimal Card Body -->
+                            <div class="blog-card-body d-flex flex-column justify-content-between flex-grow-1">
                                 <div>
-                                    <div class="d-flex align-items-center gap-3 text-secondary font-mono small mb-2" style="font-size: 0.72rem;">
-                                        <span><i class="bi bi-calendar3 me-1 text-cyan"></i><?php echo date('M d, Y', strtotime($blog['date'] ?? 'now')); ?></span>
-                                        <span><i class="bi bi-eye me-1 text-cyan"></i><?php echo number_format($blog['views'] ?? 0); ?> views</span>
+                                    <div class="d-flex align-items-center justify-content-between gap-2 mb-2">
+                                        <span class="blog-category-chip font-mono"><?php echo e($blog['category'] ?? 'Tech'); ?></span>
+                                        <span class="blog-time-chip font-mono"><?php echo $readTime; ?> min &bull; <?php echo date('M d, Y', strtotime($blog['date'] ?? 'now')); ?></span>
                                     </div>
 
                                     <h3 class="h6 fw-bold text-white mb-2 blog-card-title leading-snug">
@@ -250,19 +265,12 @@ $activeHeader = $appHeaders[$currPage] ?? $appHeaders['about'];
                                     </p>
                                 </div>
 
-                                <div>
-                                    <!-- Tags Row -->
-                                    <div class="d-flex flex-wrap gap-1 mb-3">
-                                        <?php if (!empty($blog['tags']) && is_array($blog['tags'])): ?>
-                                            <?php foreach (array_slice($blog['tags'], 0, 3) as $tag): ?>
-                                                <span class="badge-mini-tag">#<?php echo e($tag); ?></span>
-                                            <?php endforeach; ?>
-                                        <?php endif; ?>
-                                    </div>
-
-                                    <!-- Read Action Button -->
-                                    <button type="button" class="dossier-action-btn w-100 justify-content-center py-2 read-blog-btn" data-slug="<?php echo e($blog['slug'] ?? ''); ?>" data-title="<?php echo e($blog['title'] ?? ''); ?>">
-                                        Read Article <i class="bi bi-arrow-right ms-1.5"></i>
+                                <div class="d-flex align-items-center gap-2 pt-1">
+                                    <button type="button" class="dossier-action-btn flex-grow-1 justify-content-center py-2 read-blog-btn" data-slug="<?php echo e($blog['slug'] ?? ''); ?>" data-title="<?php echo e($blog['title'] ?? ''); ?>">
+                                        Read Article <i class="bi bi-arrow-right ms-1"></i>
+                                    </button>
+                                    <button type="button" class="dossier-action-btn py-2 px-3 copy-shortlink-btn" data-shortlink="<?php echo e($shortUrl); ?>" title="Copy Shortlink (<?php echo e($shortUrl); ?>)" aria-label="Copy Shortlink">
+                                        <i class="bi bi-link-45deg"></i>
                                     </button>
                                 </div>
                             </div>
@@ -272,21 +280,33 @@ $activeHeader = $appHeaders[$currPage] ?? $appHeaders['about'];
                     <div class="text-secondary small text-center py-5 col-12">No technical dispatches found.</div>
                 <?php endif; ?>
             </div>
+
+            <?php if (!empty($adsEnabled)): ?>
+                <!-- Blog Feed Sponsored Ad Slot -->
+                <div class="ad-slot-frame mt-4 text-center">
+                    <span class="ad-slot-label font-mono">SPONSORED</span>
+                    <script async="async" data-cfasync="false" src="https://pl30967632.profitableratecpmnetwork.com/a006ed973d12be80f0e7a963ed44ffb7/invoke.js"></script>
+                    <div id="container-a006ed973d12be80f0e7a963ed44ffb7"></div>
+                </div>
+            <?php endif; ?>
         </div>
 
         <!-- ========================================== -->
         <!-- TAB 3B: FULL ARTICLE READER VIEWPORT       -->
         <!-- ========================================== -->
         <div class="dossier-panel <?php echo (!empty($activePost)) ? 'active' : ''; ?>" id="panel-blog-detail" role="tabpanel">
-            <div class="blog-detail-container dossier-subbox p-4 rounded-4 position-relative">
+            <div class="blog-detail-container dossier-subbox p-4 p-md-5 rounded-4 position-relative mx-auto" style="max-width: 860px;">
                 
                 <!-- Back navigation & Actions Header -->
-                <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-4 pb-3 border-subbox-item">
+                <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-4">
                     <button type="button" class="dossier-action-btn" id="blog-back-btn">
                         <i class="bi bi-arrow-left me-1.5"></i> Back to All Articles
                     </button>
-                    <div class="d-flex align-items-center gap-2">
-                        <button type="button" class="dossier-action-btn" id="blog-copy-link-btn" title="Copy Article URL">
+                    <div class="d-flex flex-wrap align-items-center gap-2">
+                        <button type="button" class="dossier-action-btn copy-shortlink-btn" id="blog-copy-shortlink-btn" data-shortlink="<?php echo !empty($activePost['id']) ? e(BASE_URL . 'b/' . (int)$activePost['id']) : ''; ?>" title="Copy Shortlink">
+                            <i class="bi bi-lightning-charge-fill text-warning me-1"></i> <span id="shortlink-btn-label">Copy Shortlink</span>
+                        </button>
+                        <button type="button" class="dossier-action-btn" id="blog-copy-link-btn" title="Copy Full Article URL">
                             <i class="bi bi-link-45deg me-1"></i> <span id="copy-btn-label">Copy Link</span>
                         </button>
                     </div>
@@ -344,178 +364,205 @@ $activeHeader = $appHeaders[$currPage] ?? $appHeaders['about'];
                             <i class="bi bi-whatsapp me-1 text-success"></i> WhatsApp
                         </a>
                     </div>
+
+                    <?php if (!empty($adsEnabled)): ?>
+                        <!-- Article Detail Leaderboard Ad (728x90) -->
+                        <div class="ad-slot-frame mt-4 text-center overflow-auto">
+                            <span class="ad-slot-label font-mono">SPONSORED</span>
+                            <script type="text/javascript">
+                                atOptions = {
+                                    'key': 'eff49cbb9e486773112180b4e21c171d',
+                                    'format': 'iframe',
+                                    'height': 90,
+                                    'width': 728,
+                                    'params': {}
+                                };
+                            </script>
+                            <script type="text/javascript" src="https://www.highrevenueformat.com/eff49cbb9e486773112180b4e21c171d/invoke.js"></script>
+                        </div>
+                    <?php endif; ?>
                 </article>
             </div>
         </div>
 
         <!-- ========================================== -->
-        <!-- TAB 4: ARCADE & RETRO GAMES (COMING SOON)  -->
+        <!-- TAB 4: ARCADE & RETRO GAMES (2 GAMES)      -->
         <!-- ========================================== -->
         <div class="dossier-panel <?php echo ($currPage === 'game') ? 'active' : ''; ?>" id="panel-game" role="tabpanel">
-            <div class="dossier-subbox p-4 rounded-4 text-center d-flex flex-column align-items-center justify-content-center" style="min-height: 260px;">
-                <div class="mb-3">
-                    <img src="<?php echo BASE_URL; ?>assets/images/os/games.webp" alt="Games" width="80" height="80" style="filter: drop-shadow(0 12px 24px rgba(245, 158, 11, 0.45));">
+            <div class="arcade-shell dossier-subbox p-4 rounded-4">
+                <!-- Top Game Switcher & Action Controls -->
+                <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-3">
+                    <div class="d-flex flex-wrap align-items-center gap-2" role="tablist">
+                        <button type="button" class="dossier-mini-pill-btn arcade-game-tab active" data-game="snake">
+                            <i class="bi bi-joystick me-1 text-cyan"></i> Neon Snake
+                        </button>
+                        <button type="button" class="dossier-mini-pill-btn arcade-game-tab" data-game="breaker">
+                            <i class="bi bi-grid-3x3-gap-fill me-1 text-warning"></i> Cyber Breaker
+                        </button>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <button type="button" class="dossier-action-btn" id="arcade-start-btn"><i class="bi bi-play-fill me-1 text-success"></i> Start</button>
+                        <button type="button" class="dossier-action-btn" id="arcade-pause-btn"><i class="bi bi-pause-fill me-1 text-warning"></i> Pause</button>
+                        <button type="button" class="dossier-action-btn" id="arcade-restart-btn"><i class="bi bi-arrow-counterclockwise me-1 text-cyan"></i> Restart</button>
+                    </div>
                 </div>
-                <div class="dossier-mono-tag mb-2">// ARCADE_SIMULATION</div>
-                <h3 class="h3 fw-bold text-white mb-2" style="letter-spacing: 0.5px;">Coming Soon</h3>
-                <p class="text-secondary mx-auto mb-3" style="max-width: 480px; font-size: 0.95rem; line-height: 1.6;">
-                    The Web OS Retro Arcade and interactive simulation experiences are currently under development. Stay tuned for future release updates!
+
+                <!-- Live Arcade HUD -->
+                <div class="arcade-hud mb-3">
+                    <div class="arcade-hud-chip font-mono">SCORE: <strong id="arcade-score" class="text-cyan">0</strong></div>
+                    <div class="arcade-hud-chip font-mono">BEST: <strong id="arcade-best" class="text-warning">0</strong></div>
+                    <div class="arcade-hud-chip font-mono">LIVES: <strong id="arcade-lives" class="text-white">1</strong></div>
+                    <div class="arcade-hud-chip font-mono flex-grow-1 text-end d-none d-sm-block"><span id="arcade-status" class="text-secondary">Ready</span></div>
+                </div>
+
+                <!-- Responsive Game Canvas -->
+                <div class="arcade-canvas-wrap">
+                    <canvas id="arcade-canvas" width="480" height="360" class="arcade-canvas"></canvas>
+                </div>
+
+                <!-- Touch D-Pad for Mobile Snake -->
+                <div class="arcade-dpad mt-3 d-flex d-md-none flex-column align-items-center gap-1" id="arcade-dpad-wrap">
+                    <button type="button" class="dossier-action-btn arcade-dpad-btn" data-dir="up" aria-label="Up"><i class="bi bi-chevron-up"></i></button>
+                    <div class="d-flex gap-2">
+                        <button type="button" class="dossier-action-btn arcade-dpad-btn" data-dir="left" aria-label="Left"><i class="bi bi-chevron-left"></i></button>
+                        <button type="button" class="dossier-action-btn arcade-dpad-btn" data-dir="down" aria-label="Down"><i class="bi bi-chevron-down"></i></button>
+                        <button type="button" class="dossier-action-btn arcade-dpad-btn" data-dir="right" aria-label="Right"><i class="bi bi-chevron-right"></i></button>
+                    </div>
+                </div>
+
+                <p class="text-secondary small font-mono text-center mt-3 mb-0">
+                    Controls: Arrow Keys / WASD (Snake) &bull; Mouse / Touch / Arrows (Cyber Breaker) &bull; Space to Pause
                 </p>
-                <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill" style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.14); font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-cyan);">
-                    <span class="spinner-grow spinner-grow-sm" style="width: 8px; height: 8px;" role="status"></span>
-                    <span>Status: IN_DEVELOPMENT &bull; 2027</span>
-                </div>
             </div>
+
+            <?php if (!empty($adsEnabled)): ?>
+                <!-- Arcade Page Sponsored Ad Slot (728x90) -->
+                <div class="ad-slot-frame mt-4 text-center overflow-auto">
+                    <span class="ad-slot-label font-mono">SPONSORED</span>
+                    <script type="text/javascript">
+                        atOptions = {
+                            'key': 'eff49cbb9e486773112180b4e21c171d',
+                            'format': 'iframe',
+                            'height': 90,
+                            'width': 728,
+                            'params': {}
+                        };
+                    </script>
+                    <script type="text/javascript" src="https://www.highrevenueformat.com/eff49cbb9e486773112180b4e21c171d/invoke.js"></script>
+                </div>
+            <?php endif; ?>
         </div>
 
         <!-- ========================================== -->
-        <!-- TAB 5: CONTACT & INQUIRIES                 -->
-        <!-- Balanced Modern Layout & Crisp Aesthetics  -->
+        <!-- TAB 5: CONTACT & INQUIRIES (Minimal UI)    -->
         <!-- ========================================== -->
         <div class="dossier-panel <?php echo ($currPage === 'contact') ? 'active' : ''; ?>" id="panel-contact" role="tabpanel">
-            
-            <div class="row g-4 align-items-stretch">
-                <!-- Left Column: Direct Coordinates, Verified Social Grid & Quick Status -->
+            <div class="row g-4 g-lg-5 align-items-start">
+                <!-- Left Column: Minimal Coordinates & Social Icons -->
                 <div class="col-lg-5">
-                    <div class="d-flex flex-column gap-3.5 h-100">
-                        
-                        <!-- Direct Coordinates Card -->
-                        <div class="contact-subcard dossier-subbox p-4 rounded-4">
-                            <div class="d-flex align-items-center justify-content-between mb-3 pb-2 border-subbox-item">
-                                <h3 class="h6 font-mono text-uppercase text-white mb-0 d-flex align-items-center gap-2" style="font-size: 0.85rem;">
-                                    <i class="bi bi-broadcast text-cyan"></i> Direct Coordinates
-                                </h3>
-                                <span class="activity-live-indicator">ACTIVE NOW</span>
-                            </div>
+                    <div class="dossier-subbox p-4 p-md-5 rounded-4 d-flex flex-column gap-4">
+                        <div>
+                            <span class="contact-label font-mono mb-2">DIRECT CONTACT</span>
+                            <h3 class="h5 fw-bold text-white mb-2">Let&apos;s build something great.</h3>
+                            <p class="text-secondary small mb-0" style="line-height: 1.6;">
+                                Available for frontend architecture, React/TypeScript, and SharePoint SPFx projects worldwide.
+                            </p>
+                        </div>
 
-                            <div class="contact-info-list d-flex flex-column gap-2 g-3 mb-3.5">
-                                <div class="contact-info-item p-3 rounded-3">
-                                    <span class="contact-label font-mono">OFFICIAL EMAIL</span>
-                                    <a href="mailto:<?php echo e($profileEmail); ?>" class="contact-value text-white text-decoration-none font-mono hover-cyan d-flex align-items-center">
-                                        <i class="bi bi-envelope-at text-cyan me-2 fs-6"></i> <?php echo e($profileEmail); ?>
-                                    </a>
+                        <div class="d-flex flex-column gap-3">
+                            <a href="mailto:<?php echo e($profileEmail); ?>" class="contact-info-item text-decoration-none d-flex align-items-center gap-3">
+                                <i class="bi bi-envelope-at text-cyan fs-5"></i>
+                                <div class="min-w-0">
+                                    <span class="contact-label font-mono mb-0">EMAIL</span>
+                                    <span class="contact-value d-block text-truncate"><?php echo e($profileEmail); ?></span>
                                 </div>
-                                <div class="contact-info-item p-3 rounded-3">
-                                    <span class="contact-label font-mono">DIRECT PHONE &amp; WHATSAPP</span>
-                                    <div class="d-flex flex-wrap gap-2 g-3 mt-1">
-                                        <?php if (!empty($profilePhone) && is_array($profilePhone)): ?>
-                                            <?php foreach ($profilePhone as $ph): ?>
-                                                <a href="https://wa.me/<?php echo preg_replace('/[^0-9]/', '', $ph); ?>" target="_blank" rel="noopener noreferrer" class="contact-value text-white text-decoration-none font-mono hover-cyan d-inline-flex align-items-center">
-                                                    <i class="bi bi-whatsapp text-success me-1.5 fs-6"></i> <?php echo e($ph); ?>
-                                                </a>
-                                            <?php endforeach; ?>
-                                        <?php endif; ?>
-                                    </div>
-                                </div>
-                                <div class="contact-info-item p-3 rounded-3">
-                                    <span class="contact-label font-mono">LOCATION BASE</span>
-                                    <span class="contact-value text-white font-mono d-flex align-items-center gap-2 mt-1">
-                                        <i class="bi bi-geo-alt-fill text-danger fs-6"></i> <?php echo e($profileLocation); ?>
-                                        <span class="badge-mini-tag ms-1">(Remote / Worldwide)</span>
-                                    </span>
-                                </div>
-                            </div>
-
-                            <!-- Resume Download CTA -->
-                            <a href="<?php echo BASE_URL; ?>assets/Balamurugan-P-M-Resume.pdf" target="_blank" class="contact-resume-btn w-100 mt-3 text-center justify-content-center py-2.5 rounded-3 text-white font-mono">
-                                <i class="bi bi-file-earmark-pdf-fill me-1.5 text-danger"></i> Download Official Resume PDF <i class="bi bi-arrow-up-right ms-1 text-cyan"></i>
                             </a>
-                        </div>
 
-                        <!-- All 12 Verified Social Profiles Grid & Availability -->
-                        <div class="contact-subcard dossier-subbox p-4 rounded-4 flex-grow-1 d-flex flex-column justify-content-between">
-                            <div>
-                                <div class="d-flex align-items-center justify-content-between mb-3 pb-2 border-subbox-item">
-                                    <span class="contact-label font-mono mb-0 text-white" style="font-size: 0.78rem;">CONNECT ACROSS PLATFORMS</span>
-                                    <span class="badge-mini-tag text-cyan">12 Verified</span>
-                                </div>
-                                <div class="contact-social-grid">
-                                    <?php 
-                                    $socialNetworkList = [
-                                        ['name' => 'GitHub',    'icon' => 'bi-github',       'url' => $socialsGithub ?? 'https://github.com/Balamuruganpm', 'color' => '#ffffff'],
-                                        ['name' => 'LinkedIn',  'icon' => 'bi-linkedin',     'url' => $socialsLinkedin ?? 'https://www.linkedin.com/in/balamurugan-p-m', 'color' => '#38bdf8'],
-                                        ['name' => 'Figma',     'icon' => 'bi-palette-fill', 'url' => $socialsFigma ?? 'https://www.figma.com/@balamuruganpm', 'color' => '#f43f5e'],
-                                        ['name' => 'Behance',   'icon' => 'bi-behance',      'url' => $socialsBehance ?? 'https://www.behance.net/balamuruganpm', 'color' => '#3b82f6'],
-                                        ['name' => 'Dribbble',  'icon' => 'bi-dribbble',     'url' => $socialsDribbble ?? 'https://dribbble.com/balamuruganedsty', 'color' => '#ec4899'],
-                                        ['name' => 'CodePen',   'icon' => 'bi-code-slash',   'url' => $socialsCodepen ?? 'https://codepen.io/balamurugan_pm', 'color' => '#a855f7'],
-                                        ['name' => 'Contra',    'icon' => 'bi-briefcase-fill','url' => $socialsContra ?? 'https://balamuruganpm.contra.com/', 'color' => '#f97316'],
-                                        ['name' => 'Discord',   'icon' => 'bi-discord',      'url' => $socialsDiscord ?? 'https://discordapp.com/users/1104967812440670269', 'color' => '#818cf8'],
-                                        ['name' => 'X / Twitter','icon' => 'bi-twitter-x',   'url' => $socialsTwitter ?? 'https://twitter.com/balaselfie_bd', 'color' => '#ffffff'],
-                                        ['name' => 'WhatsApp',  'icon' => 'bi-whatsapp',     'url' => $socialsWhatsapp ?? 'https://wa.me/+919677804820', 'color' => '#22c55e'],
-                                        ['name' => 'Instagram', 'icon' => 'bi-instagram',    'url' => $socialsInstagram ?? 'https://instagram.com/balamurugan.pm', 'color' => '#e11d48'],
-                                        ['name' => 'Facebook',  'icon' => 'bi-facebook',     'url' => $socialsFacebook ?? 'https://www.facebook.com/balaselfiebd', 'color' => '#2563eb'],
-                                    ];
-                                    ?>
-                                    <?php foreach ($socialNetworkList as $net): ?>
-                                        <?php if (!empty($net['url'])): ?>
-                                            <a href="<?php echo e($net['url']); ?>" target="_blank" rel="noopener noreferrer" class="social-grid-tile" title="<?php echo e($net['name']); ?>">
-                                                <i class="bi <?php echo e($net['icon']); ?>" style="color: <?php echo e($net['color']); ?>;"></i>
-                                                <span class="social-tile-name"><?php echo e($net['name']); ?></span>
-                                            </a>
-                                        <?php endif; ?>
-                                    <?php endforeach; ?>
-                                </div>
-                            </div>
+                            <?php if (!empty($profilePhone) && is_array($profilePhone)): ?>
+                                <a href="https://wa.me/<?php echo preg_replace('/[^0-9]/', '', $profilePhone[0]); ?>" target="_blank" rel="noopener noreferrer" class="contact-info-item text-decoration-none d-flex align-items-center gap-3">
+                                    <i class="bi bi-whatsapp text-success fs-5"></i>
+                                    <div class="min-w-0">
+                                        <span class="contact-label font-mono mb-0">PHONE / WHATSAPP</span>
+                                        <span class="contact-value d-block"><?php echo e($profilePhone[0]); ?></span>
+                                    </div>
+                                </a>
+                            <?php endif; ?>
 
-                            <!-- Working Hours & Fast SLA Strip -->
-                            <div class="contact-hours-strip p-2.5 rounded-3 d-flex flex-wrap align-items-center justify-content-between gap-2 mt-3">
-                                <span class="text-secondary font-mono small"><i class="bi bi-clock-history text-warning me-1"></i> Mon – Sat: 09:00 – 19:00 IST</span>
-                                <span class="text-cyan font-mono small fw-bold"><i class="bi bi-lightning-charge-fill me-0.5"></i> &lt; 24h Response</span>
+                            <div class="contact-info-item d-flex align-items-center gap-3">
+                                <i class="bi bi-geo-alt-fill text-danger fs-5"></i>
+                                <div>
+                                    <span class="contact-label font-mono mb-0">LOCATION</span>
+                                    <span class="contact-value d-block"><?php echo e($profileLocation); ?></span>
+                                </div>
                             </div>
                         </div>
 
+                        <a href="<?php echo BASE_URL; ?>assets/Balamurugan-P-M-Resume.pdf" target="_blank" class="contact-resume-btn w-100 justify-content-center text-white font-mono">
+                            <i class="bi bi-file-earmark-pdf-fill me-2 text-danger"></i> Download Resume PDF
+                        </a>
+
+                        <!-- Minimal Social Links Row -->
+                        <div>
+                            <span class="contact-label font-mono mb-2">PROFILES</span>
+                            <div class="d-flex flex-wrap gap-2">
+                                <?php 
+                                $socialNetworkList = [
+                                    ['name' => 'GitHub',    'icon' => 'bi-github',       'url' => $socialsGithub ?? 'https://github.com/Balamuruganpm'],
+                                    ['name' => 'LinkedIn',  'icon' => 'bi-linkedin',     'url' => $socialsLinkedin ?? 'https://www.linkedin.com/in/balamurugan-p-m'],
+                                    ['name' => 'Figma',     'icon' => 'bi-palette-fill', 'url' => $socialsFigma ?? 'https://www.figma.com/@balamuruganpm'],
+                                    ['name' => 'Behance',   'icon' => 'bi-behance',      'url' => $socialsBehance ?? 'https://www.behance.net/balamuruganpm'],
+                                    ['name' => 'Dribbble',  'icon' => 'bi-dribbble',     'url' => $socialsDribbble ?? 'https://dribbble.com/balamuruganedsty'],
+                                    ['name' => 'CodePen',   'icon' => 'bi-code-slash',   'url' => $socialsCodepen ?? 'https://codepen.io/balamurugan_pm'],
+                                    ['name' => 'X',         'icon' => 'bi-twitter-x',    'url' => $socialsTwitter ?? 'https://twitter.com/balaselfie_bd'],
+                                    ['name' => 'Instagram', 'icon' => 'bi-instagram',    'url' => $socialsInstagram ?? 'https://instagram.com/balamurugan.pm'],
+                                ];
+                                foreach ($socialNetworkList as $net):
+                                    if (!empty($net['url'])):
+                                ?>
+                                    <a href="<?php echo e($net['url']); ?>" target="_blank" rel="noopener noreferrer" class="social-icon-pill" title="<?php echo e($net['name']); ?>" aria-label="<?php echo e($net['name']); ?>">
+                                        <i class="bi <?php echo e($net['icon']); ?>"></i>
+                                    </a>
+                                <?php endif; endforeach; ?>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Right Column: Encrypted Transmission Form -->
+                <!-- Right Column: Minimal Message Form -->
                 <div class="col-lg-7">
-                    <div class="contact-subcard dossier-subbox p-4 rounded-4 h-100 d-flex flex-column justify-content-between">
-                        <div>
-                            <div class="d-flex align-items-center justify-content-between mb-3 pb-2 border-subbox-item">
-                                <h3 class="h6 font-mono text-uppercase text-white mb-0 d-flex align-items-center gap-2" style="font-size: 0.85rem;">
-                                    <i class="bi bi-send-fill text-warning"></i> Send Transmission
-                                </h3>
-                                <span class="activity-live-indicator" style="color: #38bdf8; background: rgba(56, 189, 248, 0.15); border-color: rgba(56, 189, 248, 0.3);">ENCRYPTED CHANNEL</span>
+                    <div class="dossier-subbox p-4 p-md-5 rounded-4">
+                        <form id="dossier-contact-form" method="POST" action="<?php echo BASE_URL; ?>contact">
+                            <input type="hidden" name="csrf_token" value="<?php echo e($csrfToken); ?>">
+                            <div id="contact-alert-box" class="d-none mb-4 p-3 rounded-3 small"></div>
+
+                            <div class="row g-4 mb-4">
+                                <div class="col-sm-6">
+                                    <label for="c-name" class="contact-field-label font-mono">NAME *</label>
+                                    <input type="text" name="name" id="c-name" class="dossier-input" placeholder="Alex Henderson" required>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="c-email" class="contact-field-label font-mono">EMAIL *</label>
+                                    <input type="email" name="email" id="c-email" class="dossier-input" placeholder="alex@company.com" required>
+                                </div>
                             </div>
 
-                            <form id="dossier-contact-form" method="POST" action="<?php echo BASE_URL; ?>contact">
-                                <input type="hidden" name="csrf_token" value="<?php echo e($csrfToken); ?>">
-                                <div id="contact-alert-box" class="d-none mb-3 p-2.5 rounded-3 small"></div>
+                            <div class="mb-4">
+                                <label for="c-subject" class="contact-field-label font-mono">SUBJECT *</label>
+                                <input type="text" name="subject" id="c-subject" class="dossier-input" placeholder="Project Inquiry / Collaboration" required>
+                            </div>
 
-                                <div class="row g-3 mb-3">
-                                    <div class="col-sm-6">
-                                        <label for="c-name" class="contact-field-label font-mono">YOUR FULL NAME *</label>
-                                        <input type="text" name="name" id="c-name" class="dossier-input" placeholder="e.g. Alex Henderson" required>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label for="c-email" class="contact-field-label font-mono">YOUR BUSINESS EMAIL *</label>
-                                        <input type="email" name="email" id="c-email" class="dossier-input" placeholder="e.g. alex@company.com" required>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="c-subject" class="contact-field-label font-mono">PROJECT INQUIRY / SUBJECT *</label>
-                                    <input type="text" name="subject" id="c-subject" class="dossier-input" placeholder="e.g. Enterprise React / SharePoint Modernization Project" required>
-                                </div>
-                                <div class="mb-3.5">
-                                    <label for="c-message" class="contact-field-label font-mono">PROJECT SPECIFICATIONS &amp; GOALS *</label>
-                                    <textarea name="message" id="c-message" rows="5" class="dossier-input" placeholder="Provide details regarding scope, timeline, tech stack, and goals..." required></textarea>
-                                </div>
-                                <button type="submit" class="contact-dispatch-btn w-100 justify-content-center py-3 rounded-3 font-mono" id="c-submit-btn">
-                                    <i class="bi bi-send me-2"></i> Dispatch Transmission <i class="bi bi-arrow-right ms-1"></i>
-                                </button>
-                            </form>
-                        </div>
+                            <div class="mb-4">
+                                <label for="c-message" class="contact-field-label font-mono">MESSAGE *</label>
+                                <textarea name="message" id="c-message" rows="5" class="dossier-input" placeholder="Tell me about your project, timeline, and goals..." required></textarea>
+                            </div>
 
-                        <!-- Mini Trust & Assurance Badges Footer -->
-                        <div class="contact-trust-bar d-flex flex-wrap align-items-center justify-content-between gap-2 rounded-3 mt-3.5">
-                            <span class="d-flex align-items-center gap-1.5"><i class="bi bi-patch-check-fill text-cyan"></i> React &amp; SPFx Specialist</span>
-                            <span class="d-flex align-items-center gap-1.5"><i class="bi bi-shield-check text-success"></i> 100% IP &amp; NDA Covered</span>
-                            <span class="d-flex align-items-center gap-1.5"><i class="bi bi-globe2 text-warning"></i> Global Remote Available</span>
-                        </div>
+                            <button type="submit" class="contact-dispatch-btn w-100 justify-content-center font-mono" id="c-submit-btn">
+                                Send Message <i class="bi bi-arrow-right ms-2"></i>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
-
         </div>
 
     </div>

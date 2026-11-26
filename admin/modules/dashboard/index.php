@@ -1,250 +1,235 @@
 <?php
 /**
- * Admin Module: Dashboard (Glassmorphic Dark Edition)
+ * Admin Module: Minimal Fast Dashboard
+ * Zero heavy chart JS, 1-click actions, blog shortlinks, and SEO/GEO/AEO quick-access.
  */
 $admin_current_page = 'dashboard';
-$page_title = 'Dashboard & Analytics';
+$page_title = 'Dashboard';
 
 require_once __DIR__ . '/../../config/admin-bootstrap.php';
 
-// Calculate metric counts
 $projects_count = isset($data['projects']) ? count($data['projects']) : 0;
 $skills_count = (isset($data['skills']) ? count($data['skills']) : 0) + (isset($data['tools']) ? count($data['tools']) : 0);
 $exp_count = isset($data['experience']) ? count($data['experience']) : 0;
 $blogs_count = count($blogs);
+$published_count = count(array_filter($blogs, fn($b) => !isset($b['status']) || $b['status'] === 'published'));
 
 include __DIR__ . '/../../layout/header.php';
 ?>
 
-<!-- Header Title Bar -->
-<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+<!-- Minimal Header -->
+<div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
     <div>
-        <h1 class="h3 fw-bold text-white mb-1">Console Dashboard</h1>
-        <p class="text-secondary small mb-0">Real-time portfolio telemetry, ApexCharts analytics, and workspace controls</p>
+        <h1 class="h4 fw-bold text-white mb-0">Workspace</h1>
+        <p class="text-secondary small mb-0">Fast content control, blog shortlinks &amp; SEO/GEO/AEO endpoints</p>
     </div>
-    <div class="d-flex gap-2 align-items-center">
-        <a href="<?php echo BASE_URL; ?>" target="_blank" class="btn btn-admin-secondary btn-sm">
-            <i class="bi bi-box-arrow-up-right me-1"></i> Live Site
+    <div class="d-flex gap-2 flex-wrap">
+        <a href="<?php echo BASE_URL; ?>admin/modules/portfolio/add.php" class="btn btn-admin-secondary btn-sm">
+            <i class="bi bi-folder-plus"></i> Add Project
         </a>
         <a href="<?php echo BASE_URL; ?>admin/modules/blogs/add.php" class="btn btn-admin-primary btn-sm">
-            <i class="bi bi-plus-lg me-1"></i> Write Article
+            <i class="bi bi-pencil-square"></i> Write Article
         </a>
     </div>
 </div>
 
-<!-- Animated KPI Metrics Grid -->
-<div class="row row-cols-1 row-cols-sm-2 row-cols-xl-4 g-4 mb-4">
-    <!-- Total Views KPI -->
+<!-- Compact KPI Strip -->
+<div class="row row-cols-2 row-cols-xl-4 g-3 mb-3">
     <div class="col">
-        <div class="stat-card" style="--card-accent: linear-gradient(135deg, #ff5722, #ff8a65); --icon-bg: rgba(255, 87, 34, 0.15); --icon-color: #ff5722;">
+        <div class="stat-card" style="--icon-bg: rgba(6, 182, 212, 0.14); --icon-color: #22d3ee;">
             <div class="stat-card-header">
-                <span class="stat-card-label">Profile Impressions</span>
-                <div class="stat-card-icon-wrap">
-                    <i class="bi bi-eye-fill"></i>
-                </div>
+                <span class="stat-card-label">Site Views</span>
+                <div class="stat-card-icon-wrap"><i class="bi bi-eye-fill"></i></div>
             </div>
             <div>
-                <h2 class="stat-card-value stat-count-animated" data-target="<?php echo $viewCount; ?>"><?php echo $viewCount; ?></h2>
-                <p class="stat-card-trend"><i class="bi bi-graph-up-arrow text-success me-1"></i> Live Impressions</p>
+                <h2 class="stat-card-value"><?php echo number_format($viewCount); ?></h2>
+                <p class="stat-card-trend">Unique sessions</p>
             </div>
         </div>
     </div>
 
-    <!-- Portfolio Projects KPI -->
     <div class="col">
-        <div class="stat-card" style="--card-accent: linear-gradient(135deg, #6366f1, #818cf8); --icon-bg: rgba(99, 102, 241, 0.15); --icon-color: #6366f1;">
+        <div class="stat-card" style="--icon-bg: rgba(99, 102, 241, 0.14); --icon-color: #818cf8;">
             <div class="stat-card-header">
                 <span class="stat-card-label">Projects</span>
-                <div class="stat-card-icon-wrap">
-                    <i class="bi bi-folder-fill"></i>
-                </div>
+                <div class="stat-card-icon-wrap"><i class="bi bi-folder-fill"></i></div>
             </div>
             <div>
-                <h2 class="stat-card-value stat-count-animated" data-target="<?php echo $projects_count; ?>"><?php echo $projects_count; ?></h2>
-                <p class="stat-card-trend"><i class="bi bi-check-circle-fill text-success me-1"></i> Featured Works</p>
+                <h2 class="stat-card-value"><?php echo $projects_count; ?></h2>
+                <p class="stat-card-trend"><?php echo $skills_count; ?> skills &amp; tools</p>
             </div>
         </div>
     </div>
 
-    <!-- Published Articles KPI -->
     <div class="col">
-        <div class="stat-card" style="--card-accent: linear-gradient(135deg, #10b981, #34d399); --icon-bg: rgba(16, 185, 129, 0.15); --icon-color: #10b981;">
+        <div class="stat-card" style="--icon-bg: rgba(16, 185, 129, 0.14); --icon-color: #34d399;">
             <div class="stat-card-header">
-                <span class="stat-card-label">Published Articles</span>
-                <div class="stat-card-icon-wrap">
-                    <i class="bi bi-journal-richtext"></i>
-                </div>
+                <span class="stat-card-label">Articles</span>
+                <div class="stat-card-icon-wrap"><i class="bi bi-journal-richtext"></i></div>
             </div>
             <div>
-                <h2 class="stat-card-value stat-count-animated" data-target="<?php echo $blogs_count; ?>"><?php echo $blogs_count; ?></h2>
-                <p class="stat-card-trend"><i class="bi bi-patch-check-fill text-info me-1"></i> Dynamic Blog Posts</p>
+                <h2 class="stat-card-value"><?php echo $published_count; ?> <span class="fs-6 text-secondary fw-normal">/ <?php echo $blogs_count; ?></span></h2>
+                <p class="stat-card-trend">Published / Total</p>
             </div>
         </div>
     </div>
 
-    <!-- Inbox Messages KPI -->
     <div class="col">
-        <div class="stat-card" style="--card-accent: linear-gradient(135deg, #f43f5e, #fb7185); --icon-bg: rgba(244, 63, 94, 0.15); --icon-color: #f43f5e;">
+        <div class="stat-card" style="--icon-bg: rgba(244, 63, 94, 0.14); --icon-color: #fb7185;">
             <div class="stat-card-header">
-                <span class="stat-card-label">Unread Inquiries</span>
-                <div class="stat-card-icon-wrap">
-                    <i class="bi bi-envelope-fill"></i>
-                </div>
+                <span class="stat-card-label">Inbox</span>
+                <div class="stat-card-icon-wrap"><i class="bi bi-envelope-fill"></i></div>
             </div>
             <div>
-                <h2 class="stat-card-value stat-count-animated" data-target="<?php echo $unread_count; ?>"><?php echo $unread_count; ?></h2>
-                <p class="stat-card-trend"><?php echo ($unread_count > 0) ? '<span class="text-danger fw-bold"><i class="bi bi-bell-fill me-1"></i>Action Needed</span>' : '<span class="text-secondary"><i class="bi bi-check-all me-1"></i>Inbox Clear</span>'; ?></p>
+                <h2 class="stat-card-value"><?php echo $unread_count; ?></h2>
+                <p class="stat-card-trend"><?php echo $unread_count > 0 ? '<span class="text-danger fw-semibold">Unread inquiries</span>' : 'All caught up'; ?></p>
             </div>
         </div>
     </div>
 </div>
 
-<!-- ApexCharts Telemetry Section -->
-<div class="row g-4 mb-4">
-    <!-- Left Column: Traffic Analytics Chart -->
-    <div class="col-lg-8">
-        <div class="admin-card h-100">
-            <div class="admin-card-header">
-                <h3 class="admin-card-title">
-                    <i class="bi bi-bar-chart-line-fill text-warning"></i> Traffic & Impression Telemetry
-                </h3>
-                <span class="admin-badge badge-accent-subtle">Monthly Analytics</span>
-            </div>
-            <div id="apex-traffic-chart"></div>
-        </div>
+<!-- Quick Shortcuts Grid -->
+<div class="admin-card mb-3">
+    <div class="admin-card-header">
+        <h2 class="admin-card-title"><i class="bi bi-lightning-charge-fill text-info"></i> Quick Access</h2>
     </div>
-
-    <!-- Right Column: Content Breakdown Donut Chart -->
-    <div class="col-lg-4">
-        <div class="admin-card h-100">
-            <div class="admin-card-header">
-                <h3 class="admin-card-title">
-                    <i class="bi bi-pie-chart-fill text-info"></i> Content Matrix
-                </h3>
-                <span class="admin-badge badge-info-subtle">Distribution</span>
-            </div>
-            <div id="apex-content-distribution"></div>
+    <div class="row row-cols-2 row-cols-md-3 row-cols-xl-6 g-2">
+        <div class="col">
+            <a href="<?php echo BASE_URL; ?>admin/modules/profile/" class="quick-tile">
+                <i class="bi bi-person-fill text-info fs-5"></i>
+                <span class="text-white small fw-semibold">Profile</span>
+            </a>
+        </div>
+        <div class="col">
+            <a href="<?php echo BASE_URL; ?>admin/modules/portfolio/" class="quick-tile">
+                <i class="bi bi-grid-fill text-primary fs-5"></i>
+                <span class="text-white small fw-semibold">Projects</span>
+            </a>
+        </div>
+        <div class="col">
+            <a href="<?php echo BASE_URL; ?>admin/modules/blogs/" class="quick-tile">
+                <i class="bi bi-journal-text text-success fs-5"></i>
+                <span class="text-white small fw-semibold">Articles</span>
+            </a>
+        </div>
+        <div class="col">
+            <a href="<?php echo BASE_URL; ?>admin/modules/timeline/" class="quick-tile">
+                <i class="bi bi-clock-history text-warning fs-5"></i>
+                <span class="text-white small fw-semibold">Timeline</span>
+            </a>
+        </div>
+        <div class="col">
+            <a href="<?php echo BASE_URL; ?>admin/modules/details/" class="quick-tile">
+                <i class="bi bi-patch-check-fill text-info fs-5"></i>
+                <span class="text-white small fw-semibold">Skills</span>
+            </a>
+        </div>
+        <div class="col">
+            <a href="<?php echo BASE_URL; ?>admin/modules/messages/" class="quick-tile">
+                <i class="bi bi-envelope-open-fill text-danger fs-5"></i>
+                <span class="text-white small fw-semibold">Messages</span>
+            </a>
         </div>
     </div>
 </div>
 
-<!-- Quick Navigation & Recent Inquiries Section -->
-<div class="row g-4 mb-4">
-    <!-- Left Column: Quick Managers -->
+<!-- Main Two-Column Workspace -->
+<div class="row g-3 mb-3">
+    <!-- Recent Articles with 1-Click Shortlink -->
     <div class="col-lg-7">
         <div class="admin-card h-100">
             <div class="admin-card-header">
-                <h3 class="admin-card-title">
-                    <i class="bi bi-sliders text-secondary"></i> Quick Management Hub
-                </h3>
+                <h2 class="admin-card-title"><i class="bi bi-journal-richtext text-success"></i> Recent Articles &amp; Shortlinks</h2>
+                <a href="<?php echo BASE_URL; ?>admin/modules/blogs/" class="btn btn-admin-secondary btn-sm py-1 px-2">All (<?php echo $blogs_count; ?>)</a>
             </div>
-            <div class="row row-cols-1 row-cols-sm-2 g-3">
-                <div class="col">
-                    <a href="<?php echo BASE_URL; ?>admin/modules/profile/" class="d-flex align-items-center gap-3 p-3 rounded-3 text-decoration-none border border-secondary border-opacity-25" style="background: rgba(15, 23, 42, 0.6); transition: var(--transition);">
-                        <div class="d-flex align-items-center justify-content-center rounded-3" style="width: 42px; height: 42px; background: rgba(255,87,34,0.15); color: var(--admin-accent);">
-                            <i class="bi bi-person-fill fs-5"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-white small fw-bold mb-0">Profile & Bio</h4>
-                            <span class="text-secondary" style="font-size: 0.78rem;">Personal bio, stats & resume</span>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col">
-                    <a href="<?php echo BASE_URL; ?>admin/modules/portfolio/" class="d-flex align-items-center gap-3 p-3 rounded-3 text-decoration-none border border-secondary border-opacity-25" style="background: rgba(15, 23, 42, 0.6); transition: var(--transition);">
-                        <div class="d-flex align-items-center justify-content-center rounded-3" style="width: 42px; height: 42px; background: rgba(99,102,241,0.15); color: #6366f1;">
-                            <i class="bi bi-folder-plus fs-5"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-white small fw-bold mb-0">Manage Portfolio</h4>
-                            <span class="text-secondary" style="font-size: 0.78rem;">Add & update project works</span>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col">
-                    <a href="<?php echo BASE_URL; ?>admin/modules/timeline/" class="d-flex align-items-center gap-3 p-3 rounded-3 text-decoration-none border border-secondary border-opacity-25" style="background: rgba(15, 23, 42, 0.6); transition: var(--transition);">
-                        <div class="d-flex align-items-center justify-content-center rounded-3" style="width: 42px; height: 42px; background: rgba(16,185,129,0.15); color: #10b981;">
-                            <i class="bi bi-clock-history fs-5"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-white small fw-bold mb-0">Career Timeline</h4>
-                            <span class="text-secondary" style="font-size: 0.78rem;">Work experience & education</span>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col">
-                    <a href="<?php echo BASE_URL; ?>admin/modules/details/" class="d-flex align-items-center gap-3 p-3 rounded-3 text-decoration-none border border-secondary border-opacity-25" style="background: rgba(15, 23, 42, 0.6); transition: var(--transition);">
-                        <div class="d-flex align-items-center justify-content-center rounded-3" style="width: 42px; height: 42px; background: rgba(245,158,11,0.15); color: #f59e0b;">
-                            <i class="bi bi-award-fill fs-5"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-white small fw-bold mb-0">Skills & Awards</h4>
-                            <span class="text-secondary" style="font-size: 0.78rem;">Tech stack & certifications</span>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Right Column: Recent Inquiries -->
-    <div class="col-lg-5">
-        <div class="admin-card h-100 d-flex flex-column">
-            <div class="admin-card-header">
-                <h3 class="admin-card-title">
-                    <i class="bi bi-envelope-open-fill text-danger"></i> Recent Inquiries
-                </h3>
-                <a href="<?php echo BASE_URL; ?>admin/modules/messages/" class="btn btn-admin-secondary btn-sm py-1 px-2.5" style="font-size: 0.78rem;">Inbox</a>
-            </div>
-
-            <?php if (empty($messages)): ?>
-                <div class="text-center py-4 my-auto border rounded-3 border-secondary border-opacity-25 border-dashed">
-                    <i class="bi bi-inbox text-secondary fs-3 mb-2 d-block"></i>
-                    <p class="text-secondary small mb-0">No client messages received yet.</p>
-                </div>
+            <?php if (empty($blogs)): ?>
+                <p class="text-secondary small mb-0">No articles published yet.</p>
             <?php else: ?>
-                <div class="d-flex flex-column gap-2 mt-1">
-                    <?php 
-                    $recent_msgs = array_slice(array_reverse($messages), 0, 3);
-                    foreach ($recent_msgs as $msg): 
-                        $is_read = isset($msg['read']) && $msg['read'] === true;
-                        $time_str = isset($msg['date']) ? date('M d, h:i A', strtotime($msg['date'])) : '';
+                <div class="d-flex flex-column gap-2">
+                    <?php foreach (array_slice(array_reverse($blogs), 0, 5) as $b):
+                        $shortUrl = BASE_URL . 'b/' . (int)($b['id'] ?? 0);
+                        $isPub = !isset($b['status']) || $b['status'] === 'published';
                     ?>
-                        <div class="p-3 rounded-3 border <?php echo $is_read ? 'border-secondary border-opacity-25' : 'border-warning'; ?>" style="background: rgba(15, 23, 42, 0.6);">
-                            <div class="d-flex justify-content-between align-items-center mb-1">
-                                <span class="fw-bold text-white small"><?php echo e($msg['name']); ?></span>
-                                <span class="text-secondary" style="font-size: 0.72rem;"><?php echo $time_str; ?></span>
+                        <div class="d-flex align-items-center justify-content-between gap-2 p-2 rounded-3" style="background: var(--admin-surface-2); border: 1px solid var(--admin-border);">
+                            <div class="min-w-0 flex-grow-1">
+                                <a href="<?php echo BASE_URL; ?>admin/modules/blogs/add.php?edit_id=<?php echo (int)$b['id']; ?>" class="text-white text-decoration-none fw-semibold small d-block text-truncate">
+                                    <?php echo e($b['title'] ?? 'Untitled'); ?>
+                                </a>
+                                <div class="d-flex align-items-center gap-2 text-secondary" style="font-size: 0.72rem; font-family: var(--font-code);">
+                                    <span class="<?php echo $isPub ? 'text-success' : 'text-warning'; ?>"><?php echo $isPub ? 'PUBLISHED' : 'DRAFT'; ?></span>
+                                    <span>&bull;</span>
+                                    <span>/b/<?php echo (int)($b['id'] ?? 0); ?></span>
+                                    <span>&bull;</span>
+                                    <span><?php echo number_format($b['views'] ?? 0); ?> views</span>
+                                </div>
                             </div>
-                            <p class="text-secondary small mb-0 text-truncate" style="font-size: 0.82rem;"><?php echo e(($msg['subject'] ?? 'Inquiry') . ' — ' . $msg['message']); ?></p>
+                            <div class="d-flex align-items-center gap-1 flex-shrink-0">
+                                <button type="button" class="btn btn-admin-secondary btn-sm py-1 px-2" onclick="copyText('<?php echo e($shortUrl); ?>', this)" title="Copy Shortlink">
+                                    <i class="bi bi-link-45deg"></i>
+                                </button>
+                                <a href="<?php echo e($shortUrl); ?>" target="_blank" class="btn btn-admin-secondary btn-sm py-1 px-2" title="Open Article">
+                                    <i class="bi bi-box-arrow-up-right"></i>
+                                </a>
+                            </div>
                         </div>
                     <?php endforeach; ?>
                 </div>
             <?php endif; ?>
         </div>
     </div>
-</div>
 
-<!-- System Health & Status Banner -->
-<div class="admin-card p-4">
-    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
-        <div class="d-flex align-items-center gap-3">
-            <div class="d-flex align-items-center justify-content-center rounded-3 bg-success-subtle text-success" style="width: 44px; height: 44px; font-size: 1.25rem;">
-                <i class="bi bi-activity"></i>
+    <!-- Recent Inquiries + SEO/GEO/AEO Feeds -->
+    <div class="col-lg-5 d-flex flex-column gap-3">
+        <div class="admin-card">
+            <div class="admin-card-header">
+                <h2 class="admin-card-title"><i class="bi bi-envelope-fill text-danger"></i> Recent Inquiries</h2>
+                <a href="<?php echo BASE_URL; ?>admin/modules/messages/" class="btn btn-admin-secondary btn-sm py-1 px-2">Inbox</a>
             </div>
-            <div>
-                <h4 class="text-white small fw-bold mb-0">System Engine & Persistence Health</h4>
-                <span class="text-secondary" style="font-size: 0.8rem;">Lifetime Portfolio Page Views: <strong class="text-white"><?php echo number_format($viewCount); ?></strong> &bull; Core Engine Version: <?php echo CSS_VERSION; ?></span>
-            </div>
+            <?php if (empty($messages)): ?>
+                <p class="text-secondary small mb-0">No client messages yet.</p>
+            <?php else: ?>
+                <div class="d-flex flex-column gap-2">
+                    <?php foreach (array_slice(array_reverse($messages), 0, 3) as $msg):
+                        $is_read = isset($msg['read']) && $msg['read'] === true;
+                    ?>
+                        <div class="p-2 rounded-3" style="background: var(--admin-surface-2); border: 1px solid <?php echo $is_read ? 'var(--admin-border)' : 'rgba(245, 158, 11, 0.5)'; ?>;">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fw-semibold text-white small"><?php echo e($msg['name'] ?? ''); ?></span>
+                                <span class="text-secondary" style="font-size: 0.7rem;"><?php echo isset($msg['date']) ? date('M d', strtotime($msg['date'])) : ''; ?></span>
+                            </div>
+                            <p class="text-secondary small mb-0 text-truncate" style="font-size: 0.78rem;"><?php echo e(($msg['subject'] ?? 'Inquiry') . ' — ' . ($msg['message'] ?? '')); ?></p>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
         </div>
-        <div class="d-flex gap-2">
-            <span class="admin-badge badge-success-subtle">
-                <i class="bi bi-check-circle-fill me-1"></i> JSON Database Engine Active
-            </span>
+
+        <div class="admin-card">
+            <div class="admin-card-header">
+                <h2 class="admin-card-title"><i class="bi bi-search text-info"></i> SEO / GEO / AEO Endpoints</h2>
+                <span class="admin-badge badge-success-subtle">LIVE</span>
+            </div>
+            <div class="d-flex flex-wrap gap-2">
+                <a href="<?php echo BASE_URL; ?>sitemap.xml" target="_blank" class="btn btn-admin-secondary btn-sm py-1 px-2">sitemap.xml</a>
+                <a href="<?php echo BASE_URL; ?>news-sitemap.xml" target="_blank" class="btn btn-admin-secondary btn-sm py-1 px-2">news-sitemap.xml</a>
+                <a href="<?php echo BASE_URL; ?>rss.xml" target="_blank" class="btn btn-admin-secondary btn-sm py-1 px-2">rss.xml</a>
+                <a href="<?php echo BASE_URL; ?>llms.txt" target="_blank" class="btn btn-admin-secondary btn-sm py-1 px-2">llms.txt</a>
+                <a href="<?php echo BASE_URL; ?>ai.txt" target="_blank" class="btn btn-admin-secondary btn-sm py-1 px-2">ai.txt</a>
+            </div>
         </div>
     </div>
 </div>
+
+<script>
+function copyText(url, btn) {
+    if (!navigator.clipboard) return;
+    navigator.clipboard.writeText(url).then(() => {
+        const orig = btn.innerHTML;
+        btn.innerHTML = '<i class="bi bi-check2 text-success"></i>';
+        if (window.showToast) window.showToast('Shortlink copied: ' + url, 'success');
+        setTimeout(() => { btn.innerHTML = orig; }, 1600);
+    });
+}
+</script>
 
 <?php include __DIR__ . '/../../layout/footer.php'; ?>

@@ -1,6 +1,22 @@
 User-agent: *
 Allow: /
 
+# Explicitly allow major Search & AI Crawlers (SEO / GEO / AEO)
+User-agent: Googlebot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
 # Exclude internal configuration, includes, and admin
 Disallow: /admin/
 Disallow: /config/

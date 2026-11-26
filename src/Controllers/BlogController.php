@@ -54,6 +54,30 @@ class BlogController extends Controller
     }
 
     /**
+     * Shortlink 301 Redirect (/b/{id} -> /blogs/{slug})
+     * Consolidates SEO authority to canonical slug URL
+     */
+    public function shortlink(string $id = ''): void
+    {
+        $numericId = is_numeric($id) ? (int)$id : 0;
+        $post = $numericId > 0
+            ? $this->blogService->findBlog('', $numericId)
+            : $this->blogService->findBlog($id, 0);
+
+        if ($post && !empty($post['slug'])) {
+            $target = BASE_URL . 'blogs/' . urlencode($post['slug']);
+            if (!headers_sent()) {
+                header('Location: ' . $target, true, 301);
+            } else {
+                echo '<script>window.location.replace(' . json_encode($target) . ');</script>';
+            }
+            exit;
+        }
+
+        $this->redirect(BASE_URL . 'blogs');
+    }
+
+    /**
      * Article Detail Page by Slug or Query Params
      */
     public function detail(string $slug = ''): void

@@ -139,12 +139,14 @@ class SeoController extends Controller
         echo "## Executive Biography\n";
         echo ($profile['biography'] ?? '') . "\n\n";
 
-        echo "## Contact Coordinates\n";
+        echo "## Contact Coordinates & Service Regions\n";
         echo "- Email: " . ($profile['email'] ?? 'balamuruganedsty@gmail.com') . "\n";
         echo "- Website: " . SITE_URL . "\n";
-        echo "- Location: " . ($profile['location'] ?? 'Tamil Nadu, India') . "\n";
-        echo "- GitHub: https://github.com/balamurugan1207\n";
-        echo "- LinkedIn: https://linkedin.com/in/balamurugan-pm\n\n";
+        echo "- Base Location: " . ($profile['location'] ?? 'Salem & Coimbatore, Tamil Nadu, India') . "\n";
+        echo "- Service Areas: Salem, Coimbatore, Chennai, Tamil Nadu, India & Remote Worldwide\n";
+        echo "- Specialties: Website Development, React.js, TypeScript, SharePoint SPFx, UI/UX Systems, SEO/GEO/AEO\n";
+        echo "- GitHub: https://github.com/Balamuruganpm\n";
+        echo "- LinkedIn: https://www.linkedin.com/in/balamurugan-p-m\n\n";
 
         echo "## Core Technical Competencies\n";
         foreach ($skills as $skill) {

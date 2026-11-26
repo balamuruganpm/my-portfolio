@@ -25,7 +25,7 @@ $isDossierOpen = !$isHome;
     <!-- ============================================================ -->
     <div class="os-bg-layer" id="os-bg-layer" aria-hidden="true">
         <!-- Video Background for Home Page (Plays seamlessly, loop, muted, cover) -->
-        <video id="os-home-video" class="os-bg-video" autoplay loop muted playsinline webkit-playsinline preload="auto">
+        <video id="os-home-video" class="os-bg-video" autoplay loop muted playsinline webkit-playsinline preload="metadata" poster="<?php echo BASE_URL; ?>assets/images/os/home.webp">
             <source src="<?php echo BASE_URL; ?>assets/images/os/home-bg.mp4" type="video/mp4">
         </video>
 
@@ -83,15 +83,13 @@ $isDossierOpen = !$isHome;
                 <span class="oval-name"><?php echo e(!empty($profileName) ? $profileName : 'BALAMURUGAN P M'); ?></span>
             </div>
 
-            <!-- 2. Massive PortFolio Title (Geometric Sans + Fluid Outline Script) -->
+            <!-- 2. PortFolio Title (Single Handwriting Font) -->
             <div class="hero-main-title">
-                <span class="title-script">Port</span><span class="title-script">Folio</span>
+                <span class="title-handwriting">PortFolio</span>
             </div>
 
-            <!-- 3. Year & Avatar Graphic Selection Bounding Box -->
+            <!-- 3. Avatar Graphic Selection Bounding Box (Clean, No Year) -->
             <div class="hero-year-row">
-                <span class="year-num year-prefix">20</span>
-                
                 <div class="hero-selection-box" title="Hey, I'm Bala 👋">
                     <!-- Graphic Selection Handles (8 Anchor points) -->
                     <span class="sel-handle handle-tl" aria-hidden="true"></span>
@@ -105,12 +103,10 @@ $isDossierOpen = !$isHome;
 
                     <!-- Avatar Media with Greeting Badge -->
                     <div class="sel-avatar-wrapper">
-                        <img src="<?php echo BASE_URL; ?>assets/images/balamurugan-pm.webp" alt="<?php echo e(!empty($profileName) ? $profileName : 'Balamurugan P M'); ?>" class="sel-avatar-img" width="100" height="100">
+                        <img src="<?php echo BASE_URL; ?>assets/images/balamurugan-pm.webp" alt="<?php echo e(!empty($profileName) ? $profileName : 'Balamurugan P M'); ?>" class="sel-avatar-img" width="100" height="100" fetchpriority="high">
                         <span class="sel-avatar-greeting">Hey, I'm Bala 👋</span>
                     </div>
                 </div>
-
-                <span class="year-num year-suffix">27</span>
             </div>
 
             <!-- 4. Interactive Skills Typewriter Element -->

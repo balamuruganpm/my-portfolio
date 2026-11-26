@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', function () {
     initCopyShortlinks();
     initPasswordToggles();
     initTableLiveFilters();
-    initApexAnalyticsCharts();
     initAjaxForms();
     initCommandBar();
 });
@@ -68,88 +67,6 @@ window.showToast = function (message, type = 'success') {
         setTimeout(() => toast.remove(), 300);
     }, 4000);
 };
-
-/**
- * ApexCharts Analytics Engine Initialization
- */
-function initApexAnalyticsCharts() {
-    const trafficChartEl = document.getElementById('apex-traffic-chart');
-    if (trafficChartEl && typeof ApexCharts !== 'undefined') {
-        const trafficOptions = {
-            series: [{
-                name: 'Profile Visits',
-                data: [42, 78, 110, 160, 240, 310, 480, 590, 720, 890, 1050, 1280]
-            }, {
-                name: 'Project Views',
-                data: [20, 45, 60, 95, 140, 190, 310, 400, 510, 640, 780, 950]
-            }],
-            chart: {
-                type: 'area',
-                height: 300,
-                toolbar: { show: false },
-                background: 'transparent',
-                fontFamily: 'Plus Jakarta Sans, sans-serif'
-            },
-            colors: ['#ff5722', '#6366f1'],
-            fill: {
-                type: 'gradient',
-                gradient: {
-                    shadeIntensity: 1,
-                    opacityFrom: 0.45,
-                    opacityTo: 0.05,
-                    stops: [0, 90, 100]
-                }
-            },
-            dataLabels: { enabled: false },
-            stroke: { curve: 'smooth', width: 3 },
-            xaxis: {
-                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                axisBorder: { show: false },
-                axisTicks: { show: false },
-                labels: { style: { colors: '#9ca3af' } }
-            },
-            yaxis: {
-                labels: { style: { colors: '#9ca3af' } }
-            },
-            grid: {
-                borderColor: 'rgba(255, 255, 255, 0.06)',
-                strokeDashArray: 4
-            },
-            tooltip: { theme: 'dark' },
-            legend: {
-                position: 'top',
-                horizontalAlign: 'right',
-                labels: { colors: '#d1d5db' }
-            }
-        };
-        const trafficChart = new ApexCharts(trafficChartEl, trafficOptions);
-        trafficChart.render();
-    }
-
-    const distributionChartEl = document.getElementById('apex-content-distribution');
-    if (distributionChartEl && typeof ApexCharts !== 'undefined') {
-        const distributionOptions = {
-            series: [12, 18, 8, 5],
-            chart: {
-                type: 'donut',
-                height: 280,
-                background: 'transparent',
-                fontFamily: 'Plus Jakarta Sans, sans-serif'
-            },
-            labels: ['Portfolio Projects', 'Blog Articles', 'Technical Skills', 'Certificates'],
-            colors: ['#ff5722', '#6366f1', '#10b981', '#f59e0b'],
-            stroke: { width: 0 },
-            legend: {
-                position: 'bottom',
-                labels: { colors: '#d1d5db' }
-            },
-            dataLabels: { enabled: false },
-            tooltip: { theme: 'dark' }
-        };
-        const distributionChart = new ApexCharts(distributionChartEl, distributionOptions);
-        distributionChart.render();
-    }
-}
 
 /**
  * Table Search / Live Filtering
